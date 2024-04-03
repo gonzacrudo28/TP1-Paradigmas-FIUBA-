@@ -1,5 +1,10 @@
 package org.example.model.tipoCasilleros;
 
-public class IrALaCarcel extends Casillero{
+import org.example.model.Jugador;
 
+public class IrALaCarcel extends Casillero{
+    private int duracionPena;
+    public IrALaCarcel(Jugador jugador) {
+        jugador.setCondena(jugador.getCondena() + this.duracionPena);
+    }
 }

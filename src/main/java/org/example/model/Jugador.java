@@ -9,7 +9,8 @@ public class Jugador
     private int plata;
     private int ubicacion;
     private List<Propiedad> propiedades;
-    private enum estado;
+    private enum estado{EnJuego,Preso,Deuda};
+
     private int condena;
     public Jugador(String nombre, Colores.Color color, int plata, int ubicacion, List<Propiedad> propiedades) {
         this.nombre = nombre;
@@ -30,12 +31,19 @@ public class Jugador
         return ubicacion;
     }
 
+    public int getCondena(){
+        return this.condena;
+    }
+
     public Colores.Color getColor() {
         return color;
     }
-    public comprarPropiedad(int precio){
 
+    public void setPlata(int plata) {
+        this.plata = plata;
     }
-
+    public void setCondena(int condena){
+        this.condena = condena;
+    }
 }
 

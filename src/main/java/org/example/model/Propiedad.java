@@ -4,7 +4,7 @@ import org.example.model.Jugador;
 
 // Enum EstadoPropiedad
 enum EstadoPropiedad {
-    COMPRADO, VACIO, HIPOTECADO
+    COMPRADO, EN_VENTA, HIPOTECADO
 }
 
 // Enum Construcciones
@@ -14,13 +14,13 @@ enum Construcciones {
 
 // Clase Propiedad
 public class Propiedad {
-    private String nombre;
-    private double precio;
-    private String color;
-    private double alquiler;
-    private Jugador propietario;
-    private EstadoPropiedad estado;
-    private Construcciones construcciones;
+    protected String nombre;
+    protected double precio;
+    protected String color;
+    protected double alquiler;
+    protected Jugador propietario;
+    protected EstadoPropiedad estado;
+    protected Construcciones construcciones;
 
     // Constructor
     public Propiedad(String nombre, double precio, String color, double alquiler) {
@@ -29,11 +29,11 @@ public class Propiedad {
         this.color = color;
         this.alquiler = alquiler;
         this.propietario = null;
-        this.estado = EstadoPropiedad.VACIO;
+        this.estado = EstadoPropiedad.EN_VENTA;
         this.construcciones = Construcciones.SIN_CASA;
     }
     public EstadoPropiedad getEstado() {
-        return estado;
+        return this.estado;
     }
     public double getPrecio() {
         return precio;
@@ -79,7 +79,7 @@ public class Propiedad {
     }
     public void vender(Jugador propietario){
         if (validarPropietario(propietario)){
-            this.estado = EstadoPropiedad.VACIO;
+            this.estado = EstadoPropiedad.EN_VENTA;
             this.propietario = null;
         }
     }
