@@ -11,6 +11,9 @@ public class Tablero {
         this.casilleros = new ArrayList<>();
         inicializarCasilleros();
     }
+    public int getCantidadCasilleros() {
+        return this.casilleros.size();
+    }
     private void inicializarCasilleros() {
 
 

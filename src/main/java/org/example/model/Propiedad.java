@@ -9,9 +9,17 @@ enum EstadoPropiedad {
 
 // Enum Construcciones
 enum Construcciones {
-    SIN_CASA, UNA_CASA, DOS_CASAS, TRES_CASAS, CUATRO_CASAS, HOTEL
+    SIN_CASA, UNA_CASA, DOS_CASAS, TRES_CASAS, CUATRO_CASAS, HOTEL;
+    private static final Construcciones[] valores = values();
+    public Construcciones siguiente() {
+        Construcciones siguiente = valores[(this.ordinal() + 1) % valores.length];
+        if (siguiente == SIN_CASA) {
+            return HOTEL;
+        }else{
+            return siguiente;
+        }
+    }
 }
-
 // Clase Propiedad
 public class Propiedad {
     protected String nombre;
@@ -32,6 +40,7 @@ public class Propiedad {
         this.estado = EstadoPropiedad.EN_VENTA;
         this.construcciones = Construcciones.SIN_CASA;
     }
+
     public EstadoPropiedad getEstado() {
         return this.estado;
     }
@@ -45,37 +54,28 @@ public class Propiedad {
         return propietario;
     }
     public void setPropietario(Jugador propietario) {
+        if (propietario.restarPlata((int)this.getPrecio())){
         this.propietario = propietario;
         this.estado = EstadoPropiedad.COMPRADO;
+        }
     }
     public Construcciones getConstrucciones(){
         return this.construcciones;
     }
+
     private Construcciones getSiguienteConstruccion(Construcciones construccionActual) {
-        switch (construccionActual) {
-            case SIN_CASA:
-                return Construcciones.UNA_CASA;
-            case UNA_CASA:
-                return Construcciones.DOS_CASAS;
-            case DOS_CASAS:
-                return Construcciones.TRES_CASAS;
-            case TRES_CASAS:
-                return Construcciones.CUATRO_CASAS;
-            case CUATRO_CASAS:
-                return Construcciones.HOTEL;
-            default:
-                return construccionActual;
-        }
+        Construcciones siguiente = construccionActual.siguiente();
+        return siguiente;
+
     }
     private boolean validarPropietario(Jugador propietario){
         return propietario == this.getPropietario();
     }
-    public void mejorarPropiedad(Jugador constructor) {
-        if (validarPropietario(constructor)) {
-            Construcciones construccionActual = this.getConstrucciones();
-            Construcciones siguienteConstruccion = this.getSiguienteConstruccion(construccionActual);
-            this.construcciones= siguienteConstruccion;
-        }
+
+    public void mejorarPropiedad() {
+        Construcciones construccionActual = this.getConstrucciones();
+        Construcciones siguienteConstruccion = this.getSiguienteConstruccion(construccionActual);
+        this.construcciones= siguienteConstruccion;
     }
     public void vender(Jugador propietario){
         if (validarPropietario(propietario)){
