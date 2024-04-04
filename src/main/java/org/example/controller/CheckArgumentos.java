@@ -1,51 +1,54 @@
 package org.example.controller;
 
+import com.sun.tools.javac.Main;
 import org.example.model.AdministradorTurnos;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
-public class CheckArgumentos {
+public class CheckArgumentos{
     public CheckArgumentos() {
         System.out.println("Bienvenidos al Monopoly! Para jugar necesitamos que ingresen los siguentes datos:");
         List<String> argumentos = new ArrayList<>();
         argumentos.add("Nombres(2 a 4 jugadores y separados por espacios)");
         argumentos.add("Cantidad de casilleros");
         argumentos.add("Monto de dinero inicial");
+        argumentos.add("Monto de dinero por vuelta");
         argumentos.add("Cantidad de turnos preso");
         argumentos.add("Monto de multa");
         List<String> inputs = new ArrayList<>();
         Scanner sc = new Scanner(System.in);
         int contador = 0;
-        for (String arg : argumentos){
+        for (String arg : argumentos) {
             System.out.println(arg);
             inputs.add(sc.nextLine());
-            if (contador == 0){
+            if (contador == 0 ){
                 checkNombres(inputs.getFirst());
-                contador++;
-                AdministradorTurnos()
-            }else{
+            } else{
                 checkNumeros(inputs.get(contador));
-                contador++;
             }
-
+            contador++;
         }
-        sc.close();
+            sc.close();
+        }
 
-    }
-    public static void checkNombres(String nombre) {
+    public static String[] checkNombres(String nombre) {
         String[] nombres = nombre.split(" ");
         if (nombres.length < 2 || nombres.length > 4) {
             System.out.println("La cantidad de nombres no es correcta");
             System.exit(0);
         }
+        return (nombres);
     }
-    public static void checkNumeros(String cantidad) {
-        if (checkStringToInt(cantidad) == -1) {
+    public static int checkNumeros(String cantidad) {
+        int numero  = Integer.parseInt(cantidad);
+        if (numero == -1) {
             System.out.println("Esa cantidad no es posible");
             System.exit(0);
         }
+        return numero;
     }
 
 

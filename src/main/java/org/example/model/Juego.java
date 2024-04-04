@@ -1,11 +1,12 @@
 package org.example.model;
 
-public class Juego {
+import java.util.List;
 
+public class Juego {
     List<Jugador> jugadores;
     Tablero tablero;
-    AdministradorTurnos;
-    AdministradorDeMovimientos;
+    //AdministradorTurnos;
+    //AdministradorDeMovimientos; NICO: NO SE PARA QUE USAN ESTO
 
 
 }

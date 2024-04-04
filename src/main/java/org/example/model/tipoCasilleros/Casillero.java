@@ -1,7 +1,7 @@
 package org.example.model.tipoCasilleros;
 
 enum TipoPropiedad{
-    DeMulta,DeLoteria,DePropiedad,IrALaCarcel,Carcel,Estaciones,LegadaPartida
+    DeMulta,DeLoteria,DePropiedad,IrALaCarcel,Carcel,Estaciones,LlegadaPartida
 }
 abstract public class Casillero {
     protected String efecto;

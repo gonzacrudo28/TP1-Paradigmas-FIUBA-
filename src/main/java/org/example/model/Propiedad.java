@@ -1,7 +1,8 @@
 package org.example.model;
 
+import com.sun.jdi.event.ExceptionEvent;
 import org.example.model.Jugador;
-
+import org.example.model.Banco;
 // Enum EstadoPropiedad
 enum EstadoPropiedad {
     COMPRADO, EN_VENTA, HIPOTECADO
@@ -53,10 +54,11 @@ public class Propiedad {
     public Jugador getPropietario() {
         return propietario;
     }
+
     public void setPropietario(Jugador propietario) {
         if (propietario.restarPlata((int)this.getPrecio())){
-        this.propietario = propietario;
-        this.estado = EstadoPropiedad.COMPRADO;
+            this.propietario = propietario;
+            this.estado = EstadoPropiedad.COMPRADO;
         }
     }
     public Construcciones getConstrucciones(){
@@ -78,9 +80,20 @@ public class Propiedad {
         this.construcciones= siguienteConstruccion;
     }
     public void vender(Jugador propietario){
-        if (validarPropietario(propietario)){
+        // FALTA DETERMINAR A CUANTO LA VA VENDER. NICO RES= A UN 20% MENOS DE LO QUE LA COMPRO?
+        int precio = 0;
+        if (validarPropietario(propietario) && this.construcciones == Construcciones.SIN_CASA){
             this.estado = EstadoPropiedad.EN_VENTA;
             this.propietario = null;
+            propietario.sumarPlata(precio);
+        } else{
+            System.out.println("No sos el propietario o tiene casas");
         }
     }
+
+    public void liberarPropiedad(Jugador jugador){
+        this.estado = estado.EN_VENTA;
+        this.propietario = null;
+    }
+
 }
