@@ -4,8 +4,10 @@ package org.example.model;
 import com.sun.jdi.event.ExceptionEvent;
 import org.example.model.Jugador;
 import org.example.model.Banco;
-import Java.util.Hashmap;
-import Java.util.Map;
+
+import java.util.ArrayList;
+import java.util.Hashmap;
+import java.util.Map;
 
 import java.util.HashMap;
 // Enum EstadoPropiedad
@@ -71,8 +73,12 @@ public class Propiedad {
             if (this.DiccionarioProps.containsKey(actual.color)){
                 List<Propiedad> anterior = this.DiccionarioProps.get(actual.color);
                 anterior.add(actual);
+                this.DiccionarioProps.put(actual.color, anterior);
+            }else{
+                List <Propiedad> nueva = new ArrayList<Propiedad>();
+                nueva.add(actual);
+                this.DiccionarioProps.put(actual.color, nueva);
             }
-
         }
     }
 

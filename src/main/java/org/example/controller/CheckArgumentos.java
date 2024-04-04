@@ -47,6 +47,7 @@ import java.util.Scanner;
             this.configuraciones = inputs;
         }
 
+
         public List<String> getInputs() {
             return this.configuraciones;
         }
@@ -83,7 +84,7 @@ public class CheckArgumentos{
     }
     private List<String> configuraciones;
     public CheckArgumentos() {
-        System.out.println("Bienvenidos al Monopoly! Para jugar necesitamos que ingresen los siguentes datos:");
+        System.out.println("Bienvenidos al Monopoly! Para jugar necesitamos que ingresen los siguientes datos:");
         List<String> argumentos = new ArrayList<>();
         argumentos.add("Nombres(2 a 4 jugadores y separados por espacios)");
         argumentos.add("Cantidad de casilleros");
@@ -91,22 +92,23 @@ public class CheckArgumentos{
         argumentos.add("Monto de dinero por vuelta");
         argumentos.add("Cantidad de turnos preso");
         argumentos.add("Monto de multa");
+
         List<String> inputs = new ArrayList<>();
         Scanner sc = new Scanner(System.in);
-        int contador = 0;
-        String[] jugadores;
-        for (String arg : argumentos) {
-            System.out.println(arg);
+
+        for (int contador = 0; contador < argumentos.size(); contador++) {
+            System.out.println(argumentos.get(contador));
             inputs.add(sc.nextLine());
+
             if (contador == 0) {
-                assert nombres != null;
-                nombres.add(checkNombres(inputs.getFirst()));
+                checkNombres(inputs.get(contador));
             } else {
-                parametros.add(checkNumeros(inputs.get(contador)));
+                checkNumeros(inputs.get(contador));
             }
-            contador++;
         }
+
         sc.close();
+        this.configuraciones = inputs;
     }
 
     public static String[] checkNombres(String nombre) {
@@ -127,7 +129,7 @@ public class CheckArgumentos{
     }
 
     public List<String> getConfiguraciones() {
-        return configuraciones;
+        return this.configuraciones;
     }
 
     protected static int checkStringToInt(String str){
