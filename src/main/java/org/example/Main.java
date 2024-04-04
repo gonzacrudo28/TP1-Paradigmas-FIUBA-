@@ -10,7 +10,8 @@ import java.util.Scanner;
 
 public class Main {
 
-    public void crearJuego(List<String> jugadores) {
+    public void crearJuego() {
+    List<String> argumentos = CheckArgumentos.getConfiguraciones();
 
     }
 }
