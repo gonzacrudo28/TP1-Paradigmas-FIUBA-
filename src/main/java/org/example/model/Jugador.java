@@ -65,7 +65,7 @@ public class Jugador{
         this.plata += dinero;
     }
 
-    public void setUbicacion(int ubicacion, Banco banco) {
+    public void setUbicacion(int ubicacion/*, Banco banco*/) {
         // Falta pasarle la cantidad de casilleros :D
         // Falta pasarle la cantidad de $ por pasar dar la vuelta :D
 
@@ -74,9 +74,9 @@ public class Jugador{
             this.ubicacion += ubicacion;
             return;
         }
-        int bono = 100;
-        this.ubicacion = (this.ubicacion + ubicacion - CANT_CASILLEROS);
-        banco.pagarBono(jugador, bono);
+         this.ubicacion = (this.ubicacion + ubicacion - CANT_CASILLEROS);
+       /* int bono = 100;
+        banco.pagarBono(jugador, bono);*/
         // if ubicacion nueva es menos a ubicacion vieja, pagar bono (main).
     }
     //NICO: ESTO ESTA MAL DEBERIAMOS LLAMAR A UNA FUNCION AUXILIAR AVANZAR Y DE AHI OTRA AUXILIAR(DENTRO DE ADMINISTRADOR DE MOVIMIENTOS) QUE SE ENCARGUE DE CHECKEAR SI YA DIO LA VUELTA O NO
