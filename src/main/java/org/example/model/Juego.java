@@ -5,8 +5,8 @@ import java.util.List;
 public class Juego {
     List<Jugador> jugadores;
     Tablero tablero;
-    //AdministradorTurnos;
-    //AdministradorDeMovimientos; NICO: NO SE PARA QUE USAN ESTO
+    private AdministradorTurnos administradorDeTurno;
+    private AdministradorDeMovimientos administradorDeMovimientos;
 
 
 }
