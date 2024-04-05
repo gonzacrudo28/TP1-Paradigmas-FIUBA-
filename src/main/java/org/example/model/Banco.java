@@ -1,9 +1,18 @@
 package org.example.model;
-import org.example.model.Jugador;
-import org.example.model.Propiedad;
+
 public class Banco {
 
-    public void pagarBono(Jugador jugador, int bono){
-        jugador.sumarPlata(bono);
+    private int bono;
+
+    public void setBono(int bono){
+        this.bono = bono;
+    }
+
+    public int getBono(){
+        return bono;
+    }
+
+    public void pagarBono(Jugador jugador){
+        jugador.sumarPlata(this.bono);
     }
 }

@@ -1,5 +1,4 @@
 package org.example.model;
-import org.example.model.Banco;
 
 public class AdministradorDeMovimientos {
     private Tablero tablero;
@@ -7,7 +6,8 @@ public class AdministradorDeMovimientos {
     public administradorDeMovimientos(Tablero tablero){
         this.tablero = tablero;
     }
-    public boolean pasaPorSalida(Jugador jugador, int tiradaDados){
+
+    private boolean pasaPorSalida(Jugador jugador, int tiradaDados){
     return (jugador.getUbicacion() + tiradaDados) <= this.tablero.getCantidadCasilleros();
     }
 
@@ -17,10 +17,7 @@ public class AdministradorDeMovimientos {
             nuevaPos -= this.tablero.getCantidadCasilleros();
             jugador.setUbicacion(nuevoPos);
             banco.pagarBono(jugador);
-            return;
-        }else{
+        }else
             jugador.setUbicacion(nuevaPos);
-        }
-
     }
 }

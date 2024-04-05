@@ -17,9 +17,7 @@ public class Configuracion {
         this.colores = colores;
     }
 
-    public void setTablero(Tablero tablero) {
-        this.tablero = tablero;
-    }
+    public void setTablero(Tablero tablero) { this.tablero = tablero; }
 
     public void setCondenaCarcel(int condenaCarcel) {
         this.condenaCarcel = condenaCarcel;
@@ -31,8 +29,12 @@ public class Configuracion {
          this.montoDeMulta = montoMulta;
     }
 
+    public int getMontoPorPasarSalida(){
+        return montoPorPasarSalida;
+    }
 
-    public Tablero getTablero(Tablero tablero){
+
+    public Tablero getTablero(){
         return this.tablero;
     }
 
