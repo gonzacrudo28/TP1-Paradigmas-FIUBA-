@@ -3,7 +3,7 @@ package org.example.model;
 public class AdministradorDeMovimientos {
     private Tablero tablero;
 
-    public administradorDeMovimientos(Tablero tablero){
+    public AdministradorDeMovimientos(Tablero tablero){
         this.tablero = tablero;
     }
 
@@ -15,7 +15,7 @@ public class AdministradorDeMovimientos {
         int nuevaPos= tiradaDados+jugador.getUbicacion();
         if(pasaPorSalida(jugador, tiradaDados)) {
             nuevaPos -= this.tablero.getCantidadCasilleros();
-            jugador.setUbicacion(nuevoPos);
+            jugador.setUbicacion(nuevaPos);
             banco.pagarBono(jugador);
         }else
             jugador.setUbicacion(nuevaPos);

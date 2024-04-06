@@ -2,11 +2,11 @@ package org.example.model;
 
 
 import com.sun.jdi.event.ExceptionEvent;
+import org.example.controller.PropiedadesController;
 import org.example.model.Jugador;
 import org.example.model.Banco;
 
 import java.util.ArrayList;
-import java.util.Hashmap;
 import java.util.Map;
 
 import java.util.HashMap;
@@ -41,7 +41,6 @@ public class Propiedad {
     protected Jugador propietario;
     protected EstadoPropiedad estado;
     protected Construcciones construcciones;
-    private HashMap<String, List<Propiedades>> DiccionarioProps ;
 
     // Constructor
     public Propiedad(String nombre, double precio, String color, double alquiler) {
@@ -52,7 +51,6 @@ public class Propiedad {
         this.propietario = null;
         this.estado = EstadoPropiedad.EN_VENTA;
         this.construcciones = Construcciones.SIN_CASA;
-        this.DiccionarioProps = new HashMap<String, List<Propiedades>>();
     }
 
 
@@ -66,26 +64,13 @@ public class Propiedad {
         return alquiler;
     }
     public Jugador getPropietario() {return propietario;}
-
-    public void setDict(List<Propiedad> propiedades) {
-        for (int i = 0; i < propiedades.size(); i++){
-            Propiedad actual = propiedades.get(i);
-            if (this.DiccionarioProps.containsKey(actual.color)){
-                List<Propiedad> anterior = this.DiccionarioProps.get(actual.color);
-                anterior.add(actual);
-                this.DiccionarioProps.put(actual.color, anterior);
-            }else{
-                List <Propiedad> nueva = new ArrayList<Propiedad>();
-                nueva.add(actual);
-                this.DiccionarioProps.put(actual.color, nueva);
-            }
-        }
-    }
-
+    public String getColor() {return this.color;}
+    public String getNombre() {return this.nombre;}
     public void setPropietario(Jugador propietario) {
         if (propietario.restarPlata((int)this.getPrecio())){
             this.propietario = propietario;
             this.estado = EstadoPropiedad.COMPRADO;
+            PropiedadesController.actualizarPropiedad(this);
         }
     }
     public Construcciones getConstrucciones(){
@@ -105,6 +90,7 @@ public class Propiedad {
         Construcciones construccionActual = this.getConstrucciones();
         Construcciones siguienteConstruccion = this.getSiguienteConstruccion(construccionActual);
         this.construcciones= siguienteConstruccion;
+        PropiedadesController.actualizarPropiedad(this);
     }
     public void vender(Jugador propietario){
         // FALTA DETERMINAR A CUANTO LA VA VENDER. NICO RES= A UN 20% MENOS DE LO QUE LA COMPRO?
@@ -113,6 +99,7 @@ public class Propiedad {
             this.estado = EstadoPropiedad.EN_VENTA;
             this.propietario = null;
             propietario.sumarPlata(precio);
+            PropiedadesController.actualizarPropiedad(this);
         } else{
             System.out.println("No sos el propietario o tiene casas");
         }
@@ -122,6 +109,16 @@ public class Propiedad {
         // Faltaria chequear que primero hayan vendido todas las casas
         this.estado = estado.EN_VENTA;
         this.propietario = null;
+        PropiedadesController.actualizarPropiedad(this);
     }
 
+    public void copy(Propiedad propiedad){
+        this.nombre = propiedad.nombre;
+        this.precio = propiedad.precio;
+        this.color = propiedad.color;
+        this.alquiler = propiedad.alquiler;
+        this.propietario = propiedad.propietario;
+        this.estado = propiedad.estado;
+        this.construcciones = propiedad.construcciones;
+    }
 }

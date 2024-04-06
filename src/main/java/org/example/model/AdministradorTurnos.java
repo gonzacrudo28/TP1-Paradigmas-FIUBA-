@@ -1,16 +1,16 @@
 package org.example.model;
 
 
-import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 
 public class AdministradorTurnos {
     private int turnoActual;
-    private final ArrayList<Jugador> jugadores;
+    private final List<Jugador> jugadores;
     private Jugador actual;
 
-    public AdministradorTurnos(ArrayList<Jugador> jugadores) {
+    public AdministradorTurnos(List<Jugador> jugadores) {
         this.jugadores = jugadores;
         this.turnoActual = 0;
     }
@@ -23,11 +23,9 @@ public class AdministradorTurnos {
 
     public Jugador avanzarTurno(){
         //NICO: FALTA CHECKEAR SI EL JUGADOR NO PERDIO ANTES
-
         this.turnoActual++ ;
-
-        if (this.turnoActual == this.jugadores.size())
-            this.turnoActual = 0;
+        // Agregue un -1 xq me parece que el size es como el len, tiene 1 de mas -G
+        if (this.turnoActual == this.jugadores.size()-1){this.turnoActual = 0;}
 
         if (this.siguientePerdio(this.turnoActual))
             avanzarTurno();
