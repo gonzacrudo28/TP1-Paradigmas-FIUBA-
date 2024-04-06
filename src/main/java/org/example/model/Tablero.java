@@ -8,21 +8,17 @@ public class Tablero {
     private List<Casillero> casilleros;
     public int cantCasilleros;
 
-    public Tablero() {
+    public Tablero(int numeroCasilleros) {
+        this.cantCasilleros = numeroCasilleros;
         this.casilleros = new ArrayList<>();
         inicializarCasilleros();
     }
 
-    public void setCantCasilleros(int cantCasilleros) {
-        this.cantCasilleros = cantCasilleros;
-    }
 
     public int getCantidadCasilleros() {
         return this.casilleros.size();
     }
     private void inicializarCasilleros() {
-
-
     }
 }
 

@@ -77,16 +77,14 @@ public class Jugador{
     }
 
     // antes de llamar este metodo ya habria que chequear si esta en quiebra para hacerlo perder
-    public void perder(Jugador jugador, List<Jugador> jugadores){
-        for (int i=0; i < jugador.propiedades.size(); i++){
-            Propiedad propiedad = jugador.propiedades.get(i);
-            propiedad.liberarPropiedad(jugador);
-        }
-        jugador.setEstado(Estado.Quiebra);
-        //jugadores.remove(jugador); // faq: hace falta? para mi lo solucionamos con ignorarlo en los turnos
-    }
-
-
+//    public void perder(Jugador jugador, List<Jugador> jugadores){
+//        for (int i=0; i < jugador.propiedades.size(); i++){
+//            Propiedad propiedad = jugador.propiedades.get(i);
+//            propiedad.liberarPropiedad(jugador);
+//        }
+//        jugador.setEstado(Estado.Quiebra);
+//        //jugadores.remove(jugador); // faq: hace falta? para mi lo solucionamos con ignorarlo en los turnos
+//    }
 
 }
 

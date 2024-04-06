@@ -66,11 +66,11 @@ public class Propiedad {
     public Jugador getPropietario() {return propietario;}
     public String getColor() {return this.color;}
     public String getNombre() {return this.nombre;}
-    public void setPropietario(Jugador propietario) {
+   public void setPropietario(Jugador propietario) {
         if (propietario.restarPlata((int)this.getPrecio())){
-            this.propietario = propietario;
-            this.estado = EstadoPropiedad.COMPRADO;
-            PropiedadesController.actualizarPropiedad(this);
+           this.propietario = propietario;
+           this.estado = EstadoPropiedad.COMPRADO;
+           //PropiedadesController.actualizarPropiedad(this);
         }
     }
     public Construcciones getConstrucciones(){
@@ -86,39 +86,39 @@ public class Propiedad {
         return propietario == this.getPropietario();
     }
 
-    public void mejorarPropiedad() {
-        Construcciones construccionActual = this.getConstrucciones();
-        Construcciones siguienteConstruccion = this.getSiguienteConstruccion(construccionActual);
-        this.construcciones= siguienteConstruccion;
-        PropiedadesController.actualizarPropiedad(this);
-    }
-    public void vender(Jugador propietario){
-        // FALTA DETERMINAR A CUANTO LA VA VENDER. NICO RES= A UN 20% MENOS DE LO QUE LA COMPRO?
-        int precio = 0;
-        if (validarPropietario(propietario) && this.construcciones == Construcciones.SIN_CASA){
-            this.estado = EstadoPropiedad.EN_VENTA;
-            this.propietario = null;
-            propietario.sumarPlata(precio);
-            PropiedadesController.actualizarPropiedad(this);
-        } else{
-            System.out.println("No sos el propietario o tiene casas");
-        }
-    }
+//    public void mejorarPropiedad() {
+//        Construcciones construccionActual = this.getConstrucciones();
+//        Construcciones siguienteConstruccion = this.getSiguienteConstruccion(construccionActual);
+//        this.construcciones= siguienteConstruccion;
+//        PropiedadesController.actualizarPropiedad(this);
+//    }
+//    public void vender(Jugador propietario){
+//        // FALTA DETERMINAR A CUANTO LA VA VENDER. NICO RES= A UN 20% MENOS DE LO QUE LA COMPRO?
+//        int precio = 0;
+//        if (validarPropietario(propietario) && this.construcciones == Construcciones.SIN_CASA){
+//            this.estado = EstadoPropiedad.EN_VENTA;
+//            this.propietario = null;
+//            propietario.sumarPlata(precio);
+//            PropiedadesController.actualizarPropiedad(this);
+//        } else{
+//            System.out.println("No sos el propietario o tiene casas");
+//        }
+//    }
 
-    public void liberarPropiedad(Jugador jugador){
-        // Faltaria chequear que primero hayan vendido todas las casas
-        this.estado = estado.EN_VENTA;
-        this.propietario = null;
-        PropiedadesController.actualizarPropiedad(this);
-    }
+//    public void liberarPropiedad(Jugador jugador){
+//        // Faltaria chequear que primero hayan vendido todas las casas
+//        this.estado = estado.EN_VENTA;
+//        this.propietario = null;
+//        PropiedadesController.actualizarPropiedad(this);
+//    }
 
-    public void copy(Propiedad propiedad){
-        this.nombre = propiedad.nombre;
-        this.precio = propiedad.precio;
-        this.color = propiedad.color;
-        this.alquiler = propiedad.alquiler;
-        this.propietario = propiedad.propietario;
-        this.estado = propiedad.estado;
-        this.construcciones = propiedad.construcciones;
-    }
+//    public void copy(Propiedad propiedad){
+//        this.nombre = propiedad.nombre;
+//        this.precio = propiedad.precio;
+//        this.color = propiedad.color;
+//        this.alquiler = propiedad.alquiler;
+//        this.propietario = propiedad.propietario;
+//        this.estado = propiedad.estado;
+//        this.construcciones = propiedad.construcciones;
+//    }
 }

@@ -20,17 +20,17 @@ public class PropiedadesController {
         }
     }
 
-    public void ActualizarPropiedad(Propiedad propiedad){
-        List<Propiedad> nueva = new ArrayList<Propiedad>();
-        List<Propiedad> actual = this.DictPropiedades.get(propiedad.getColor());
-        for (int i=0; i<actual.size(); i++) {
-            Propiedad actualProp = actual.get(i);
-            if (actual.get(i).getNombre() == propiedad.getNombre()){
-                actualProp.copy(propiedad);
-            }
-            nueva.add(actualProp);
-        }
-        this.DictPropiedades.put(propiedad.getColor(), nueva);
-    }
+//    public void ActualizarPropiedad(Propiedad propiedad){
+//        List<Propiedad> nueva = new ArrayList<Propiedad>();
+//        List<Propiedad> actual = this.DictPropiedades.get(propiedad.getColor());
+//        for (int i=0; i<actual.size(); i++) {
+//            Propiedad actualProp = actual.get(i);
+//            if (actual.get(i).getNombre() == propiedad.getNombre()){
+//                actualProp.copy(propiedad);
+//            }
+//            nueva.add(actualProp);
+//        }
+//        this.DictPropiedades.put(propiedad.getColor(), nueva);
+//    }
 
 }

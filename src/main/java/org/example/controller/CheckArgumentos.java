@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Scanner;
 
 public class CheckArgumentos{
-    public enum Configuracion{
+    public enum ConfiguracionCheckArgumentos{
         JUGADORES,
         CASILLEROS,
         DINERO_INICIAL,
