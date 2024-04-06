@@ -19,7 +19,6 @@ public class Main {
         List<String> argumentos = check.getConfiguraciones();
         Juego juego = new Juego(argumentos);
         List<Jugador> listaJugadores = juego.getJugadores();
-
         JuegoController juegoController = new JuegoController();
         JugadorView jugadorView = new JugadorView(listaJugadores.get(0));
         JugadorView jugadorView2 = new JugadorView(listaJugadores.get(1));

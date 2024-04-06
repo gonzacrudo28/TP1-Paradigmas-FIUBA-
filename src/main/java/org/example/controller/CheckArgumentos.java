@@ -21,8 +21,8 @@ public class CheckArgumentos{
     public void CheckArgumentos() {
         System.out.println("Bienvenidos al Monopoly! Para jugar necesitamos que ingresen los siguientes datos:");
         List<String> argumentos = new ArrayList<>();
-        argumentos.add("Nombres(2 a 4 jugadores y separados por espacios)");
-        argumentos.add("Cantidad de casilleros");
+        argumentos.add("Nombres (2 a 4 jugadores y separados por espacios)");
+        argumentos.add("Cantidad de casilleros (minimo 7)");
         argumentos.add("Monto de dinero inicial");
         argumentos.add("Monto de dinero por vuelta");
         argumentos.add("Cantidad de turnos preso");
