@@ -82,7 +82,7 @@ public class Jugador{
             Propiedad propiedad = jugador.propiedades.get(i);
             propiedad.liberarPropiedad(jugador);
         }
-        jugador.setEstado(Estado.Perdio);
+        jugador.setEstado(Estado.Quiebra);
         //jugadores.remove(jugador); // faq: hace falta? para mi lo solucionamos con ignorarlo en los turnos
     }
 

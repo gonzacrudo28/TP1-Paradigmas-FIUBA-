@@ -22,7 +22,7 @@ public class Propiedad {
 
     // Enum Construcciones
     public enum Construcciones {
-        SIN_CASA, UNA_CASA, DOS_CASAS, TRES_CASAS, CUATRO_CASAS, HOTEL;
+        SIN_CASA, UNA_CASA, DOS_CASAS, TRES_CASAS, HOTEL;
         private static final Construcciones[] valores = values();
         public Construcciones siguiente() {
             Construcciones siguiente = valores[(this.ordinal() + 1) % valores.length];

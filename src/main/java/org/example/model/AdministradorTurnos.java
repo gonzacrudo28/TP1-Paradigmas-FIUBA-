@@ -18,11 +18,11 @@ public class AdministradorTurnos {
 
     private boolean siguientePerdio(int jugadorSiguiente){
         Jugador jugador = jugadores.get(jugadorSiguiente);
-        return jugador.getEstado() == Jugador.Estado.Perdio;
+        return jugador.getEstado() == Jugador.Estado.Quiebra;
     }
 
     public Jugador avanzarTurno(){
-        //NICO: FALTA CHECKEAR SI EL JUGADOR NO PERDIO ANTES
+        //NICO: FALTA CHECKEAR SI EL JUGADOR NO PERDIO ANTES, esta funcion esta mal hecha
         this.turnoActual++ ;
         // Agregue un -1 xq me parece que el size es como el len, tiene 1 de mas -G
         if (this.turnoActual == this.jugadores.size()-1){this.turnoActual = 0;}
@@ -33,6 +33,7 @@ public class AdministradorTurnos {
             actual = this.jugadores.get(this.turnoActual + 1);
             return actual;
         }
+        return actual;
     }
 
     public int tirarDados(){

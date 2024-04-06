@@ -16,7 +16,7 @@ public class Juego {
         this.administradorDeTurno = new AdministradorTurnos(jugadores);
     }
     public void setJugador(Jugador jugador, int casilla){
-        tablero.setJugador(casilla);
+        tablero.avanzarJugador(casilla);
     }
     public Jugador getJugadorActual() {
         return administradorTurnos.obtenerJugador();
