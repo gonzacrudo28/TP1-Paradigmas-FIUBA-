@@ -30,7 +30,8 @@ public class JuegoController {
         this.juego = juego;
         this.vistaJuego = new JuegoView(juego);
         this.administradorDeMovimientos = new AdministradorDeMovimientos(juego.getTablero().cantCasilleros);
-        Terminal terminal = TerminalBuilder.builder().jna(true).build();
+        Terminal terminal = TerminalBuilder.terminal();
+
         reader = LineReaderBuilder.builder()
                 .terminal(terminal)
                 .build();
@@ -43,36 +44,37 @@ public class JuegoController {
 
         Jugador jugador = juego.getJugadorActual();
         int dados = juego.tirarDados();
-        System.out.println("Es el turno de "+jugador.getNombre()+"\n"+"Tus dados son: "+dados+"\n");
-        int casillaActual = administradorDeMovimientos.avanzarJugador(jugador,dados);
-        System.out.println("Usted esta en el casillero: "+casillaActual+"\n");
+        System.out.println("Es el turno de " + jugador.getNombre() + "\n" + "Tus dados son: " + dados + "\n");
+        int casillaActual = administradorDeMovimientos.avanzarJugador(jugador, dados);
+        System.out.println("Usted esta en el casillero: " + casillaActual + "\n");
         int numeroElecto = 1;
 
 
-        while(numeroElecto != 0){
+        while (numeroElecto != 0) {
             Acciones.mostrarAcciones();
             String accion = reader.readLine("Seleccione la accion que quiere realizar indicando su numero (NUMERO):");
             numeroElecto = corroboroAccion(accion);
-            if(numeroElecto == Constantes.NEGATIVO){
+            if (numeroElecto == Constantes.NEGATIVO) {
                 System.out.println("Accion inexistente");
             }
             Acciones.Accion accionElecta = Acciones.Accion.getAccion(numeroElecto);
-            if(accionElecta == null){
+            if (accionElecta == null) {
                 System.out.println("Accion inexistente");
             }
         }
 
     }
 
-    public int corroboroAccion(String accion){
+    public int corroboroAccion(String accion) {
         CheckStrToInt checkStrToInt = new CheckStrToInt();
-        if (checkStrToInt.checkStringToInt(accion)){
+        if (checkStrToInt.checkStringToInt(accion)) {
             return Constantes.NEGATIVO;
         } else if (Integer.parseInt(accion) < 0) {
             return Constantes.NEGATIVO;
         }
         return Integer.parseInt(accion);
     }
+}
 /*
 Luego de esto, el jugador podrá realizar cualquier de las siguientes acciones ilimitadamente,
 hasta terminar su turno:
@@ -87,4 +89,3 @@ hasta terminar su turno:
     ○ Comprar la propiedad
 
 */
-}

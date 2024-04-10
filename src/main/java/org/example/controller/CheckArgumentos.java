@@ -18,6 +18,7 @@ public class CheckArgumentos{
         MULTA
     }
     private List<String> configuraciones;
+    private Scanner entrada;
     public void CheckArgumentos() {
         System.out.println("Bienvenidos al Monopoly! Para jugar necesitamos que ingresen los siguientes datos:");
         List<String> argumentos = new ArrayList<>();
@@ -29,10 +30,11 @@ public class CheckArgumentos{
         argumentos.add("Monto de multa");
 
         List<String> inputs = new ArrayList<>();
+        this.entrada= new Scanner(System.in);
 
         for (int contador = 0; contador < argumentos.size(); contador++) {
             System.out.println(argumentos.get(contador));
-            inputs.add(sc.nextLine());
+            inputs.add(entrada.nextLine());
 
             if (contador == 0) {
                 CheckNombres checkNombres = new CheckNombres();
@@ -42,12 +44,12 @@ public class CheckArgumentos{
                 checkNum.checkNumeros(inputs.get(contador));
             }
         }
-
-        sc.close();
         this.configuraciones = inputs;
     }
 
-
+    public void CerrarScanner(){
+        this.entrada.close();
+    }
     public List<String> getConfiguraciones() {
         return this.configuraciones;
     }

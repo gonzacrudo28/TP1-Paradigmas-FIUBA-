@@ -28,6 +28,7 @@ public class Main {
         while (!juego.terminado()){
             juegoController.jugarTurno();
         }
+        check.CerrarScanner();
         System.out.println("El juego terminado");
     }
     
