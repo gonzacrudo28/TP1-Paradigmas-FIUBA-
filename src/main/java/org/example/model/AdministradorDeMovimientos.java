@@ -1,23 +1,25 @@
 package org.example.model;
 
 public class AdministradorDeMovimientos {
-    private Tablero tablero;
+    private final int cantCasillas;
 
-    public AdministradorDeMovimientos(Tablero tablero){
-        this.tablero = tablero;
+    public AdministradorDeMovimientos(int cantCasillas){
+        this.cantCasillas = cantCasillas;
     }
 
     private boolean pasaPorSalida(Jugador jugador, int tiradaDados){
-    return (jugador.getUbicacion() + tiradaDados) <= this.tablero.getCantidadCasilleros();
+    return (jugador.getUbicacion() + tiradaDados) >= cantCasillas;
     }
 
-    public void moverJugador(Jugador jugador, int tiradaDados, Banco banco){
-        int nuevaPos= tiradaDados+jugador.getUbicacion();
-        if(pasaPorSalida(jugador, tiradaDados)) {
-            nuevaPos -= this.tablero.getCantidadCasilleros();
-            jugador.setUbicacion(nuevaPos);
-            banco.pagarBono(jugador);
-        }else
-            jugador.setUbicacion(nuevaPos);
+    public int avanzarJugador(Jugador jugador,int dados){
+        if (pasaPorSalida(jugador, dados)){
+            int posNueva = jugador.getUbicacion() + dados - cantCasillas;
+            jugador.setUbicacion(posNueva);
+            return posNueva;
+        }else{
+            return jugador.avanzarJugador(dados);
+        }
+
     }
+
 }

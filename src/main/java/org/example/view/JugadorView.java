@@ -17,9 +17,8 @@ public class JugadorView {
 
     public void mostrarJugador() {
         Ansi colorANSI = obtenerColorANSI(jugador.getColor());
-        Ansi resetColor = Ansi.ansi().reset();  // Resetear color
+        Ansi resetColor = Ansi.ansi().reset();
 
-        System.out.println(" ");
         System.out.println("=======================================");
         System.out.println("Nombre: " + colorANSI + jugador.getNombre() + resetColor);
         System.out.println("Color: " + colorANSI + jugador.getColor().toString() + resetColor);
@@ -37,7 +36,8 @@ public class JugadorView {
             return Ansi.ansi().fg(ansiColor);
         } catch (NoSuchFieldException | IllegalAccessException e) {
             e.printStackTrace();
-            return Ansi.ansi();  // ANSI por defecto (sin color)
+            return Ansi.ansi();
         }
     }
+
 }

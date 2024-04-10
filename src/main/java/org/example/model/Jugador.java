@@ -15,9 +15,10 @@ public class Jugador{
     private int condena;
 
     public enum Estado{
-        EnJuego,Preso,Quiebra
+        EnJuego,Preso,Quiebra,Perdio
     }
     public Jugador(String nombre) {
+        this.ubicacion = 0;
         this.nombre = nombre;
         this.estado = Estado.EnJuego;
         this.propiedades = new ArrayList<>();
@@ -69,6 +70,10 @@ public class Jugador{
     public void sumarPlata(int dinero){
         this.plata += dinero;
     }
+
+    public int avanzarJugador(int dados){
+        this.ubicacion += dados;
+        return this.ubicacion;}
 
     public void setUbicacion(int ubicacion){ this.ubicacion = ubicacion; }
 

@@ -13,17 +13,17 @@ import java.util.concurrent.ScheduledExecutorService;
 public class Juego {
     private List<Jugador> jugadores;
     private Tablero tablero;
-    private AdministradorTurnos administradorDeTurno;
+    private AdministradorTurnos administradorDeTurnos;
     private AdministradorDeMovimientos administradorDeMovimientos;
+
 
     public Juego(List<String> configuraciones){
         List<Jugador> jugadores = this.crearJugadores(configuraciones);
         this.jugadores = jugadores;
-        administradorDeTurno = new AdministradorTurnos(jugadores);
-        administradorDeTurno.generarOrdenDePaso();
-        this.tablero = new Tablero(Integer.parseInt(configuraciones.get(ConfiguracionCheckArgumentos.CASILLEROS.ordinal())));
-        this.administradorDeMovimientos = new AdministradorDeMovimientos(tablero);
-        this.administradorDeTurno = new AdministradorTurnos(jugadores);
+        this.administradorDeTurnos = new AdministradorTurnos(jugadores);
+        int cantCasillas = Integer.parseInt(configuraciones.get(ConfiguracionCheckArgumentos.CASILLEROS.ordinal()));
+        this.tablero = new Tablero(cantCasillas);
+        this.administradorDeMovimientos = new AdministradorDeMovimientos(cantCasillas);
         this.asignacionColores(jugadores);
     }
 
@@ -46,15 +46,20 @@ public class Juego {
 //    public void setJugador(Jugador jugador, int casilla){
 //        tablero.avanzarJugador(casilla);
 //    }
-//    public Jugador getJugadorActual() {
-//        return administradorTurnos.obtenerJugador();
-//    }
+    public Jugador getJugadorActual() {
+       return administradorDeTurnos.getTurnoActual();}
 
     public Boolean terminado() {
         return checkEstadoJugadores(jugadores);
     }
 
+    public void cambiarTurno() {
+        administradorDeTurnos.avanzarTurno();
+    }
 
+    public int tirarDados(){
+        return administradorDeTurnos.tirarDados();
+    }
     public Tablero getTablero() {
         return this.tablero;
     }

@@ -78,13 +78,14 @@ public class Propiedad {
     }
 
     private Construcciones getSiguienteConstruccion(Construcciones construccionActual) {
-        Construcciones siguiente = construccionActual.siguiente();
-        return siguiente;
+        return construccionActual.siguiente();
 
     }
     private boolean validarPropietario(Jugador propietario){
         return propietario == this.getPropietario();
     }
+}
+
 
 //    public void mejorarPropiedad() {
 //        Construcciones construccionActual = this.getConstrucciones();
@@ -112,13 +113,3 @@ public class Propiedad {
 //        PropiedadesController.actualizarPropiedad(this);
 //    }
 
-//    public void copy(Propiedad propiedad){
-//        this.nombre = propiedad.nombre;
-//        this.precio = propiedad.precio;
-//        this.color = propiedad.color;
-//        this.alquiler = propiedad.alquiler;
-//        this.propietario = propiedad.propietario;
-//        this.estado = propiedad.estado;
-//        this.construcciones = propiedad.construcciones;
-//    }
-}

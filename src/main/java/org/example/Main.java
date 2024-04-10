@@ -7,28 +7,24 @@ import org.example.controller.CheckArgumentos;
 import org.example.model.tipoCasilleros.Casillero;
 import org.example.view.JugadorView;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
 public class Main {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         CheckArgumentos check = new CheckArgumentos();
         check.CheckArgumentos();
         List<String> argumentos = check.getConfiguraciones();
         Juego juego = new Juego(argumentos);
         List<Jugador> listaJugadores = juego.getJugadores();
-        JuegoController juegoController = new JuegoController();
-        JugadorView jugadorView = new JugadorView(listaJugadores.get(0));
-        JugadorView jugadorView2 = new JugadorView(listaJugadores.get(1));
-        JugadorView jugadorView3 = new JugadorView(listaJugadores.get(2));
-        JugadorView jugadorView4 = new JugadorView(listaJugadores.get(3));
-        jugadorView.mostrarJugador();
-        jugadorView2.mostrarJugador();
-        jugadorView3.mostrarJugador();
-        jugadorView4.mostrarJugador();
-
+        JuegoController juegoController = new JuegoController(juego);
+        for (Jugador jugador : listaJugadores) {
+            JugadorView jugadorView = new JugadorView(jugador);
+            jugadorView.mostrarJugador();
+        }
         while (!juego.terminado()){
             juegoController.jugarTurno();
         }

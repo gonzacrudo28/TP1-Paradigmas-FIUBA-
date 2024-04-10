@@ -1,5 +1,6 @@
 package org.example.controller;
 import org.example.model.Propiedad;
+import org.example.model.Jugador;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -20,17 +21,18 @@ public class PropiedadesController {
         }
     }
 
-//    public void ActualizarPropiedad(Propiedad propiedad){
-//        List<Propiedad> nueva = new ArrayList<Propiedad>();
-//        List<Propiedad> actual = this.DictPropiedades.get(propiedad.getColor());
-//        for (int i=0; i<actual.size(); i++) {
-//            Propiedad actualProp = actual.get(i);
-//            if (actual.get(i).getNombre() == propiedad.getNombre()){
-//                actualProp.copy(propiedad);
-//            }
-//            nueva.add(actualProp);
-//        }
-//        this.DictPropiedades.put(propiedad.getColor(), nueva);
-//    }
+    public boolean puedeConsirtruir(Jugador jugador, Propiedad propiedad){
+        List<Propiedad> lista = this.DictPropiedades.get(propiedad.getColor());
+        for (Propiedad propiedadAux : lista) {
+            if (propiedadAux.getPropietario() != jugador) {
+                return false;
+            }
+        }
+        int maxima_diferencia = 0;
+        for (int i=0; i<lista.size(); i++) {
+            
+        }
+        return maxima_diferencia <= 1;
+    }
 
 }
