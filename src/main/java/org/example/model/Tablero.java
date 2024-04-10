@@ -1,16 +1,22 @@
 package org.example.model;
 
-import org.example.model.tipoCasilleros.Casillero;
+import org.example.model.tipoCasilleros.*;
+
+
+import java.util.HashMap;
 import java.util.List;
 import java.util.ArrayList;
+
 
 public class Tablero {
     private List<Casillero> casilleros;
     public int cantCasilleros;
+    private HashMap<TipoPropiedad, Integer> posCasilleros ;
 
     public Tablero(int numeroCasilleros) {
         this.cantCasilleros = numeroCasilleros;
         this.casilleros = new ArrayList<>();
+        this.posCasilleros = new HashMap<>();
         inicializarCasilleros();
     }
 
@@ -18,21 +24,18 @@ public class Tablero {
     public int getCantidadCasilleros() {
         return this.casilleros.size();
     }
+
     private void inicializarCasilleros() {
+        posCasilleros.put(TipoPropiedad.LlegadaPartida,0);
+        posCasilleros.put(TipoPropiedad.Carcel,cantCasilleros/4);
+        posCasilleros.put(TipoPropiedad.IrALaCarcel,cantCasilleros*3/4);
+        posCasilleros.put(TipoPropiedad.DePaso,cantCasilleros/2);
+        //DeMulta,DeLoteria,DePropiedad
     }
 }
 
 /*
 * TABLERO REQUERIMIENTOS:
-*
-*   MINIMO DE CASILLEROS (7 VAMOS BOQUITA)
-*   MINIMO UNA CARCEL
-*   MINIMO UN IR A CARCEL
-*   MINIMO UNA PROPIEDAD
-*   MINIMO UN SALIDA/LLEGADA
-*   MINIMO UNO DE PASO
-*   MINIMO UNO DE LOTERIA
-*   MINIMO UNO DE MULTA
 *
 *   POS SALIDA/LLEGADA = 0
 *   int numeroMinimoCasillerosNoPropiedades = 6

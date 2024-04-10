@@ -81,18 +81,20 @@ public class Propiedad {
         return construccionActual.siguiente();
 
     }
-    private boolean validarPropietario(Jugador propietario){
+    public boolean validarPropietario(Jugador propietario){
         return propietario == this.getPropietario();
     }
 }
 
 
-//    public void mejorarPropiedad() {
-//        Construcciones construccionActual = this.getConstrucciones();
-//        Construcciones siguienteConstruccion = this.getSiguienteConstruccion(construccionActual);
-//        this.construcciones= siguienteConstruccion;
-//        PropiedadesController.actualizarPropiedad(this);
+//   public void mejorarPropiedad(Jugador jugador, PropiedadesController controller) {
+//    if (!controller.puedeConstruir(jugador, this)){
+//        System.out.println("No podés construir una casa en esta propiedad");
 //    }
+//    Construcciones construccionActual = this.getConstrucciones();
+//    Construcciones siguienteConstruccion = this.getSiguienteConstruccion(construccionActual);
+//    this.construcciones= siguienteConstruccion;
+//}
 //    public void vender(Jugador propietario){
 //        // FALTA DETERMINAR A CUANTO LA VA VENDER. NICO RES= A UN 20% MENOS DE LO QUE LA COMPRO?
 //        int precio = 0;

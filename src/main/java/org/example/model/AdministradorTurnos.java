@@ -44,9 +44,8 @@ public class AdministradorTurnos {
     public void avanzarTurno(){
         Jugador jugador = turnos.poll();
         turnos.offer(jugador);
-        this.actual = this.turnos.peek();
+        this.actual = jugador;
     }
-
 
     public int tirarDados(){
         Random random = new Random();

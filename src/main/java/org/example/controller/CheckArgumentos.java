@@ -29,7 +29,6 @@ public class CheckArgumentos{
         argumentos.add("Monto de multa");
 
         List<String> inputs = new ArrayList<>();
-        Scanner sc = new Scanner(System.in);
 
         for (int contador = 0; contador < argumentos.size(); contador++) {
             System.out.println(argumentos.get(contador));
