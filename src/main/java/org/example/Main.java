@@ -1,6 +1,7 @@
 package org.example;
 
 
+import org.example.controller.Configuracion;
 import org.example.controller.JuegoController;
 import org.example.model.*;
 import org.example.controller.CheckArgumentos;
@@ -37,13 +38,9 @@ QUE TENEMOS:
 COSAS PENDIENTES:
 *       CREAR TABLERO
 *       MOSTRAR TABLERO
-*
-*       OPCIONES DEL USUARIO
-        IMPLEMENTAR BANCO
-        IMPLEMENTAR BANCARROTA
-        IMPLEMENTAR FIN DE PARTIDA
-*
-*
+*IMPLEMENTAR BANCARROTA
+
+
 */
 
 

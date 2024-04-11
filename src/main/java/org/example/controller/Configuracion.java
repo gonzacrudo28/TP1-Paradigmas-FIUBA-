@@ -13,8 +13,8 @@ public class Configuracion {
     private int condenaCarcel;
     private int montoDeMulta;
 
-    public Configuracion(List <Colores.Color> colores) {
-        this.colores = colores;
+    public Configuracion(List<String> configuraciones) {
+
     }
 
     public void setTablero(Tablero tablero) { this.tablero = tablero; }

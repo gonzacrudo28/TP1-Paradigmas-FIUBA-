@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import org.example.controller.CheckArgumentos;
 import org.example.controller.CheckArgumentos.ConfiguracionCheckArgumentos;
+import org.example.controller.Configuracion;
 
 import org.example.model.Colores;
 import java.util.concurrent.ScheduledExecutorService;
@@ -15,6 +16,7 @@ public class Juego {
     private Tablero tablero;
     private AdministradorTurnos administradorDeTurnos;
     private AdministradorDeMovimientos administradorDeMovimientos;
+    private Configuracion configuracion;
 
 
     public Juego(List<String> configuraciones){

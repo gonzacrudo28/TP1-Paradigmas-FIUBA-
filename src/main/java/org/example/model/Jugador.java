@@ -1,10 +1,8 @@
 package org.example.model;
-import org.example.model.Tablero;
-import org.example.model.Colores;
-import org.example.model.Banco;
 
 import java.util.ArrayList;
 import java.util.List;
+
 public class Jugador{
     private final String nombre;
     private  Colores.Color color;
@@ -13,6 +11,14 @@ public class Jugador{
     private List<Propiedad> propiedades;
     private Estado estado;
     private int condena;
+
+    public void pagarFianza(){
+
+    }
+
+    public void ejecutarAccion(Acciones.Accion accionElecta) {
+
+    }
 
     public enum Estado{
         EnJuego,Preso,Quiebra,Perdio
@@ -67,13 +73,10 @@ public class Jugador{
         //Agregar parte de Controller config
         return false;
     }
+
     public void sumarPlata(int dinero){
         this.plata += dinero;
     }
-
-    public int avanzarJugador(int dados){
-        this.ubicacion += dados;
-        return this.ubicacion;}
 
     public void setUbicacion(int ubicacion){ this.ubicacion = ubicacion; }
 
@@ -81,15 +84,16 @@ public class Jugador{
         return Estado.Quiebra.equals(this.estado);
     }
 
-    // antes de llamar este metodo ya habria que chequear si esta en quiebra para hacerlo perder
-//    public void perder(Jugador jugador, List<Jugador> jugadores){
-//        for (int i=0; i < jugador.propiedades.size(); i++){
-//            Propiedad propiedad = jugador.propiedades.get(i);
-//            propiedad.liberarPropiedad(jugador);
-//        }
-//        jugador.setEstado(Estado.Quiebra);
-//        //jugadores.remove(jugador); // faq: hace falta? para mi lo solucionamos con ignorarlo en los turnos
-//    }
+    public void perder(Jugador jugador){
+        jugador.setEstado(Estado.Quiebra);
+        for (Propiedad propiedad: propiedades){
+            propiedad.liberar();
+        }
+    }
+
+    public void venderPropiedad(Propiedad propiedad){
+        propiedad.vender();
+    }
 
 }
 

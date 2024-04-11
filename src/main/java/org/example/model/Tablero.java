@@ -1,5 +1,6 @@
 package org.example.model;
 
+import org.example.controller.Constantes;
 import org.example.model.tipoCasilleros.*;
 
 
@@ -26,11 +27,18 @@ public class Tablero {
     }
 
     private void inicializarCasilleros() {
+        inicializarCasillerosMinimos();
+        int cantCasillasLibres = (cantCasilleros - Constantes.CASILLEROS_MINIMOS);
+        int cantBarrios = cantCasilleros/5;
+        int cantCasillerosExtra = cantCasillasLibres-cantBarrios*Constantes.CASAS_POR_BARRIO;
+        //Falta definir de esos casilleros extra cual es para multa,transporte,loretia
+
+    }
+    private void inicializarCasillerosMinimos() {
         posCasilleros.put(TipoPropiedad.LlegadaPartida,0);
         posCasilleros.put(TipoPropiedad.Carcel,cantCasilleros/4);
         posCasilleros.put(TipoPropiedad.IrALaCarcel,cantCasilleros*3/4);
         posCasilleros.put(TipoPropiedad.DePaso,cantCasilleros/2);
-        //DeMulta,DeLoteria,DePropiedad
     }
 }
 

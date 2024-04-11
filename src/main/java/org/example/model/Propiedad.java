@@ -84,34 +84,24 @@ public class Propiedad {
     public boolean validarPropietario(Jugador propietario){
         return propietario == this.getPropietario();
     }
+
+    public void liberar(){
+        this.construcciones = Construcciones.SIN_CASA;
+        this.propietario = null;
+        this.estado = EstadoPropiedad.EN_VENTA;
+    }
+
+    public void mejorarPropiedad(){
+        this.construcciones = this.getSiguienteConstruccion(this.construcciones);
+    }
+
+    public void vender(){
+        // Falta chequear que haya vendido todas las construcciones y que sea el dueño, -G
+        double precioReventa = this.precio * 0.8;
+        this.propietario.sumarPlata((int)precioReventa);
+        this.liberar();
+    }
 }
 
 
-//   public void mejorarPropiedad(Jugador jugador, PropiedadesController controller) {
-//    if (!controller.puedeConstruir(jugador, this)){
-//        System.out.println("No podés construir una casa en esta propiedad");
-//    }
-//    Construcciones construccionActual = this.getConstrucciones();
-//    Construcciones siguienteConstruccion = this.getSiguienteConstruccion(construccionActual);
-//    this.construcciones= siguienteConstruccion;
-//}
-//    public void vender(Jugador propietario){
-//        // FALTA DETERMINAR A CUANTO LA VA VENDER. NICO RES= A UN 20% MENOS DE LO QUE LA COMPRO?
-//        int precio = 0;
-//        if (validarPropietario(propietario) && this.construcciones == Construcciones.SIN_CASA){
-//            this.estado = EstadoPropiedad.EN_VENTA;
-//            this.propietario = null;
-//            propietario.sumarPlata(precio);
-//            PropiedadesController.actualizarPropiedad(this);
-//        } else{
-//            System.out.println("No sos el propietario o tiene casas");
-//        }
-//    }
-
-//    public void liberarPropiedad(Jugador jugador){
-//        // Faltaria chequear que primero hayan vendido todas las casas
-//        this.estado = estado.EN_VENTA;
-//        this.propietario = null;
-//        PropiedadesController.actualizarPropiedad(this);
-//    }
 

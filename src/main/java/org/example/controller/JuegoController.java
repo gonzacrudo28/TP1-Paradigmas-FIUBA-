@@ -58,8 +58,9 @@ public class JuegoController {
             }else {
                 Acciones.Accion accionElecta = Acciones.Accion.getAccion(numeroElecto);
                 if (accionElecta == null) {
-                    System.out.println("Accion inexistente");
+                    System.out.println("Accion inexistente");// no hace falta pero lo dejo porlas
                 }
+                jugador.ejecutarAccion(accionElecta);
             }
         }
 
