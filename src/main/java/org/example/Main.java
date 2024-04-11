@@ -19,12 +19,7 @@ public class Main {
         check.CheckArgumentos();
         List<String> argumentos = check.getConfiguraciones();
         Juego juego = new Juego(argumentos);
-        List<Jugador> listaJugadores = juego.getJugadores();
         JuegoController juegoController = new JuegoController(juego);
-        for (Jugador jugador : listaJugadores) {
-            JugadorView jugadorView = new JugadorView(jugador);
-            jugadorView.mostrarJugador();
-        }
         while (!juego.terminado()){
             juegoController.jugarTurno();
         }
@@ -43,7 +38,6 @@ QUE TENEMOS:
     GENERAMOS UN ORDEN DE JUEGO
 
 COSAS PENDIENTES:
-*       TIRAR DADO
 *       CREAR TABLERO
 *       MOSTRAR TABLERO
 *
@@ -52,6 +46,7 @@ COSAS PENDIENTES:
         IMPLEMENTAR BANCARROTA
         IMPLEMENTAR FIN DE PARTIDA
 *
-* */
+*
+*/
 
 

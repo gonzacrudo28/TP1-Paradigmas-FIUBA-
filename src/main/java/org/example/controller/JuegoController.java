@@ -38,17 +38,16 @@ public class JuegoController {
     }
 
     public void jugarTurno() throws IOException {
-        vistaJuego.mostrar();
         tableroView.mostrar();
         juego.cambiarTurno();
-
+        
         Jugador jugador = juego.getJugadorActual();
         int dados = juego.tirarDados();
         System.out.println("Es el turno de " + jugador.getNombre() + "\n" + "Tus dados son: " + dados + "\n");
         int casillaActual = administradorDeMovimientos.avanzarJugador(jugador, dados);
         System.out.println("Usted esta en el casillero: " + casillaActual + "\n");
         int numeroElecto = 1;
-
+        vistaJuego.mostrar();
 
         while (numeroElecto != 0) {
             Acciones.mostrarAcciones();
@@ -56,10 +55,11 @@ public class JuegoController {
             numeroElecto = corroboroAccion(accion);
             if (numeroElecto == Constantes.NEGATIVO) {
                 System.out.println("Accion inexistente");
-            }
-            Acciones.Accion accionElecta = Acciones.Accion.getAccion(numeroElecto);
-            if (accionElecta == null) {
-                System.out.println("Accion inexistente");
+            }else {
+                Acciones.Accion accionElecta = Acciones.Accion.getAccion(numeroElecto);
+                if (accionElecta == null) {
+                    System.out.println("Accion inexistente");
+                }
             }
         }
 
@@ -67,9 +67,7 @@ public class JuegoController {
 
     public int corroboroAccion(String accion) {
         CheckStrToInt checkStrToInt = new CheckStrToInt();
-        if (checkStrToInt.checkStringToInt(accion)) {
-            return Constantes.NEGATIVO;
-        } else if (Integer.parseInt(accion) < 0) {
+        if (!checkStrToInt.checkStringToInt(accion)) {
             return Constantes.NEGATIVO;
         }
         return Integer.parseInt(accion);

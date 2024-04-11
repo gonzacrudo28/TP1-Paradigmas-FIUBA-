@@ -11,10 +11,8 @@ public class AdministradorTurnos {
 
     public AdministradorTurnos(List<Jugador> jugadores) {
         this.generarOrdenDePaso(jugadores);
-        System.out.println("Lista de jugadores"+jugadores);
         this.jugadores = jugadores;
         this.turnos = this.colaDeTurnos();
-        System.out.println("Cola"+turnos);
     }
     public Jugador getTurnoActual() {
         return actual;
@@ -35,23 +33,25 @@ public class AdministradorTurnos {
         return turnos;
     }
 
-
-    private boolean siguientePerdio(int jugadorSiguiente){
-        Jugador jugador = jugadores.get(jugadorSiguiente);
+    private boolean perdio(Jugador jugador){
         return jugador.getEstado() == Jugador.Estado.Quiebra;
     }
 
-    public void avanzarTurno(){
+    public void avanzarTurno() {
         Jugador jugador = turnos.poll();
-        turnos.offer(jugador);
-        this.actual = jugador;
+        if (!perdio(jugador)) {
+            turnos.offer(jugador);
+            this.actual = jugador;
+            return;
+        }
+        System.out.println(jugador.getNombre() + " perdio!");
+        this.jugadores.remove(jugador);
+        avanzarTurno();
     }
-
     public int tirarDados(){
         Random random = new Random();
         return random.nextInt(2,12);
     }
-
 
 
 }

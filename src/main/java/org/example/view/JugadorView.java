@@ -4,18 +4,20 @@ package org.example.view;
 
 import org.example.model.Colores;
 import org.example.model.Jugador;
+import java.util.List;
 import org.fusesource.jansi.Ansi;
 import org.fusesource.jansi.AnsiConsole;
 import java.lang.reflect.Field;
 
 public class JugadorView {
-    private Jugador jugador;
+    private final List<Jugador> jugadores;
 
-    public JugadorView(Jugador jugador) {
-        this.jugador = jugador;
+    public JugadorView(List<Jugador> jugadores) {
+        this.jugadores = jugadores;
     }
 
-    public void mostrarJugador() {
+    public void mostrarJugadores() {
+        for (Jugador jugador : jugadores) {
         Ansi colorANSI = obtenerColorANSI(jugador.getColor());
         Ansi resetColor = Ansi.ansi().reset();
 
@@ -27,6 +29,7 @@ public class JugadorView {
         System.out.println("Estado: " + colorANSI + jugador.getEstado().toString() + resetColor);
         System.out.println("Condena: " + colorANSI + jugador.getCondena() + resetColor);
         System.out.println("=======================================");
+        }
     }
 
     private Ansi obtenerColorANSI(Colores.Color color) {

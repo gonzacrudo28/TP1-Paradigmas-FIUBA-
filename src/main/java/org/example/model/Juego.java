@@ -46,6 +46,7 @@ public class Juego {
 //    public void setJugador(Jugador jugador, int casilla){
 //        tablero.avanzarJugador(casilla);
 //    }
+
     public Jugador getJugadorActual() {
        return administradorDeTurnos.getTurnoActual();}
 
@@ -90,4 +91,5 @@ public class Juego {
 
         return jugadores;
     }
+
 }

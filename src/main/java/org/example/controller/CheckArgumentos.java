@@ -23,12 +23,12 @@ public class CheckArgumentos{
         System.out.println("Bienvenidos al Monopoly! Para jugar necesitamos que ingresen los siguientes datos:");
         List<String> argumentos = new ArrayList<>();
         argumentos.add("Nombres (2 a 4 jugadores y separados por espacios)");
-        argumentos.add("Cantidad de casilleros (minimo 7)");
+        argumentos.add("Cantidad de casilleros (minimo 8)");
         argumentos.add("Monto de dinero inicial");
         argumentos.add("Monto de dinero por vuelta");
         argumentos.add("Cantidad de turnos preso");
         argumentos.add("Monto de multa");
-
+        List<ConfiguracionCheckArgumentos> configuraciones = Arrays.asList(ConfiguracionCheckArgumentos.values());
         List<String> inputs = new ArrayList<>();
         this.entrada= new Scanner(System.in);
 
@@ -41,7 +41,7 @@ public class CheckArgumentos{
                 checkNombres.checkNombres(inputs.get(contador));
             } else {
                 CheckNum checkNum = new CheckNum();
-                checkNum.checkNumeros(inputs.get(contador));
+                checkNum.checkNumeros(inputs.get(contador),configuraciones.get(contador));
             }
         }
         this.configuraciones = inputs;
