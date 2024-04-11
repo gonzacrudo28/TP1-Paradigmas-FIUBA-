@@ -26,10 +26,7 @@ public class Main {
         check.CerrarScanner();
         System.out.println("El juego terminado");
     }
-    
-
 }
-
 /*
 QUE TENEMOS:
     CREAMOS EL JUEGO
