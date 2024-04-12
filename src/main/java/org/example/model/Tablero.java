@@ -9,7 +9,39 @@ import java.util.List;
 import java.util.ArrayList;
 
 
+
 public class Tablero {
+/*
+    INTENTO DE TOP (LO ESTOY PENSANDO):
+
+    private List<Casillero> casilleros;
+    private int numeroCasilleros;
+    private int cantidadDeBarrios;
+    private int cantidadDePropiedes;
+
+    public Tablero(int numeroCasilleros) {
+        this.numeroCasilleros = numeroCasilleros;
+        this.cantidadDePropiedes = numeroCasilleros - Constantes.CANTIDAD_CASILLEROS_NO_PROPIEDADES;
+        this.cantidadDeBarrios = this.cantidadDePropiedes / Constantes.PROPIEDADES_POR_BARRIO;
+        this.casilleros = new ArrayList<>();
+        generarTablero();
+    }
+
+    public void generarTablro() {
+        for (int i = 0; i <= casilleros.size(); i++) {
+        }
+    }
+
+    public void crearCasillero(TipoPropiedad tipo, int cantidad) {
+        for (int i = 0; i < cantidad; i++) {
+
+        }
+    }
+
+
+}*/
+/*
+    PENSAMIENTO DE NICO:
     private List<Casillero> casilleros;
     public int cantCasilleros;
     private HashMap<TipoPropiedad, Integer> posCasilleros ;
@@ -35,14 +67,14 @@ public class Tablero {
 
     }
     private void inicializarCasillerosMinimos() {
-        posCasilleros.put(TipoPropiedad.LlegadaPartida,0);
+        posCasilleros.put(TipoPropiedad.LlegadaPartida,Constantes.POS_INICIAL);
         posCasilleros.put(TipoPropiedad.Carcel,cantCasilleros/4);
         posCasilleros.put(TipoPropiedad.IrALaCarcel,cantCasilleros*3/4);
         posCasilleros.put(TipoPropiedad.DePaso,cantCasilleros/2);
     }
 }
 
-/*
+
 * TABLERO REQUERIMIENTOS:
 *
 *   POS SALIDA/LLEGADA = 0
@@ -56,3 +88,4 @@ public class Tablero {
 *
 *   BARRIO DE MAXIMO 3 PROPIEDADES
 * */
+}

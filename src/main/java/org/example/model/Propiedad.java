@@ -66,7 +66,8 @@ public class Propiedad {
     public Jugador getPropietario() {return propietario;}
     public String getColor() {return this.color;}
     public String getNombre() {return this.nombre;}
-   public void setPropietario(Jugador propietario) {
+
+   public boolean setPropietario(Jugador propietario) {
         if (propietario.restarPlata((int)this.getPrecio())){
            this.propietario = propietario;
            this.estado = EstadoPropiedad.COMPRADO;
@@ -83,6 +84,14 @@ public class Propiedad {
     }
     public boolean validarPropietario(Jugador propietario){
         return propietario == this.getPropietario();
+    }
+
+    public void hipotecar (){
+        estado = EstadoPropiedad.HIPOTECADO;
+    }
+
+    public void deshipotecar (){
+        estado = EstadoPropiedad.COMPRADO;
     }
 
     public void liberar(){

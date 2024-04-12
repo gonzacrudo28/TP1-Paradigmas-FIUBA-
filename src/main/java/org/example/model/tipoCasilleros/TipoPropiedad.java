@@ -1,5 +1,6 @@
 package org.example.model.tipoCasilleros;
 
 public enum TipoPropiedad{
-    DeMulta,DeLoteria,DePropiedad,IrALaCarcel,Carcel,Estaciones,LlegadaPartida,DePaso,
+    LLEGADA_INICIO,CARCEL,IR_A_LA_CARCEL,LOTERIA,MULTA,ESTACION,PROPIEDAD,DE_PASO
 }
+

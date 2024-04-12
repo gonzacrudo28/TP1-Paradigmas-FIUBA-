@@ -18,31 +18,13 @@ public class Juego {
     private AdministradorDeMovimientos administradorDeMovimientos;
     private Configuracion configuracion;
 
-
     public Juego(List<String> configuraciones){
-        List<Jugador> jugadores = this.crearJugadores(configuraciones);
-        this.jugadores = jugadores;
+        Configuracion configuracion = new Configuracion(configuraciones);
+        jugadores = configuracion.getJugadores();
         this.administradorDeTurnos = new AdministradorTurnos(jugadores);
-        int cantCasillas = Integer.parseInt(configuraciones.get(ConfiguracionCheckArgumentos.CASILLEROS.ordinal()));
+        int cantCasillas = configuracion.getCantidadCasilleros();
         this.tablero = new Tablero(cantCasillas);
         this.administradorDeMovimientos = new AdministradorDeMovimientos(cantCasillas);
-        this.asignacionColores(jugadores);
-    }
-
-
-    private void asignacionColores(List<Jugador> jugadores){
-        Colores.Color[] colores = Colores.Color.values();
-        for(int i = 0; i < jugadores.size(); i++){
-            jugadores.get(i).setColor(colores[i]);
-        }
-
-    }
-    public ArrayDeque<Jugador> creacionColaTurnos(){
-        ArrayDeque<Jugador> colaTurnos = new ArrayDeque<>();
-        for (Jugador jugadore : jugadores) {
-            colaTurnos.addLast(jugadore);
-        }
-        return colaTurnos;
     }
 
 //    public void setJugador(Jugador jugador, int casilla){
@@ -71,6 +53,7 @@ public class Juego {
         return this.jugadores;
     }
 
+
     public boolean checkEstadoJugadores(List<Jugador> jugadores){
         int jugadoresFuera = 0;
         for(Jugador jugador: jugadores){
@@ -79,19 +62,6 @@ public class Juego {
             }
         }
         return jugadoresFuera == jugadores.size()-1;
-    }
-
-    private List<Jugador> crearJugadores(List<String> configuraciones){
-        List<String> nombres = List.of(configuraciones.get(0).split(" "));
-        int plataInicial = Integer.parseInt(configuraciones.get(2));
-        List<Jugador> jugadores = new ArrayList<Jugador>();
-        for (String s : nombres) {
-            Jugador jugador = new Jugador(s);
-            jugador.setPlata(plataInicial);
-            jugadores.add(jugador);
-        }
-
-        return jugadores;
     }
 
 }
