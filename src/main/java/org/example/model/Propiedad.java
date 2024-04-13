@@ -41,9 +41,10 @@ public class Propiedad {
     protected Jugador propietario;
     protected EstadoPropiedad estado;
     protected Construcciones construcciones;
+    protected int ubicacion;
 
     // Constructor
-    public Propiedad(String nombre, double precio, String color, double alquiler) {
+    public Propiedad(String nombre, double precio, String color, double alquiler, int ubicacion) {
         this.nombre = nombre;
         this.precio = precio;
         this.color = color;
@@ -51,6 +52,7 @@ public class Propiedad {
         this.propietario = null;
         this.estado = EstadoPropiedad.EN_VENTA;
         this.construcciones = Construcciones.SIN_CASA;
+        this.ubicacion = ubicacion;
     }
 
 
@@ -63,16 +65,18 @@ public class Propiedad {
     public double getAlquiler() {
         return alquiler;
     }
-    public Jugador getPropietario() {return propietario;}
+    public Jugador getPropietario() { return propietario;}
     public String getColor() {return this.color;}
     public String getNombre() {return this.nombre;}
-
-   public boolean setPropietario(Jugador propietario) {
-        if (propietario.restarPlata((int)this.getPrecio())){
-           this.propietario = propietario;
-           this.estado = EstadoPropiedad.COMPRADO;
-           //PropiedadesController.actualizarPropiedad(this);
+    public Integer getUbicacion(){return this.ubicacion;}
+   public void setPropietario(Jugador propietario) {
+        if(this.propietario == null){
+            this.propietario = propietario;
+            this.estado = EstadoPropiedad.COMPRADO;
+            System.out.println("Propiedad comprada con exito");
+            return;
         }
+        System.out.println("La propiedad ya fue comprada");
     }
     public Construcciones getConstrucciones(){
         return this.construcciones;
@@ -90,7 +94,7 @@ public class Propiedad {
         estado = EstadoPropiedad.HIPOTECADO;
     }
 
-    public void deshipotecar (){
+    public void deshipotecar () {
         estado = EstadoPropiedad.COMPRADO;
     }
 
@@ -105,7 +109,7 @@ public class Propiedad {
     }
 
     public void vender(){
-        // Falta chequear que haya vendido todas las construcciones y que sea el dueño, -G
+        // Falta chequear que haya vendido todas las construcciones -G
         double precioReventa = this.precio * 0.8;
         this.propietario.sumarPlata((int)precioReventa);
         this.liberar();

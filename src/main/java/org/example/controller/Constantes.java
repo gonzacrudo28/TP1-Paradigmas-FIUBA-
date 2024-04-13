@@ -2,19 +2,30 @@ package org.example.controller;
 
 public class Constantes {
     public static final int NEGATIVO = -1;
+    public static final int POS_LLEGADA_SALIDA = 0;
+    public static final double POS_CARCEL = 0.250;
+    public static final double POS_DE_PASO = 0.500;
+    public static final double POS_IR_CARCEL = 0.750;
+    public static final int CANTIDAD_CASILLEROS_BASE= 4;
+    public static final double PORCENTAJE_DE_TRANSPORTE= 0.1;
+    public static final int CANTIDAD_CASAS_POR_BARRIO = 3;
 
-    public static final int PROPIEDADES_POR_BARRIO = 3;
-    public static final int PROPIEDADES_MINIMAS = PROPIEDADES_POR_BARRIO + 1;
-    public static final int CANTIDAD_CASILLEROS_EXTRA = 2;
-    public static final int POS_INICIAL = 0;
-    public static final int CANTIDAD_CASILLERO_CARCEL= 1;
-    public static final int CANTIDAD_CASILLERO_IR_A_CARCEL= 1;
-    public static final int CANTIDAD_CASILLERO_MULTA= 1;
-    public static final int CANTIDAD_CASILLERO_LLEGADA_PARTIDA= 1;
-    public static final int CANTIDAD_CASILLERO_DE_PASO= 1;
-    public static final int CANTIDAD_CASILLERO_DE_LOTERIA= 1;
-    public static final int CANTIDAD_MINIMAS_CASILLEROS = CANTIDAD_CASILLEROS_EXTRA + PROPIEDADES_MINIMAS+CANTIDAD_CASILLERO_CARCEL+
-            CANTIDAD_CASILLERO_DE_LOTERIA + CANTIDAD_CASILLERO_LLEGADA_PARTIDA + CANTIDAD_CASILLERO_MULTA +CANTIDAD_CASILLERO_DE_PASO +
-            CANTIDAD_CASILLERO_IR_A_CARCEL;
-    public static final int CANTIDAD_CASILLEROS_NO_PROPIEDADES = CANTIDAD_MINIMAS_CASILLEROS - PROPIEDADES_MINIMAS - CANTIDAD_CASILLEROS_EXTRA;
+
 }
+
+
+/*25
+* 25-4 = 21(CASILLEROS LIBRES)
+* 21/3 = 7(CANTIDAD CASILLEROS EXTRAS)
+* (21-7)/3 = 4 (BARIOS)
+*25-7-12-4 = 2 (SUMO EL RESTO A EXTRAS)
+*
+* L/G = 0
+* CARCEL = 1/4
+* ESTACIONAMIENTO = 1/2
+* IR CARCEL = 3/4
+*
+*
+* *
+*C/L _ _ _ ex ex C _ _ _ ex ex E _ _ _ ex ex IC _ _ _ ex ex _
+*/

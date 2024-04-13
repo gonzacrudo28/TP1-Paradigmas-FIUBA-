@@ -4,6 +4,16 @@ import org.example.model.Jugador;
 import org.example.model.Propiedad;
 
 public class DePropiedad extends Casillero{
+    Propiedad propiedad;
+    int numeroDePropiedad;
+    public DePropiedad(int numeroDePropiedad) {
+        this.efecto = "Propiedad";
+        this.tipo=TipoCasillero.PROPIEDAD;
+        this.numeroDePropiedad = numeroDePropiedad;
+    }
+}
+
+/*
     private Propiedad propiedad;
     public DePropiedad(Propiedad propiedad) {
         this.propiedad = propiedad;
@@ -16,7 +26,4 @@ public class DePropiedad extends Casillero{
     }
 
     public void ComprarPropiedad(Jugador jugador) {
-        this.propiedad.setPropietario(jugador);
-    }
-
-}
+        this.propiedad.setPropietario(jugador);*/

@@ -1,10 +1,12 @@
 package org.example.model;
 
+import org.example.model.Tablero;
+
 public class AdministradorDeMovimientos {
     private final int cantCasillas;
 
-    public AdministradorDeMovimientos(int cantCasillas){
-        this.cantCasillas = cantCasillas;
+    public AdministradorDeMovimientos(Tablero tablero){
+        this.cantCasillas = tablero.getCantidadCasilleros();
     }
 
     private boolean pasaPorSalida(Jugador jugador, int tiradaDados){

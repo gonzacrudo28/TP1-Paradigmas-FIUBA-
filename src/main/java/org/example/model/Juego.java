@@ -24,7 +24,7 @@ public class Juego {
         this.administradorDeTurnos = new AdministradorTurnos(jugadores);
         int cantCasillas = configuracion.getCantidadCasilleros();
         this.tablero = new Tablero(cantCasillas);
-        this.administradorDeMovimientos = new AdministradorDeMovimientos(cantCasillas);
+        this.administradorDeMovimientos = new AdministradorDeMovimientos(tablero);
     }
 
 //    public void setJugador(Jugador jugador, int casilla){

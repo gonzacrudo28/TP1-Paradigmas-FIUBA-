@@ -19,7 +19,7 @@ public class Configuracion {
     private List<Jugador> jugadores;
 
 
-    public Configuracion(List<String> configuraciones/*, Tablero tablero*/) {
+    public Configuracion(List<String> configuraciones) {
         cantidadCasilleros = Integer.parseInt(configuraciones.get(CheckArgumentos
                 .ConfiguracionCheckArgumentos.CASILLEROS.ordinal()));
         montoInicial = Integer.parseInt(configuraciones.get(CheckArgumentos
@@ -67,18 +67,13 @@ public class Configuracion {
         return colaTurnos;
     }
 */
-    public void getJugadores() { return jugadores;}
+    public List<Jugador> getJugadores() { return jugadores;}
 
     public int getMontoFianza() { return montoFianza; }
 
-    public void setTablero(Tablero tablero) { this.tablero = tablero; }
-
     public int getCantidadCasilleros() { return cantidadCasilleros; }
 
-    public int getMontoPorPasarSalida(){return montoPorPasarSalida;}
+    public int getMontoPorPasarSalida(){return montoVuelta;}
 
-    public Tablero getTablero(){
-        return this.tablero;
-    }
 
 }

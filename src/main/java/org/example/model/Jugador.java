@@ -3,6 +3,7 @@ package org.example.model;
 import java.util.ArrayList;
 import java.util.List;
 import org.example.model.Propiedad;
+import org.example.model.tipoCasilleros.Casillero;
 
 public class Jugador{
     private final String nombre;
@@ -21,6 +22,7 @@ public class Jugador{
         if(condena != 0){
             restarPlata(Configuracion.getFianza());
             condena = 0;
+            System.out.println("Fianza pagada con exito");
             return;
         }
         System.out.println("No se puede pagar fianza");
@@ -29,14 +31,17 @@ public class Jugador{
     public void comprarPropiedad(Propiedad propiedad){
         //buscar propiedad en el tablero con jugador.getUbicacion
        // Propiedad propiedad = tablero.getPropiedad(Jugador.getUbicacion);
-        propiedad.setPropietario(Jugador);
+        //propiedad.setPropietario();
     }
 
-
+// Maquina esto como es? -G
 // estas dos tienen el mismo efecto
-    public void contruirEnPropiedad(Propiedad propiedad){
-        propiedad.mejorarPropiedad();
-    }
+//    public void contruirEnPropiedad(Propiedad propiedad){
+//        propiedad.
+//        System.out.println("Se ha construido una casa en esa propiedad");
+//
+//        System.out.println("No se ha podido construir una casa en esa propiedad");
+//    }
 
     public void reformarPropiedad(Propiedad propiedad){
         propiedad.mejorarPropiedad();
@@ -49,26 +54,9 @@ public class Jugador{
 
     public void deshipotecarPropiedad(Propiedad propiedad){
         propiedad.deshipotecar();
-        //restar valor de la propiedad al jugador
+        this.restarPlata((int)(propiedad.getPrecio()*0.7));
     }
 
-    public void ejecutarAccion(Acciones.Accion accionElecta) {
-        if(accionElecta == Acciones.Accion.CONSTRUIR){
-            contruirEnPropiedad();
-        }
-        else if(accionElecta == Acciones.Accion.REFORMAR){
-            reformarPropiedad();
-        }
-        else if(accionElecta == Acciones.Accion.VENDER){
-            venderPropiedad();
-        }else if(accionElecta == Acciones.Accion.HIPOTECAR){
-            hipotecarPropiedad();
-        }else if(accionElecta == Acciones.Accion.PAGAR_FIANZA){
-            pagarFianza();
-        }else if(accionElecta == Acciones.Accion.DESHIPOTECAR){
-            deshipotecarPropiedad();
-        }
-    }
 
     public enum Estado{
         EnJuego,Preso,Quiebra,Perdio
@@ -94,45 +82,33 @@ public class Jugador{
 
 
 
-    public String getNombre() {
-        return this.nombre;
-    }
+    public String getNombre() {return this.nombre;}
     public Estado getEstado(){
         return this.estado;
     }
-    public int getPlata() {
-        return plata;
-    }
-    public int getUbicacion() {
-        return ubicacion;
-    }
+    public int getPlata() {return plata;}
+    public int getUbicacion() {return ubicacion;}
     public int getCondena(){
         return this.condena;
     }
-    public Colores.Color getColor() {
-        return this.color;
-    }
+    public Colores.Color getColor() {return this.color;}
+    public List<Propiedad> getPropiedades(){return this.propiedades;}
 
 
-    public boolean restarPlata(int dinero){
+    public void restarPlata(int dinero){
         if (this.plata > dinero){
             this.plata -= dinero;
-            return true;
+            return;
         }
         System.out.println("Ups!" + this.nombre + "no tiene dinero suficiente para pagar esta deuda");
         //Agregar parte de Controller config
-        return false;
     }
 
-    public void sumarPlata(int dinero){
-        this.plata += dinero;
-    }
+    public void sumarPlata(int dinero){this.plata += dinero;}
 
     public void setUbicacion(int ubicacion){ this.ubicacion = ubicacion; }
 
-    public boolean estaEnQuiebra(){
-        return Estado.Quiebra.equals(this.estado);
-    }
+    public boolean estaEnQuiebra(){return Estado.Quiebra.equals(this.estado);}
 
     public void perder(Jugador jugador){
         jugador.setEstado(Estado.Quiebra);
@@ -142,7 +118,11 @@ public class Jugador{
     }
 
     public void venderPropiedad(Propiedad propiedad){
-        propiedad.vender();
+        if (propiedad.getNombre().equals(this.nombre)){
+            propiedad.vender();
+            return;
+        }
+        System.out.printf("%s no es el propietario, el dueño es %s", this.nombre, propiedad.getPropietario());
     }
 
 }

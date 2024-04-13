@@ -4,7 +4,9 @@ import org.example.model.Jugador;
 
 public class IrALaCarcel extends Casillero{
     private int duracionPena;
-    public IrALaCarcel(Jugador jugador) {
-        jugador.setCondena(this.duracionPena);
+    public IrALaCarcel() {
+        this.efecto= "IrALaCarcel";
+        this.tipo=TipoCasillero.IR_A_LA_CARCEL;
+
     }
 }
