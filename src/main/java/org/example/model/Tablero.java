@@ -16,7 +16,7 @@ public class Tablero {
     private int cantidadDeCasilleros;
     private List<Barrio> barrios;
 
-    public Tablero(int cantidadDeCasilleros) {
+    public Tablero(int cantidadDeCasilleros,int precioMulta,int precioVuelta,int turnosPreso) {
         this.cantidadDeCasilleros = cantidadDeCasilleros;
         this.casilleros = new Casillero[cantidadDeCasilleros];
         this.barrios = new ArrayList<Barrio>();
@@ -76,8 +76,8 @@ public class Tablero {
         int posCarcel = (int) (this.cantidadDeCasilleros*Constantes.POS_CARCEL);
         int posDePaso= (int) (this.cantidadDeCasilleros*Constantes.POS_DE_PASO);
         int posIrACarcel= (int)(this.cantidadDeCasilleros*Constantes.POS_IR_CARCEL);
-        this.casilleros[Constantes.POS_LLEGADA_SALIDA]= new Carcel();
-        this.casilleros[posCarcel]= new LlegadaPartida();
+        this.casilleros[Constantes.POS_LLEGADA_SALIDA]= new LlegadaPartida();
+        this.casilleros[posCarcel]= new Carcel();
         this.casilleros[posIrACarcel] = new IrALaCarcel();
         this.casilleros[posDePaso] = new DePaso();
     }
@@ -86,11 +86,7 @@ public class Tablero {
         return this.cantidadDeCasilleros;
     }
 
-    public void mostrarCasilleros(){
-        for (int i = 0; i< this.cantidadDeCasilleros; i++){
-            casilleros[i].mostrarEfecto();
-        }
-    }
+
 }
 /*
 FALTA EN TABLERO (QUE LO HACE TOP)

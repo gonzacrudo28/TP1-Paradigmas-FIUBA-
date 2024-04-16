@@ -44,7 +44,7 @@ public class Propiedad {
     protected int ubicacion;
 
     // Constructor
-    public Propiedad(String nombre, double precio, String color, double alquiler, int ubicacion) {
+    public Propiedad(String nombre, double precio, String color, double alquiler) {
         this.nombre = nombre;
         this.precio = precio;
         this.color = color;
@@ -52,9 +52,12 @@ public class Propiedad {
         this.propietario = null;
         this.estado = EstadoPropiedad.EN_VENTA;
         this.construcciones = Construcciones.SIN_CASA;
-        this.ubicacion = ubicacion;
     }
 
+
+    public void setUbicacion(int ubicacion) {
+        this.ubicacion = ubicacion;
+    }
 
     public EstadoPropiedad getEstado() {
         return this.estado;
@@ -73,6 +76,7 @@ public class Propiedad {
         if(this.propietario == null){
             this.propietario = propietario;
             this.estado = EstadoPropiedad.COMPRADO;
+            propietario.agregarPropiedad(this);
             System.out.println("Propiedad comprada con exito");
             return;
         }

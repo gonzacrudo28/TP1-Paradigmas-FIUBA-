@@ -16,7 +16,7 @@ public class Configuracion {
     private final int montoDeMulta;
     private int cantidadCasilleros;
     private int montoFianza;
-    private List<Jugador> jugadores;
+    private ArrayList<Jugador> jugadores;
 
 
     public Configuracion(List<String> configuraciones) {
@@ -33,15 +33,15 @@ public class Configuracion {
         montoFianza = Integer.parseInt(configuraciones.get(CheckArgumentos
                 .ConfiguracionCheckArgumentos.FIANZA.ordinal()));
 
-        List<Jugador> jugadores = this.crearJugadores(configuraciones);
+        ArrayList<Jugador> jugadores = this.crearJugadores(configuraciones);
         this.jugadores = jugadores;
         asignacionColores(jugadores);
     }
 
-    private List<Jugador> crearJugadores(List<String> configuraciones){
+    private ArrayList<Jugador> crearJugadores(List<String> configuraciones){
         List<String> nombres = List.of(configuraciones.get(0).split(" "));
         int plataInicial = Integer.parseInt(configuraciones.get(2));
-        List<Jugador> jugadores = new ArrayList<Jugador>();
+        ArrayList<Jugador> jugadores = new ArrayList<Jugador>();
         for (String s : nombres) {
             Jugador jugador = new Jugador(s);
             jugador.setPlata(plataInicial);
@@ -67,7 +67,7 @@ public class Configuracion {
         return colaTurnos;
     }
 */
-    public List<Jugador> getJugadores() { return jugadores;}
+    public ArrayList<Jugador> getJugadores() { return jugadores;}
 
     public int getMontoFianza() { return montoFianza; }
 
@@ -75,5 +75,6 @@ public class Configuracion {
 
     public int getMontoPorPasarSalida(){return montoVuelta;}
 
-
+    public int getCondenaCarcel(){return condenaCarcel;}
+    public int getMontoMulta(){return montoDeMulta;}
 }

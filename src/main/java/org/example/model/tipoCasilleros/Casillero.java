@@ -10,7 +10,13 @@ abstract public class Casillero {
     }
 
     public TipoCasillero getTipo() {return tipo;}
+
+    public String getEfecto(){
+        return efecto;
+    }
 }
+
+
 
 
 

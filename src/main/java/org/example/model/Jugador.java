@@ -2,8 +2,6 @@ package org.example.model;
 
 import java.util.ArrayList;
 import java.util.List;
-import org.example.model.Propiedad;
-import org.example.model.tipoCasilleros.Casillero;
 
 public class Jugador{
     private final String nombre;
@@ -20,7 +18,7 @@ public class Jugador{
     //mover a algun ejecutador de acciones
     public void pagarFianza(){
         if(condena != 0){
-            restarPlata(Configuracion.getFianza());
+            //restarPlata(Configuracion.getFianza());
             condena = 0;
             System.out.println("Fianza pagada con exito");
             return;
@@ -28,20 +26,17 @@ public class Jugador{
         System.out.println("No se puede pagar fianza");
     }
 
-    public void comprarPropiedad(Propiedad propiedad){
-        //buscar propiedad en el tablero con jugador.getUbicacion
-       // Propiedad propiedad = tablero.getPropiedad(Jugador.getUbicacion);
-        //propiedad.setPropietario();
+    public void comprarPropiedad(Propiedad propiedad,Jugador jugador){
+        if (this.plata >= propiedad.getPrecio()) {
+            propiedad.setPropietario(jugador);
+        }else{
+            System.out.println("No se puede comprar propiedad");
+        }
     }
 
-// Maquina esto como es? -G
-// estas dos tienen el mismo efecto
-//    public void contruirEnPropiedad(Propiedad propiedad){
-//        propiedad.
-//        System.out.println("Se ha construido una casa en esa propiedad");
-//
-//        System.out.println("No se ha podido construir una casa en esa propiedad");
-//    }
+    public void agregarPropiedad(Propiedad propiedad){
+        propiedades.add(propiedad);
+    }
 
     public void reformarPropiedad(Propiedad propiedad){
         propiedad.mejorarPropiedad();
@@ -95,13 +90,14 @@ public class Jugador{
     public List<Propiedad> getPropiedades(){return this.propiedades;}
 
 
-    public void restarPlata(int dinero){
+    public boolean restarPlata(int dinero){
         if (this.plata > dinero){
             this.plata -= dinero;
-            return;
+            return true;
         }
         System.out.println("Ups!" + this.nombre + "no tiene dinero suficiente para pagar esta deuda");
         //Agregar parte de Controller config
+        return false;
     }
 
     public void sumarPlata(int dinero){this.plata += dinero;}

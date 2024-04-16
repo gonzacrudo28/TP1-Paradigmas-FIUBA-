@@ -29,7 +29,11 @@ public class Main {
     }
 }
 /*
-
+COSAS PARA HACER Pd NICO
+SETEAR PRECIOS DE PROPIEDADES EN BASE A LA PLATA INICIAL QUE PONE EL PIBE (SE DEBERIA HACER CUANDO SE CREA EL TABLERO)
+EL TABLERO RECIBE ESA INFO precioMulta,int precioVuelta,int turnosPreso PARA QUE SETEE ESOS CASILLEROS CON EL VALOR
+IMPRIMIR MAS LINDO EL TABLERO (BASTA QUE EL NOMBRE DEL JUGADOR QUE ESTE EN EL CASILLERO SE PONGA DEL COLOR QUE ES)
+ver el tema de las impresiones se imprimen dos veces el estado de los jugadores por turno, dejar solo el de despues de que se tira el dado
 
 */
 

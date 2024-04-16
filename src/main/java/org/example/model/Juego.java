@@ -12,7 +12,7 @@ import org.example.model.Colores;
 import java.util.concurrent.ScheduledExecutorService;
 
 public class Juego {
-    private List<Jugador> jugadores;
+    private ArrayList<Jugador> jugadores;
     private Tablero tablero;
     private AdministradorTurnos administradorDeTurnos;
     private AdministradorDeMovimientos administradorDeMovimientos;
@@ -23,7 +23,10 @@ public class Juego {
         jugadores = configuracion.getJugadores();
         this.administradorDeTurnos = new AdministradorTurnos(jugadores);
         int cantCasillas = configuracion.getCantidadCasilleros();
-        this.tablero = new Tablero(cantCasillas);
+        int costoMulta = configuracion.getMontoMulta();
+        int costoPasoSalida = configuracion.getMontoPorPasarSalida();
+        int turnosPreso = configuracion.getCondenaCarcel();
+        this.tablero = new Tablero(cantCasillas,costoMulta,costoPasoSalida,turnosPreso);
         this.administradorDeMovimientos = new AdministradorDeMovimientos(tablero);
     }
 
@@ -49,9 +52,12 @@ public class Juego {
         return this.tablero;
     }
 
-    public List<Jugador> getJugadores() {
+    public ArrayList<Jugador> getJugadores() {
         return this.jugadores;
     }
+
+
+
 
 
     public boolean checkEstadoJugadores(List<Jugador> jugadores){
