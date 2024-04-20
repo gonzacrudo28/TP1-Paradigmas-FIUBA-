@@ -14,11 +14,29 @@ import java.util.HashMap;
 
 // Clase Propiedad
 public class Propiedad {
-
+    protected int precio;
+    protected int numeroDeBarrio;
+    protected int alquiler;
+    protected Jugador propietario;
+    protected EstadoPropiedad estado;
+    protected Construcciones construcciones;
+    protected int ubicacion;
 
     public enum EstadoPropiedad {
         COMPRADO, EN_VENTA, HIPOTECADO
     }
+
+    public Propiedad(int precio, int numeroDeBarrio,int ubicacion) {
+        this.precio = precio;
+        this.numeroDeBarrio = numeroDeBarrio;
+        this.ubicacion = ubicacion;
+        this.propietario = null;
+        this.estado = EstadoPropiedad.EN_VENTA;
+        this.construcciones = Construcciones.SIN_CASA;
+    }
+
+
+
 
     // Enum Construcciones
     public enum Construcciones {
@@ -34,25 +52,11 @@ public class Propiedad {
         }
     }
 
-    protected String nombre;
-    protected double precio;
-    protected String color;
-    protected double alquiler;
-    protected Jugador propietario;
-    protected EstadoPropiedad estado;
-    protected Construcciones construcciones;
-    protected int ubicacion;
+
+
 
     // Constructor
-    public Propiedad(String nombre, double precio, String color, double alquiler) {
-        this.nombre = nombre;
-        this.precio = precio;
-        this.color = color;
-        this.alquiler = alquiler;
-        this.propietario = null;
-        this.estado = EstadoPropiedad.EN_VENTA;
-        this.construcciones = Construcciones.SIN_CASA;
-    }
+
 
 
     public void setUbicacion(int ubicacion) {
@@ -62,22 +66,25 @@ public class Propiedad {
     public EstadoPropiedad getEstado() {
         return this.estado;
     }
-    public double getPrecio() {
+    public int getPrecio() {
         return precio;
     }
     public double getAlquiler() {
         return alquiler;
     }
     public Jugador getPropietario() { return propietario;}
-    public String getColor() {return this.color;}
-    public String getNombre() {return this.nombre;}
+    public int getBarrio() {
+        return numeroDeBarrio;
+    }
     public Integer getUbicacion(){return this.ubicacion;}
    public void setPropietario(Jugador propietario) {
+        //Top: Rompemos el tell don't ask, pero despues lo solucionamos cuando todo ande
         if(this.propietario == null){
             this.propietario = propietario;
             this.estado = EstadoPropiedad.COMPRADO;
             propietario.agregarPropiedad(this);
             System.out.println("Propiedad comprada con exito");
+            propietario.restarPlata(precio);
             return;
         }
         System.out.println("La propiedad ya fue comprada");

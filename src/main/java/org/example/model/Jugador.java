@@ -21,13 +21,16 @@ public class Jugador{
             //restarPlata(Configuracion.getFianza());
             condena = 0;
             System.out.println("Fianza pagada con exito");
+            this.estado = Estado.EnJuego;
             return;
         }
         System.out.println("No se puede pagar fianza");
     }
 
     public void comprarPropiedad(Propiedad propiedad,Jugador jugador){
-        if (this.plata >= propiedad.getPrecio()) {
+        int precioPropiedad = (int)propiedad.getPrecio();
+        System.out.println(precioPropiedad);
+        if (this.plata >= precioPropiedad) {
             propiedad.setPropietario(jugador);
         }else{
             System.out.println("No se puede comprar propiedad");
@@ -91,13 +94,16 @@ public class Jugador{
 
 
     public boolean restarPlata(int dinero){
-        if (this.plata > dinero){
-            this.plata -= dinero;
+        if (plata > dinero){
+            plata -= dinero;
             return true;
         }
         System.out.println("Ups!" + this.nombre + "no tiene dinero suficiente para pagar esta deuda");
         //Agregar parte de Controller config
         return false;
+    }
+    public void restarCondena(){
+        this.condena--;
     }
 
     public void sumarPlata(int dinero){this.plata += dinero;}
@@ -114,12 +120,21 @@ public class Jugador{
     }
 
     public void venderPropiedad(Propiedad propiedad){
-        if (propiedad.getNombre().equals(this.nombre)){
+        if (propiedad.getPropietario().equals(this)){
             propiedad.vender();
             return;
         }
         System.out.printf("%s no es el propietario, el dueño es %s", this.nombre, propiedad.getPropietario());
     }
+
+    public void quedaLibre(int dados){
+        if (dados > condena){
+            this.estado = Estado.EnJuego;
+            this.setCondena(0);
+        }
+        this.restarCondena();
+    }
+
 
 }
 

@@ -9,6 +9,8 @@ public class Constantes {
     public static final int CANTIDAD_CASILLEROS_BASE= 4;
     public static final double PORCENTAJE_DE_TRANSPORTE= 0.1;
     public static final int CANTIDAD_CASAS_POR_BARRIO = 3;
+    public static final double PORCENTAJE_AUMENTO_BARRIO = 0.025;
+    public static final double PORCENTAJE_PRECIO_TRANSPORTE = 0.1;
 
 
 }

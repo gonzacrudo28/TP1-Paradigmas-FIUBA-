@@ -1,15 +1,21 @@
 package org.example.model.tipoCasilleros;
 
+import org.example.model.Colores;
 import org.example.model.Jugador;
 import org.example.model.Propiedad;
 
 public class DePropiedad extends Casillero{
     Propiedad propiedad;
     int numeroDePropiedad;
-    public DePropiedad(int numeroDePropiedad) {
+
+    public DePropiedad(int numeroDePropiedad, int precio, int numeroDeBarrio) {
         this.efecto = "Propiedad";
-        this.tipo=TipoCasillero.PROPIEDAD;
+        this.tipo = TipoCasillero.PROPIEDAD;
         this.numeroDePropiedad = numeroDePropiedad;
+        this.propiedad = new Propiedad(precio, numeroDeBarrio, numeroDePropiedad);
+    }
+    public Propiedad getPropiedad() {
+        return propiedad;
     }
 }
 

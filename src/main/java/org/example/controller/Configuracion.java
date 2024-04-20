@@ -67,6 +67,13 @@ public class Configuracion {
         return colaTurnos;
     }
 */
+    public int getMontoVuelta() {
+        return montoVuelta;
+    }
+
+    public double getMontoInicial(){
+        return (double) montoInicial;
+    }
     public ArrayList<Jugador> getJugadores() { return jugadores;}
 
     public int getMontoFianza() { return montoFianza; }

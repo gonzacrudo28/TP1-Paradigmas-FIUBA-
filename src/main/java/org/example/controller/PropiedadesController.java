@@ -1,4 +1,5 @@
 package org.example.controller;
+import org.example.model.Barrio;
 import org.example.model.Propiedad;
 import org.example.model.Jugador;
 
@@ -7,22 +8,22 @@ import java.util.HashMap;
 import java.util.List;
 
 public class PropiedadesController {
-    private HashMap<String, List<Propiedad>> DictPropiedades;
+    private HashMap<Integer, List<Propiedad>> dictPropiedades;
     public PropiedadesController(List<Propiedad> propiedades) {
-        this.DictPropiedades = new HashMap<>();
+        dictPropiedades = new HashMap<Integer,List<Propiedad>>();
         for (Propiedad actual : propiedades) {
-            if (!this.DictPropiedades.containsKey(actual.getColor())) {
+            if (!dictPropiedades.containsKey(actual.getBarrio())) {
                 List<Propiedad> propiedadesAux = new ArrayList<>();
                 propiedadesAux.add(actual);
-                this.DictPropiedades.put(actual.getColor(), propiedadesAux);
+                dictPropiedades.put(actual.getBarrio(), propiedadesAux);
             } else {
-                this.DictPropiedades.get(actual.getColor()).add(actual);
+                dictPropiedades.get(actual.getBarrio()).add(actual);
             }
         }
     }
 
     public boolean puedeConstruir(Jugador jugador, Propiedad propiedad){
-        List<Propiedad> lista = this.DictPropiedades.get(propiedad.getColor());
+        List<Propiedad> lista = dictPropiedades.get(propiedad.getBarrio());
         for (Propiedad propiedadAux : lista) {
             if (!propiedadAux.validarPropietario(jugador)) {
                 return false;

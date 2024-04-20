@@ -22,11 +22,7 @@ public class Juego {
         Configuracion configuracion = new Configuracion(configuraciones);
         jugadores = configuracion.getJugadores();
         this.administradorDeTurnos = new AdministradorTurnos(jugadores);
-        int cantCasillas = configuracion.getCantidadCasilleros();
-        int costoMulta = configuracion.getMontoMulta();
-        int costoPasoSalida = configuracion.getMontoPorPasarSalida();
-        int turnosPreso = configuracion.getCondenaCarcel();
-        this.tablero = new Tablero(cantCasillas,costoMulta,costoPasoSalida,turnosPreso);
+        this.tablero = new Tablero(configuracion);
         this.administradorDeMovimientos = new AdministradorDeMovimientos(tablero);
     }
 

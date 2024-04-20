@@ -3,6 +3,7 @@ package org.example.model;
 import org.example.controller.Constantes;
 import org.example.model.tipoCasilleros.*;
 import org.example.model.tipoCasilleros.Estacion;
+import org.example.controller.Configuracion;
 
 
 import java.util.HashMap;
@@ -15,17 +16,22 @@ public class Tablero {
     private Casillero[] casilleros;
     private int cantidadDeCasilleros;
     private List<Barrio> barrios;
+    private Configuracion configuraciones;
 
-    public Tablero(int cantidadDeCasilleros,int precioMulta,int precioVuelta,int turnosPreso) {
-        this.cantidadDeCasilleros = cantidadDeCasilleros;
+    public Tablero(Configuracion configuraciones) {
+        this.cantidadDeCasilleros = configuraciones.getCantidadCasilleros();
         this.casilleros = new Casillero[cantidadDeCasilleros];
         this.barrios = new ArrayList<Barrio>();
+        this.configuraciones = configuraciones;
         crearMapa();
     }
 
+    public DePropiedad getPropiedad(int numeroCasilla) {
+        return (DePropiedad) this.casilleros[numeroCasilla];
+    }
     private void crearMapa(){
         posicionarCasillerosBase();
-        crearRestoDeCasilleros();
+        crearRestoDeCasilleros(configuraciones);
     }
 
     public Casillero getCasillero(int posicion){
@@ -35,18 +41,22 @@ public class Tablero {
         return casilleros[posicion].getTipo();
     }
 
-    private void crearRestoDeCasilleros(){
+    private void crearRestoDeCasilleros(Configuracion configuraciones){
         // ESTO NO ES LA FORMA MAS EFICIENTE PERO DESPUES SE CAMBIA, POR LO MENOS SE ESTA CREANDO EL TABLERO
         Random random = new Random();
         int contadorDePropiedades = 0;
+        int contadorBarrios = 1;
         int cantidadDeCasillerosTransportes = (int)(cantidadDeCasilleros*Constantes.PORCENTAJE_DE_TRANSPORTE);
         int contadorDeCasillerosExtra= 3;
+        double precioBarrio = (Constantes.PORCENTAJE_AUMENTO_BARRIO*contadorBarrios);
+        double precioTransporte = Constantes.PORCENTAJE_PRECIO_TRANSPORTE*configuraciones.getMontoInicial();
         Barrio nuevoBarrio = null;
         for(int  numeroCasillero = 0;  numeroCasillero < this.cantidadDeCasilleros;  numeroCasillero++){
+            System.out.println("CONTADOR BARRIO"+contadorBarrios);
             if (this.casilleros[numeroCasillero] == null){
                 if (contadorDePropiedades == Constantes.CANTIDAD_CASAS_POR_BARRIO){
                     if (contadorDeCasillerosExtra == 3 && cantidadDeCasillerosTransportes != 0){
-                        this.casilleros[numeroCasillero]= new Estacion();
+                        this.casilleros[numeroCasillero]= new Estacion(precioTransporte);
                         contadorDeCasillerosExtra = 0;
                     }else{
                         if (random.nextBoolean()) {
@@ -55,15 +65,21 @@ public class Tablero {
                             this.casilleros[numeroCasillero] = new DeMulta();
                         }
                     }
-                    contadorDePropiedades= 0;
+                    contadorDePropiedades = 0;
                     contadorDeCasillerosExtra ++;
                 }else{
                     if (contadorDePropiedades == 0){
-                        nuevoBarrio = new Barrio("Color");
+                        precioBarrio = (Constantes.PORCENTAJE_AUMENTO_BARRIO*contadorBarrios);
+                        nuevoBarrio = new Barrio(contadorBarrios,precioBarrio);
                         this.barrios.add(nuevoBarrio);
+                        contadorBarrios++;
+                        System.out.println("BARRIO NUMERO: M " + nuevoBarrio.getNumeroBarrio());
                     }
-                    DePropiedad casilleroDePropiedad = new DePropiedad(numeroCasillero);
+                    //NICO: VER SI ESTO NO LO PODRIA HACER EL BARRIO
+                    System.out.println("PRECIO"+(precioBarrio*configuraciones.getMontoInicial())+"PRECIO INT"+ (int)(precioBarrio*configuraciones.getMontoInicial()));
+                    DePropiedad casilleroDePropiedad = new DePropiedad(numeroCasillero,(int)(precioBarrio*configuraciones.getMontoInicial()),contadorBarrios);
                     nuevoBarrio.addCasillero(casilleroDePropiedad);
+
                     this.casilleros[numeroCasillero] = casilleroDePropiedad;
                     contadorDePropiedades++;
                 }
@@ -71,6 +87,8 @@ public class Tablero {
         }
     }
 
+
+    //LOS PRECIO DE LOS BARRIOS VAN DE 0.025*
 
     private void posicionarCasillerosBase(){
         int posCarcel = (int) (this.cantidadDeCasilleros*Constantes.POS_CARCEL);
@@ -90,8 +108,6 @@ public class Tablero {
 }
 /*
 FALTA EN TABLERO (QUE LO HACE TOP)
-
+CUANDO PONES 10 PROPIEDADES NO CREA LA PRIMER PROPIEDAD COMO BARRIO SINO QUE SIGUE CON LAS SEGUNDA
 CUANDO SE CREA EL BARRIO QUE VAYA CAMBIANDO DE COLOR
-
-
 */

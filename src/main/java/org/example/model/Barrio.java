@@ -7,16 +7,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Barrio {
-    private String color;
     private List<Casillero> casillerosPropiedades;
+    private double precioBarrio;
+    private int numeroBarrio;
 
-    public Barrio(String color) {
-        this.color = color;
+    public Barrio(int numeroBarrio,double precioBarrio) {
+        this.numeroBarrio = numeroBarrio;
         this.casillerosPropiedades = new ArrayList<>();
+        this.precioBarrio = precioBarrio;
     }
 
-    public String getColor() {
-        return color;
+    public int getNumeroBarrio() {
+        return numeroBarrio;
     }
 
     public List<Casillero> getCasillerosPropiedades() {
@@ -25,5 +27,9 @@ public class Barrio {
 
     public void addCasillero(Casillero casillero) {
         this.casillerosPropiedades.add(casillero);
+    }
+
+    public double getPrecioBarrio() {
+        return precioBarrio;
     }
 }
