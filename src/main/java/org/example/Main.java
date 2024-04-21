@@ -35,7 +35,7 @@ EL TABLERO RECIBE ESA INFO precioMulta,int precioVuelta,int turnosPreso PARA QUE
 IMPRIMIR MAS LINDO EL TABLERO (BASTA QUE EL NOMBRE DEL JUGADOR QUE ESTE EN EL CASILLERO SE PONGA DEL COLOR QUE ES)
 IMPRIMIR EL PRECIO DE CADA CASILLERO
 ver el tema de las impresiones se imprimen dos veces el estado de los jugadores por turno, dejar solo el de despues de que se tira el dado
-
+Asociar los casillero que cae el jugador con su funcionamiento
 */
 
 

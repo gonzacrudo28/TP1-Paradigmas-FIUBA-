@@ -42,7 +42,6 @@ public class Tablero {
     }
 
     private void crearRestoDeCasilleros(Configuracion configuraciones){
-        // ESTO NO ES LA FORMA MAS EFICIENTE PERO DESPUES SE CAMBIA, POR LO MENOS SE ESTA CREANDO EL TABLERO
         Random random = new Random();
         int contadorDePropiedades = 0;
         int contadorBarrios = 1;
@@ -56,13 +55,13 @@ public class Tablero {
             if (this.casilleros[numeroCasillero] == null){
                 if (contadorDePropiedades == Constantes.CANTIDAD_CASAS_POR_BARRIO){
                     if (contadorDeCasillerosExtra == 3 && cantidadDeCasillerosTransportes != 0){
-                        this.casilleros[numeroCasillero]= new Estacion(precioTransporte);
+                        this.casilleros[numeroCasillero]= new Estacion(numeroCasillero,precioTransporte);
                         contadorDeCasillerosExtra = 0;
                     }else{
                         if (random.nextBoolean()) {
-                            this.casilleros[numeroCasillero] = new DeLoteria();
+                            this.casilleros[numeroCasillero] = new DeLoteria(numeroCasillero);
                         }else{
-                            this.casilleros[numeroCasillero] = new DeMulta();
+                            this.casilleros[numeroCasillero] = new DeMulta(numeroCasillero,configuraciones.getMontoMulta());
                         }
                     }
                     contadorDePropiedades = 0;
@@ -94,10 +93,10 @@ public class Tablero {
         int posCarcel = (int) (this.cantidadDeCasilleros*Constantes.POS_CARCEL);
         int posDePaso= (int) (this.cantidadDeCasilleros*Constantes.POS_DE_PASO);
         int posIrACarcel= (int)(this.cantidadDeCasilleros*Constantes.POS_IR_CARCEL);
-        this.casilleros[Constantes.POS_LLEGADA_SALIDA]= new LlegadaPartida();
-        this.casilleros[posCarcel]= new Carcel();
-        this.casilleros[posIrACarcel] = new IrALaCarcel();
-        this.casilleros[posDePaso] = new DePaso();
+        this.casilleros[Constantes.POS_LLEGADA_SALIDA]= new LlegadaPartida(Constantes.POS_LLEGADA_SALIDA,configuraciones.getMontoVuelta());
+        this.casilleros[posCarcel]= new Carcel(posCarcel,configuraciones.getMontoFianza(),configuraciones.getCondenaCarcel());
+        this.casilleros[posIrACarcel] = new IrALaCarcel(posIrACarcel,configuraciones.getCondenaCarcel());
+        this.casilleros[posDePaso] = new DePaso(posDePaso);
     }
 
     public int getCantidadCasilleros() {

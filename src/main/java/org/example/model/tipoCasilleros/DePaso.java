@@ -1,8 +1,7 @@
 package org.example.model.tipoCasilleros;
 
 public class DePaso extends Casillero{
-    public DePaso(){
-        this.efecto =  "De paso";
-        this.tipo=TipoCasillero.DE_PASO;
+    public DePaso(int ubicacion){
+        super("De paso",TipoCasillero.DE_PASO,ubicacion);
     }
 }

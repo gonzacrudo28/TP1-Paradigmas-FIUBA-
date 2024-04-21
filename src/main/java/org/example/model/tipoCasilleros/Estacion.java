@@ -2,11 +2,11 @@ package org.example.model.tipoCasilleros;
 
 public class Estacion extends  Casillero{
     private double precio;
-    public Estacion(double precio){
+    public Estacion(int ubicacion,double precio){
+        super("De transporte",TipoCasillero.ESTACION,ubicacion);
         this.precio = precio;
-        this.efecto = "De transporte";
-        this.tipo = TipoCasillero.ESTACION;
     }
+
     public double getPrecio() {
         return precio;
     }

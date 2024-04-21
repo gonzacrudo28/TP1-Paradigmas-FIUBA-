@@ -5,9 +5,8 @@ import org.example.model.Jugador;
 import java.util.Random;
 
 public class DeLoteria extends Casillero{
-    public DeLoteria() {
-        this.efecto = "DeLoteria";
-        this.tipo=TipoCasillero.LOTERIA;
+    public DeLoteria(int ubicacion){
+        super("DeLoteria",TipoCasillero.LOTERIA,ubicacion);
     }
     public void  DarLoteria(Jugador jugador){
         Random random = new Random();

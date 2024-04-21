@@ -93,14 +93,13 @@ public class Jugador{
     public List<Propiedad> getPropiedades(){return this.propiedades;}
 
 
-    public boolean restarPlata(int dinero){
+    public void restarPlata(int dinero){
         if (plata > dinero){
             plata -= dinero;
-            return true;
+            return;
         }
-        System.out.println("Ups!" + this.nombre + "no tiene dinero suficiente para pagar esta deuda");
+        System.out.println("Ups!" + this.nombre + "no tiene dinero suficiente para pagar");
         //Agregar parte de Controller config
-        return false;
     }
     public void restarCondena(){
         this.condena--;

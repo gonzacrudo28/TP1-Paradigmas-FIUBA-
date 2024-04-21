@@ -1,7 +1,6 @@
 package org.example.controller;
 
 import org.example.model.*;
-import org.example.model.tipoCasilleros.Casillero;
 import org.example.model.tipoCasilleros.DePropiedad;
 import org.example.model.tipoCasilleros.TipoCasillero;
 import org.jline.reader.LineReader;
@@ -9,14 +8,9 @@ import org.jline.reader.LineReaderBuilder;
 import org.jline.terminal.TerminalBuilder;
 import org.jline.terminal.Terminal;
 import org.example.view.JuegoView;
-import org.example.view.TableroView;
 import java.io.IOException;
 import java.util.List;
 
-import org.example.controller.Constantes;
-
-import java.io.IOException;
-import java.util.Scanner;
 
 public class JuegoController {
     private final Juego juego;
