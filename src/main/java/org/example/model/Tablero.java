@@ -36,6 +36,11 @@ public class Tablero {
     public Casillero getCasillero(int posicion){
         return casilleros[posicion];
     }
+
+    public Casillero[] getTodosLosCasilleros(){
+        return casilleros;
+    }
+
     public TipoCasillero getTipoCasillero(int posicion){
         return casilleros[posicion].getTipo();
     }
@@ -50,7 +55,6 @@ public class Tablero {
         double precioTransporte = Constantes.PORCENTAJE_PRECIO_TRANSPORTE*configuraciones.getMontoInicial();
         Barrio nuevoBarrio = null;
         for(int  numeroCasillero = 0;  numeroCasillero < this.cantidadDeCasilleros;  numeroCasillero++){
-            System.out.println("CONTADOR BARRIO"+contadorBarrios);
             if (this.casilleros[numeroCasillero] == null){
                 if (contadorDePropiedades == Constantes.CANTIDAD_CASAS_POR_BARRIO){
                     if (contadorDeCasillerosExtra == 3 && cantidadDeCasillerosTransportes != 0){
@@ -71,13 +75,10 @@ public class Tablero {
                         nuevoBarrio = new Barrio(contadorBarrios,precioBarrio);
                         this.barrios.add(nuevoBarrio);
                         contadorBarrios++;
-                        System.out.println("BARRIO NUMERO: M " + nuevoBarrio.getNumeroBarrio());
                     }
                     //NICO: VER SI ESTO NO LO PODRIA HACER EL BARRIO
-                    System.out.println("PRECIO"+(precioBarrio*configuraciones.getMontoInicial())+"PRECIO INT"+ (int)(precioBarrio*configuraciones.getMontoInicial()));
                     DePropiedad casilleroDePropiedad = new DePropiedad(numeroCasillero,(int)(precioBarrio*configuraciones.getMontoInicial()),contadorBarrios);
                     nuevoBarrio.addCasillero(casilleroDePropiedad);
-
                     this.casilleros[numeroCasillero] = casilleroDePropiedad;
                     contadorDePropiedades++;
                 }

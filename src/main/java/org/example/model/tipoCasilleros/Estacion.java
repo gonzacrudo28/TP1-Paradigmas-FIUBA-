@@ -7,7 +7,8 @@ public class Estacion extends  Casillero{
         this.precio = precio;
     }
 
-    public double getPrecio() {
-        return precio;
+    @Override
+    public int getPrecio() {
+        return (int) precio;
     }
 }

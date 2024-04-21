@@ -5,7 +5,7 @@ import org.example.model.Jugador;
 public class LlegadaPartida extends Casillero implements CasilleroEjecutable{
     private int bono;
     public LlegadaPartida(int ubicacion,int bono) {
-        super("LLegadaPArtida",TipoCasillero.LLEGADA_INICIO,ubicacion);
+        super("LLegada/Partida",TipoCasillero.LLEGADA_INICIO,ubicacion);
         this.bono = bono;
     }
 

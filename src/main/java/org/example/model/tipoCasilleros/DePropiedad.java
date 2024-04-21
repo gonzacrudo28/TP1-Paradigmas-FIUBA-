@@ -14,4 +14,9 @@ public class DePropiedad extends Casillero{
     public Propiedad getPropiedad() {
         return propiedad;
     }
+
+    @Override
+    public int getPrecio(){
+        return propiedad.getPrecio();
+    }
 }
