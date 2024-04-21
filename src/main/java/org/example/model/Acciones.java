@@ -15,7 +15,7 @@ public class Acciones {
         return null;
     }
 
-    public void mostrarAcciones(){
+    public void getAcciones(){
         for (int i = 0; i < Accion.values().length; i++){
             System.out.println(i +" -> " +  Accion.values()[i]);
         }

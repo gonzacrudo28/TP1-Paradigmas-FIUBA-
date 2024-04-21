@@ -1,8 +1,7 @@
 package org.example.controller;
 
 import org.example.model.*;
-import org.example.model.tipoCasilleros.DePropiedad;
-import org.example.model.tipoCasilleros.TipoCasillero;
+import org.example.model.tipoCasilleros.*;
 import org.jline.reader.LineReader;
 import org.jline.reader.LineReaderBuilder;
 import org.jline.terminal.TerminalBuilder;
@@ -56,11 +55,16 @@ public class JuegoController {
         System.out.println("Es el turno de " + jugador.getNombre() + "\n" + "Tus dados son: " + dados + "\n");
         int casillaActual = administradorDeMovimientos.avanzarJugador(jugador, dados);
         System.out.println("Usted esta en el casillero: " + casillaActual + "\n");
+        Casillero casillero = tablero.getCasillero(casillaActual);
+        if (casillero instanceof CasilleroEjecutable) {
+            System.out.println("Casillero ejecutable" + casillaActual);
+            ejecutar(jugador,casillaActual);
+        }
         int numeroElecto = 1;
-        vistaJuego.mostrar();
 
+        vistaJuego.mostrar();
             Acciones acciones = new Acciones();
-            acciones.mostrarAcciones();
+            acciones.getAcciones();
         while (numeroElecto != 0) {
             String accion = reader.readLine("Seleccione la accion que quiere realizar indicando su numero (NUMERO):\n");
             numeroElecto = corroboroAccion(accion);
@@ -76,6 +80,11 @@ public class JuegoController {
             }
         }
 
+    }
+    public void ejecutar(Jugador jugador,int ubicacionJugador){
+        CasilleroEjecutable casillero = tablero.getCasilleroEjecutable(ubicacionJugador);
+        System.out.println("Ejecutando " + casillero);
+        casillero.ejecutarCasillero(jugador);
     }
 
     public int corroboroAccion(String accion) {

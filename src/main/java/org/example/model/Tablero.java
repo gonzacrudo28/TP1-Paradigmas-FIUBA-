@@ -6,7 +6,6 @@ import org.example.model.tipoCasilleros.Estacion;
 import org.example.controller.Configuracion;
 
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Random;
@@ -95,7 +94,7 @@ public class Tablero {
         int posIrACarcel= (int)(this.cantidadDeCasilleros*Constantes.POS_IR_CARCEL);
         this.casilleros[Constantes.POS_LLEGADA_SALIDA]= new LlegadaPartida(Constantes.POS_LLEGADA_SALIDA,configuraciones.getMontoVuelta());
         this.casilleros[posCarcel]= new Carcel(posCarcel,configuraciones.getMontoFianza(),configuraciones.getCondenaCarcel());
-        this.casilleros[posIrACarcel] = new IrALaCarcel(posIrACarcel,configuraciones.getCondenaCarcel());
+        this.casilleros[posIrACarcel] = new IrALaCarcel(posIrACarcel,configuraciones.getCondenaCarcel(),posCarcel);
         this.casilleros[posDePaso] = new DePaso(posDePaso);
     }
 
@@ -103,6 +102,9 @@ public class Tablero {
         return this.cantidadDeCasilleros;
     }
 
+    public CasilleroEjecutable getCasilleroEjecutable(int numeroCasillero) {
+        return (CasilleroEjecutable) this.casilleros[numeroCasillero];
+    }
 
 }
 /*
