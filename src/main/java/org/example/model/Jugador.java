@@ -25,15 +25,7 @@ public class Jugador{
         System.out.println("No se puede pagar fianza");
     }
 
-    public void comprarPropiedad(Propiedad propiedad,Jugador jugador){
-        int precioPropiedad = (int)propiedad.getPrecio();
-        System.out.println(precioPropiedad);
-        if (this.plata >= precioPropiedad) {
-            propiedad.setPropietario(jugador);
-        }else{
-            System.out.println("No se puede comprar propiedad");
-        }
-    }
+
 
     public void agregarPropiedad(Propiedad propiedad){
         propiedades.add(propiedad);
@@ -52,7 +44,19 @@ public class Jugador{
         propiedad.deshipotecar();
         this.restarPlata((int)(propiedad.getPrecio()*0.7));
     }
+    /*
 
+    COMPRAR PROP Y COMPRAR ESTACION UNIFICADOS -> COMPRARCOMPRABLE
+
+    public void comprarPropiedad(Propiedad propiedad,Jugador jugador){
+        int precioPropiedad = (int)propiedad.getPrecio();
+        System.out.println(precioPropiedad);
+        if (this.plata >= precioPropiedad) {
+            propiedad.setPropietario(jugador);
+        }else{
+            System.out.println("No se puede comprar propiedad");
+        }
+    }
     public void comprarEstacion(Comprable estacion, Jugador jugador) {
         int precioEstacion = (int)estacion.getPrecio();
         System.out.println(precioEstacion);
@@ -62,7 +66,17 @@ public class Jugador{
             System.out.println("No se puede comprar propiedad");
         }
     }
+*/
 
+    public void comprarComprable(Comprable comprable, Jugador jugador){
+        int precioComprable = comprable.getPrecio();
+        System.out.println(precioComprable);
+        if (this.plata >= precioComprable) {
+            comprable.setPropietario(jugador);
+        }else{
+            System.out.println("No se puede comprar propiedad");
+        }
+    }
 
     public enum Estado{
         EnJuego,Preso,Quiebra,Perdio
@@ -84,7 +98,7 @@ public class Jugador{
     public void setEstado(Estado nuevoEstado) {
         this.estado = nuevoEstado;
     }
-    public void setCondena(int condena){this.condena += condena;}
+    public void setCondena(int condena){this.condena = condena;}
 
 
 
@@ -136,8 +150,10 @@ public class Jugador{
 
     public void quedaLibre(int dados){
         if (dados > condena){
-            this.estado = Estado.EnJuego;
             this.setCondena(0);
+            this.estado = Estado.EnJuego;
+
+            System.out.println("Jugador LIBRE por tirada dados mayor a condena");
         }
         this.restarCondena();
     }

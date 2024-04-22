@@ -17,6 +17,5 @@ public class Estacion extends Casillero{
     public int getPrecio() {
         return (int) precio;
     }
-   //deberia ser get comprable
-    public EstacionTransporte getPropiedad() { return estacion; }
+    public EstacionTransporte getEstacion(){ return this.estacion; }
 }

@@ -28,6 +28,10 @@ public class Tablero {
     public DePropiedad getPropiedad(int numeroCasilla) {
         return (DePropiedad) this.casilleros[numeroCasilla];
     }
+    public Estacion getEstacion(int numeroCasilla) {
+        return (Estacion) this.casilleros[numeroCasilla];
+    }
+
     private void crearMapa(){
         posicionarCasillerosBase();
         crearRestoDeCasilleros(configuraciones);

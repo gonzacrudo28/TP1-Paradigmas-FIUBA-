@@ -109,6 +109,7 @@ entonces hice una superclase abstracta para DRY y modularizar. faq
 
     public void mejorarPropiedad(){
         this.construcciones = this.getSiguienteConstruccion(this.construcciones);
+        System.out.println("Propiedad mejorada a "+this.getConstrucciones()+" con exito");
     }
 
     public void vender(){
