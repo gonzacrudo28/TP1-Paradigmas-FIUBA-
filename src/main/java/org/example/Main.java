@@ -32,7 +32,10 @@ public class Main {
 COSAS PARA HACER Pd NICO
 IMPRIMIR MAS LINDO EL TABLERO: EL NOMBRE DEL JUGADOR QUE ESTE EN EL CASILLERO SE PONGA DEL COLOR QUE ES , EL PRECIO DE CADA CASILLERO
 ver si no conviene que el usuario eliga la cant de dada
-Sumar el monto cuanto da la vuelta
+Sumar el monto cuanto da la vuelta (facu)
+-construir
+-carcel: si cae en IR a la carcel, darle una condena y limitar las acciones (estaba mal seteado irALaCarcel:0)
+-transporte: poder comprarla(facu ya lo implemente, hay que chequear)
 */
 
 

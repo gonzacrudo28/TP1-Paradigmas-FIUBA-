@@ -74,6 +74,7 @@ public class Configuracion {
     public double getMontoInicial(){
         return (double) montoInicial;
     }
+
     public ArrayList<Jugador> getJugadores() { return jugadores;}
 
     public int getMontoFianza() { return montoFianza; }
@@ -83,5 +84,6 @@ public class Configuracion {
     public int getMontoPorPasarSalida(){return montoVuelta;}
 
     public int getCondenaCarcel(){return condenaCarcel;}
+
     public int getMontoMulta(){return montoDeMulta;}
 }

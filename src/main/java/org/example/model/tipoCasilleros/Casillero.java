@@ -16,6 +16,7 @@ abstract public class Casillero {
     public String getEfecto(){return efecto;}
 
     public int getUbicacion(){return ubicacion;}
+
     public  int getPrecio(){
         return  0;
     };

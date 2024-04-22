@@ -15,14 +15,13 @@ public class AdministradorDeMovimientos {
 
     public int avanzarJugador(Jugador jugador,int dados){
         int posNueva = jugador.getUbicacion() + dados;
-        if (pasaPorSalida(jugador, dados)){
+        if(pasaPorSalida(jugador, dados)) {
             posNueva -= cantCasillas;
             jugador.setUbicacion(posNueva);
             return posNueva;
-        }else{
-            jugador.setUbicacion(posNueva);
-            return posNueva;
         }
+        jugador.setUbicacion(posNueva);
+        return posNueva;
 
     }
 

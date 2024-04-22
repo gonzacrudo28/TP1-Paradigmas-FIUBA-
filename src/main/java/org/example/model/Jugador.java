@@ -12,8 +12,6 @@ public class Jugador{
     private Estado estado;
     private int condena;
 
-    //ESTO ES PROVISIORIO, LO VOY A CAMBIAR A UNA NUEVA CLASE EJECUTOR DE ACCIONES
-    //LAS FUNCIONES ESTAN HECHAS ASI NOMAS, FALTA PERFECCIONAR EN BASE AL TABLERO
 
     //mover a algun ejecutador de acciones
     public void pagarFianza(){
@@ -53,6 +51,16 @@ public class Jugador{
     public void deshipotecarPropiedad(Propiedad propiedad){
         propiedad.deshipotecar();
         this.restarPlata((int)(propiedad.getPrecio()*0.7));
+    }
+
+    public void comprarEstacion(Comprable estacion, Jugador jugador) {
+        int precioEstacion = (int)estacion.getPrecio();
+        System.out.println(precioEstacion);
+        if (this.plata >= precioEstacion) {
+            estacion.setPropietario(jugador);
+        }else{
+            System.out.println("No se puede comprar propiedad");
+        }
     }
 
 

@@ -53,8 +53,14 @@ public class JuegoController {
         }
         int dados = juego.tirarDados();
         System.out.println("Es el turno de " + jugador.getNombre() + "\n" + "Tus dados son: " + dados + "\n");
+        int casillaAnterior = jugador.getUbicacion();
         int casillaActual = administradorDeMovimientos.avanzarJugador(jugador, dados);
         System.out.println("Usted esta en el casillero: " + casillaActual + "\n");
+        //deberia ir aca?
+        if(casillaActual <= casillaAnterior) {
+            juego.pagarBono(jugador);
+        }
+
         Casillero casillero = tablero.getCasillero(casillaActual);
         if (casillero instanceof CasilleroEjecutable) {
             System.out.println("Casillero ejecutable" + casillaActual);
@@ -81,6 +87,7 @@ public class JuegoController {
         }
 
     }
+
     public void ejecutar(Jugador jugador,int ubicacionJugador){
         CasilleroEjecutable casillero = tablero.getCasilleroEjecutable(ubicacionJugador);
         System.out.println("Ejecutando " + casillero);
@@ -127,8 +134,12 @@ public class JuegoController {
                 jugador.deshipotecarPropiedad(prop);
             }
         }else if (accionElecta == Acciones.Accion.COMPRAR) {
-            Propiedad prop = obtenerPropiedad(jugador.getUbicacion());
-                jugador.comprarPropiedad(prop,jugador);
+            Comprable comprable = obtenerComprable(jugador.getUbicacion());
+            //Propiedad prop = obtenerPropiedad(jugador.getUbicacion());
+            //jugador.comprarPropiedad(prop,jugador);
+            //obs: aca deberia ir directamente jugador.comprarComprarble()
+            if(esPropiedad(jugador.getUbicacion())){jugador.comprarPropiedad((Propiedad) comprable,jugador); }
+            else{ jugador.comprarEstacion(comprable,jugador); }
         }
     }
 
@@ -152,6 +163,25 @@ public class JuegoController {
         }
         System.out.println("Accion imposible de realizar");
         return null;
+    }
+//faaaq
+    public boolean esComprable(int casillero) {
+        TipoCasillero tipoCasillero = tablero.getTipoCasillero(casillero);
+        if(tipoCasillero == TipoCasillero.ESTACION ||
+                tipoCasillero == TipoCasillero.PROPIEDAD) {
+            return true;
+        }
+        return false;
+    }
+
+    public Comprable obtenerComprable(int casillero) {
+        if(!esComprable(casillero)){
+            System.out.println("Accion imposible de realizar");
+            return null;
+        }
+        //polk jejox
+        Comprable comprable = tablero.getPropiedad(casillero).getPropiedad();
+        return comprable;
     }
 
     public Propiedad obtenerPropiedad(int casillero) {

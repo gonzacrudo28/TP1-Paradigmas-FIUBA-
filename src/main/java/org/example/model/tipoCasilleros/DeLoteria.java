@@ -15,5 +15,4 @@ public class DeLoteria extends Casillero implements CasilleroEjecutable{
         System.out.println("Felicitaciones, ganaste! $" + randomNumber + " pesos");
         jugador.sumarPlata(randomNumber);
     }
-
 }

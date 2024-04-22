@@ -95,7 +95,7 @@ public class Tablero {
         int posIrACarcel= (int)(this.cantidadDeCasilleros*Constantes.POS_IR_CARCEL);
         this.casilleros[Constantes.POS_LLEGADA_SALIDA]= new LlegadaPartida(Constantes.POS_LLEGADA_SALIDA,configuraciones.getMontoVuelta());
         this.casilleros[posCarcel]= new Carcel(posCarcel,configuraciones.getMontoFianza(),configuraciones.getCondenaCarcel());
-        this.casilleros[posIrACarcel] = new IrALaCarcel(posIrACarcel,configuraciones.getCondenaCarcel(),posCarcel);
+        this.casilleros[posIrACarcel] = new IrALaCarcel(posIrACarcel,configuraciones.getCondenaCarcel(),posIrACarcel);
         this.casilleros[posDePaso] = new DePaso(posDePaso);
     }
 

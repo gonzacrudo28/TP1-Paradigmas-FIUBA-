@@ -11,6 +11,7 @@ public class DePropiedad extends Casillero{
         super("Propiedad",TipoCasillero.PROPIEDAD,casillero);
         this.propiedad = new Propiedad(precio, numeroDeBarrio, casillero);
     }
+    //deberia ser get comprable
     public Propiedad getPropiedad() {
         return propiedad;
     }

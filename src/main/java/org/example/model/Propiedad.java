@@ -4,8 +4,8 @@ package org.example.model;
 import com.sun.jdi.event.ExceptionEvent;
 import org.example.controller.PropiedadesController;
 import org.example.model.Jugador;
-import org.example.model.Banco;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Map;
 
@@ -13,30 +13,31 @@ import java.util.HashMap;
 // Enum EstadoPropiedad
 
 // Clase Propiedad
-public class Propiedad {
-    protected int precio;
+public class Propiedad extends Comprable {
+
     protected int numeroDeBarrio;
+    protected Construcciones construcciones;
+
+    /* =ATRIBUTOS QUE COMPRABLE
+    protected int ubicacion;
+    protected int precio;
     protected int alquiler;
     protected Jugador propietario;
     protected EstadoPropiedad estado;
-    protected Construcciones construcciones;
-    protected int ubicacion;
+    */
 
-    public enum EstadoPropiedad {
-        COMPRADO, EN_VENTA, HIPOTECADO
-    }
-
-    public Propiedad(int precio, int numeroDeBarrio,int ubicacion) {
-        this.precio = precio;
+    public Propiedad(double precio, int numeroDeBarrio,int ubicacion) {
+        super(precio, ubicacion);
         this.numeroDeBarrio = numeroDeBarrio;
+        this.construcciones = Construcciones.SIN_CASA;
+
+    }
+        /*
+        this.precio = precio;
         this.ubicacion = ubicacion;
         this.propietario = null;
         this.estado = EstadoPropiedad.EN_VENTA;
-        this.construcciones = Construcciones.SIN_CASA;
-    }
-
-
-
+        */
 
     // Enum Construcciones
     public enum Construcciones {
@@ -52,31 +53,22 @@ public class Propiedad {
         }
     }
 
-
-
-
     // Constructor
+/*
+Hice una abstract class llamada comprable que la heredan propiedad y EstacionTransporte
+Como las estaciones son comprables y tienen muchas cosas en comun y algunos metodos con != implementaciones
+entonces hice una superclase abstracta para DRY y modularizar. faq
 
-
-
-    public void setUbicacion(int ubicacion) {
-        this.ubicacion = ubicacion;
-    }
-
-    public EstadoPropiedad getEstado() {
-        return this.estado;
-    }
-    public int getPrecio() {
-        return precio;
-    }
-    public double getAlquiler() {
-        return alquiler;
-    }
+    public void setUbicacion(int ubicacion) { this.ubicacion = ubicacion;}
+    public EstadoPropiedad getEstado() {return this.estado; }
+    public int getPrecio() { return precio; }
+    public double getAlquiler() { return alquiler; }
     public Jugador getPropietario() { return propietario;}
-    public int getBarrio() {
-        return numeroDeBarrio;
-    }
-    public Integer getUbicacion(){return this.ubicacion;}
+
+    public int getUbicacion(){return this.ubicacion;}
+*/
+    public int getBarrio() { return numeroDeBarrio; }
+
    public void setPropietario(Jugador propietario) {
         //Top: Rompemos el tell don't ask, pero despues lo solucionamos cuando todo ande
         if(this.propietario == null){
@@ -84,18 +76,18 @@ public class Propiedad {
             this.estado = EstadoPropiedad.COMPRADO;
             propietario.agregarPropiedad(this);
             System.out.println("Propiedad comprada con exito");
-            propietario.restarPlata(precio);
+            propietario.restarPlata((int)precio);
             return;
         }
         System.out.println("La propiedad ya fue comprada");
     }
+
     public Construcciones getConstrucciones(){
         return this.construcciones;
     }
 
     private Construcciones getSiguienteConstruccion(Construcciones construccionActual) {
         return construccionActual.siguiente();
-
     }
     public boolean validarPropietario(Jugador propietario){
         return propietario == this.getPropietario();

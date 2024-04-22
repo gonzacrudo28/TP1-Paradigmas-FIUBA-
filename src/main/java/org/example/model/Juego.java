@@ -17,6 +17,7 @@ public class Juego {
     private AdministradorTurnos administradorDeTurnos;
     private AdministradorDeMovimientos administradorDeMovimientos;
     private Configuracion configuracion;
+    private Banco banco;
 
     public Juego(List<String> configuraciones){
         Configuracion configuracion = new Configuracion(configuraciones);
@@ -24,14 +25,12 @@ public class Juego {
         this.administradorDeTurnos = new AdministradorTurnos(jugadores);
         this.tablero = new Tablero(configuracion);
         this.administradorDeMovimientos = new AdministradorDeMovimientos(tablero);
+        this.banco = new Banco(configuracion.getMontoVuelta());
     }
 
-//    public void setJugador(Jugador jugador, int casilla){
-//        tablero.avanzarJugador(casilla);
-//    }
-
     public Jugador getJugadorActual() {
-       return administradorDeTurnos.getTurnoActual();}
+       return administradorDeTurnos.getTurnoActual();
+    }
 
     public Boolean terminado() {
         return checkEstadoJugadores(jugadores);
@@ -52,9 +51,13 @@ public class Juego {
         return this.jugadores;
     }
 
+    public Configuracion getConfiguracion() {
+        return this.configuracion;
+    }
 
-
-
+    public void pagarBono(Jugador jugador){
+        banco.pagarBono(jugador);
+    }
 
     public boolean checkEstadoJugadores(List<Jugador> jugadores){
         int jugadoresFuera = 0;
