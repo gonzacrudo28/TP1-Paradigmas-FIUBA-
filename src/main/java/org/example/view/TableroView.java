@@ -1,5 +1,6 @@
 package org.example.view;
 
+import org.example.funciones.FuncionColorPrints;
 import org.example.model.Colores;
 import org.example.model.Jugador;
 import org.example.model.Tablero;
@@ -56,23 +57,12 @@ public class TableroView {
     private void imprimirNombresJugadores(ArrayList<Jugador> jugadores){
         Ansi colorANSI = null;
         Ansi resetColor = null;
+        FuncionColorPrints funcionColorPrints = new FuncionColorPrints();
         for (Jugador jugador: jugadores){
-            colorANSI = obtenerColorANSI(jugador.getColor());
+            colorANSI = funcionColorPrints.obtenerColorANSI(jugador.getColor());
             resetColor = Ansi.ansi().reset();
             System.out.print(" " + colorANSI + jugador.getNombre() + resetColor + " ");
         }
         System.out.println();
-    }
-
-    //ESTA FUNCION TAMBIEN ESTA EN JUGADORVIEW, HAY Q USAR UNA PARA LOS 2
-    private Ansi obtenerColorANSI(Colores.Color color) {
-        try {
-            Field field = Ansi.Color.class.getDeclaredField(color.name());
-            Ansi.Color ansiColor = (Ansi.Color) field.get(null);
-            return Ansi.ansi().fg(ansiColor);
-        } catch (NoSuchFieldException | IllegalAccessException e) {
-            e.printStackTrace();
-            return Ansi.ansi();
-        }
     }
 }

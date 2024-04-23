@@ -1,51 +1,44 @@
 package org.example.model;
 
 
+import org.example.controller.Constantes;
 import org.example.controller.ConstruccionController;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 // Enum EstadoPropiedad
 
 // Clase Propiedad
 public class Propiedad extends Comprable {
 
-    protected int numeroDeBarrio;
-    protected Construcciones construcciones;
+    private int numeroDeBarrio;
+    private Construcciones construcciones;
+    private int precioCasa;
 
 
-    public Propiedad(double precio, int numeroDeBarrio,int ubicacion) {
+
+    public Propiedad(int precio, int numeroDeBarrio,int ubicacion) {
         super(precio, ubicacion);
         this.numeroDeBarrio = numeroDeBarrio;
         this.construcciones = Construcciones.SIN_CASA;
+        this.precioCasa = (int)(precio*Constantes.PORCENTAJE_PRECIO_CASA);
+
 
     }
 
-    // Enum Construcciones
     public enum Construcciones {
         SIN_CASA, UNA_CASA, DOS_CASAS, TRES_CASAS, HOTEL;
-        private static final Construcciones[] valores = values();
-        public Construcciones siguiente() {
-            Construcciones siguiente = valores[(this.ordinal() + 1) % valores.length];
-            if (siguiente == SIN_CASA) {
-                return HOTEL;
-            }else{
-                return siguiente;
-            }
-        }
     }
 
-    // Constructor
-/*
-Hice una abstract class llamada comprable que la heredan propiedad y EstacionTransporte
-Como las estaciones son comprables y tienen muchas cosas en comun y algunos metodos con != implementaciones
-entonces hice una superclase abstracta para DRY y modularizar. faq
+    public int getPrecioCasa() {
+        return precioCasa;
+    }
 
-    public void setUbicacion(int ubicacion) { this.ubicacion = ubicacion;}
-    public EstadoPropiedad getEstado() {return this.estado; }
-    public int getPrecio() { return precio; }
-    public double getAlquiler() { return alquiler; }
-    public Jugador getPropietario() { return propietario;}
 
-    public int getUbicacion(){return this.ubicacion;}
-*/
+    public String getNombrePropietario(){
+        return propietario.getNombre();
+    }
     public int getBarrio() { return numeroDeBarrio; }
 
    public void setPropietario(Jugador propietario) {
@@ -65,8 +58,18 @@ entonces hice una superclase abstracta para DRY y modularizar. faq
     }
 
     private Construcciones getSiguienteConstruccion(Construcciones construccionActual) {
-        return construccionActual.siguiente();
+        if (construcciones == Construcciones.HOTEL) {
+            return Construcciones.HOTEL;
+        }else {
+            return siguiente(construccionActual);
+        }
+        }
+
+    public Construcciones siguiente(Construcciones construccionActual){
+        List<Construcciones> construccionesLista = Arrays.asList(Construcciones.values());
+        return construccionesLista.get(construccionesLista.indexOf(construccionActual)+1);
     }
+
     public boolean validarPropietario(Jugador propietario){
         return propietario == this.getPropietario();
     }
@@ -83,26 +86,41 @@ entonces hice una superclase abstracta para DRY y modularizar. faq
         this.construcciones = Construcciones.SIN_CASA;
         this.propietario = null;
         this.estado = EstadoPropiedad.EN_VENTA;
+        this.alquiler = setPrecioBaseAlquiler();
     }
 
 
 
     public void mejorarPropiedad(Barrio barrio, Jugador jugador){
         ConstruccionController construccionController = new ConstruccionController(this,barrio);
+
         if (construccionController.validarConstruccion(jugador)){
             this.construcciones = this.getSiguienteConstruccion(this.construcciones);
+            actualizarAlquiler();
             System.out.println("Propiedad mejorada a "+this.getConstrucciones()+" con exito");
-        }else{
-            System.out.println("ERROR: NO ES POSIBLE MEJORAR SU PROPIEDAD");
         }
-
     }
 
     public void vender(){
         // Falta chequear que haya vendido todas las construcciones -G
-        double precioReventa = this.precio * 0.8;
-        this.propietario.sumarPlata((int)precioReventa);
+        double precioReventa = this.precio * Constantes.PORCENTAJE_DE_VENTA;
+        int plataVentaCasas = venderPropiedades();
+        this.propietario.sumarPlata((int)precioReventa + plataVentaCasas);
         this.liberar();
+    }
+
+    private void actualizarAlquiler(){
+        this.alquiler = (int)(alquiler*Constantes.PORCENTAJE_ALQUILER_NUEVA_CASA) + alquiler;
+    }
+
+    private int venderPropiedades(){
+        List<Construcciones> tiposConstrucciones = Arrays.asList(Construcciones.values());
+        int cantPropiedades = tiposConstrucciones.indexOf(construcciones);
+        return cantPropiedades*precioCasa;
+    }
+
+    private int setPrecioBaseAlquiler(){
+        return (int)(precio*Constantes.PORCENTAJE_ALQUILER);
     }
 }
 

@@ -11,7 +11,6 @@ public class EstacionTransporte extends Comprable{
         if(this.propietario == null){
             this.propietario = propietario;
             this.estado = EstadoPropiedad.COMPRADO;
-            //propietario.agregarPropiedad(this);
             System.out.println("Estacion comprada con exito");
             propietario.restarPlata((int)precio);
             return;
@@ -19,10 +18,9 @@ public class EstacionTransporte extends Comprable{
         System.out.println("La estacion ya fue comprada");
     }
 
-    @Override
-    public void liberar() {
-        this.propietario = null;
-        this.estado = EstadoPropiedad.EN_VENTA;
+    public String getNombrePropietario() {
+        return propietario.getNombre();
     }
+
 
 }

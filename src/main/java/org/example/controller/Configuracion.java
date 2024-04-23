@@ -12,7 +12,7 @@ import java.util.List;
 public class Configuracion {
     private int montoVuelta;
     private int montoInicial;
-    private int cantidadDeDados;
+    private int cantidadDeLados;
     private int condenaCarcel;
     private final int montoDeMulta;
     private int cantidadCasilleros;
@@ -26,8 +26,8 @@ public class Configuracion {
         montoInicial = Integer.parseInt(configuraciones.get(CheckArgumentos
                 .ConfiguracionCheckArgumentos.DINERO_INICIAL.ordinal()));
         System.out.println(montoInicial);
-        cantidadDeDados= Integer.parseInt(configuraciones.get(CheckArgumentos
-                .ConfiguracionCheckArgumentos.CANTIDAD_DE_DADOS.ordinal()));
+        cantidadDeLados= Integer.parseInt(configuraciones.get(CheckArgumentos
+                .ConfiguracionCheckArgumentos.CANTIDAD_DE_LADOS_EN_DADO.ordinal()));
         montoVuelta = Integer.parseInt(configuraciones.get(CheckArgumentos
                 .ConfiguracionCheckArgumentos.DINERO_VUELTA.ordinal()));
         condenaCarcel = Integer.parseInt(configuraciones.get(CheckArgumentos
@@ -81,5 +81,5 @@ public class Configuracion {
 
     public int getMontoMulta(){return montoDeMulta;}
 
-    public int getCantidadDeDados(){ return cantidadDeDados;}
+    public int getCantidadDeLadosEnDado(){ return cantidadDeLados;}
 }

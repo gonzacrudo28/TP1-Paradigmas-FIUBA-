@@ -1,5 +1,8 @@
 package org.example.model;
 
+import org.example.controller.Constantes;
+import org.example.model.tipoCasilleros.Estacion;
+import org.example.model.Estado;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,6 +11,7 @@ public class Jugador{
     private  Colores.Color color;
     private int plata;
     private int ubicacion;
+    private ArrayList<Estacion> estaciones;
     private ArrayList<Propiedad> propiedades;
     private Estado estado;
     private int condena;
@@ -15,12 +19,12 @@ public class Jugador{
 
     //mover a algun ejecutador de acciones
     public void pagarFianza(int fianza){
-        if(condena != 0){
-            restarPlata(fianza);
-            condena = 0;
-            System.out.println("Fianza pagada con exito");
-            this.estado = Estado.EnJuego;
-            return;
+       if (this.plata >= fianza){
+           restarPlata(fianza);
+           condena = 0;
+           System.out.println("Fianza pagada con exito");
+           this.estado = Estado.EnJuego;
+           return;
         }
         System.out.println("No se puede pagar fianza");
     }
@@ -33,46 +37,24 @@ public class Jugador{
 
     public void reformarPropiedad(Barrio barrio,Propiedad propiedad){
         propiedad.mejorarPropiedad(barrio,this);
-
-
      }
 
     public void hipotecarPropiedad(Propiedad propiedad){
         propiedad.hipotecar();
-        // //sumar valor de la propiedad al jugador
+        this.sumarPlata(propiedad.getPrecio());
+    }
+
+    public ArrayList<Estacion> getEstaciones() {
+        return estaciones;
     }
 
     public void deshipotecarPropiedad(Propiedad propiedad){
         propiedad.deshipotecar();
-        this.restarPlata((int)(propiedad.getPrecio()*0.7));
+        this.restarPlata((int)(propiedad.getPrecio()* Constantes.PORCENTAJE_DE_DESHIPOTECAR));
     }
-    /*
-
-    COMPRAR PROP Y COMPRAR ESTACION UNIFICADOS -> COMPRARCOMPRABLE
-
-    public void comprarPropiedad(Propiedad propiedad,Jugador jugador){
-        int precioPropiedad = (int)propiedad.getPrecio();
-        System.out.println(precioPropiedad);
-        if (this.plata >= precioPropiedad) {
-            propiedad.setPropietario(jugador);
-        }else{
-            System.out.println("No se puede comprar propiedad");
-        }
-    }
-    public void comprarEstacion(Comprable estacion, Jugador jugador) {
-        int precioEstacion = (int)estacion.getPrecio();
-        System.out.println(precioEstacion);
-        if (this.plata >= precioEstacion) {
-            estacion.setPropietario(jugador);
-        }else{
-            System.out.println("No se puede comprar propiedad");
-        }
-    }
-*/
 
     public void comprarComprable(Comprable comprable, Jugador jugador){
         int precioComprable = comprable.getPrecio();
-        System.out.println(precioComprable);
         if (this.plata >= precioComprable) {
             comprable.setPropietario(jugador);
         }else{
@@ -80,15 +62,13 @@ public class Jugador{
         }
     }
 
-    public enum Estado{
-        EnJuego,Preso,Quiebra,Perdio
-    }
     public Jugador(String nombre) {
         this.ubicacion = 0;
         this.nombre = nombre;
         this.estado = Estado.EnJuego;
         this.propiedades = new ArrayList<>();
         this.condena = 0;
+        this.estaciones = new ArrayList<>();
     }
 
     public void setPlata(int plata) {
@@ -126,6 +106,7 @@ public class Jugador{
         System.out.println("Ups!" + this.nombre + "no tiene dinero suficiente para pagar");
         //Agregar parte de Controller config
     }
+
     public void restarCondena(){
         this.condena--;
     }
@@ -151,15 +132,10 @@ public class Jugador{
         System.out.printf("%s no es el propietario, el dueño es %s", this.nombre, propiedad.getPropietario());
     }
 
-    public void quedaLibre(int dados){
-        if (dados > condena){
-            this.setCondena(0);
-            this.estado = Estado.EnJuego;
-            System.out.println("Jugador LIBRE por tirada dados mayor a condena");
-        }
-        //this.restarCondena();
+    public void quedaLibre(){
+        this.setCondena(0);
+        this.estado = Estado.EnJuego;
     }
-
 
 }
 

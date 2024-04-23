@@ -17,13 +17,13 @@ public class ConstruccionController {
     }
 
     public boolean validarConstruccion(Jugador jugador){
+        //EN LA SEGUNDA COMPRA ESTA DANDO FALSO, DESPUES LO ARREGLO FUNCION PUEDE CONSTRUIR
+        System.out.println(this.puedeConstruir(jugador));
         if (this.esPropietarioBarrio(jugador) && this.puedeConstruir(jugador)){
             return true;
         }
         return  false;
     }
-
-
 
     private boolean esPropietarioBarrio(Jugador jugador){
         ArrayList<Propiedad> listaDePropiedades = this.barrio.getPropiedades();

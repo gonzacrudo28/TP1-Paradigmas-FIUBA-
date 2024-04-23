@@ -43,7 +43,7 @@ public class Juego {
     }
 
     public int tirarDados(){
-        return administradorDeTurnos.tirarDados(configuracion.getCantidadDeDados());
+        return administradorDeTurnos.tirarDados(configuracion.getCantidadDeLadosEnDado());
     }
     public Tablero getTablero() {
         return this.tablero;

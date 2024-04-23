@@ -11,7 +11,11 @@ public class Constantes {
     public static final int CANTIDAD_CASAS_POR_BARRIO = 3;
     public static final double PORCENTAJE_AUMENTO_BARRIO = 0.025;
     public static final double PORCENTAJE_PRECIO_TRANSPORTE = 0.1;
-
+    public static final double PORCENTAJE_DE_DESHIPOTECAR = 0.7;
+    public static final double PORCENTAJE_DE_VENTA = 0.8;
+    public static final double PORCENTAJE_PRECIO_CASA = 0.25;
+    public static final double PORCENTAJE_ALQUILER = 0.05;
+    public static final double PORCENTAJE_ALQUILER_NUEVA_CASA = 0.5;
 
 }
 

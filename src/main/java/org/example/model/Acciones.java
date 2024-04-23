@@ -5,7 +5,7 @@ public class Acciones {
 
 
     public enum Accion {
-        TERMINAR_TURNO, CONSTRUIR, REFORMAR, VENDER, HIPOTECAR,
+        TERMINAR_TURNO, CONSTRUIR,CONSULTAR_PRECIO_CASA, VENDER, HIPOTECAR,
         COMPRAR, PAGAR_FIANZA, DESHIPOTECAR;
 
     }
@@ -23,7 +23,7 @@ public class Acciones {
     }
 
     public void getAccionesJugadorPreso(){
-        int indice = 1;
+        int indice = 0;
         for (int i = 0; i < Accion.values().length; i++){
             if (Accion.values()[i].equals(Accion.PAGAR_FIANZA) || Accion.values()[i].equals(Accion.TERMINAR_TURNO)){
                 System.out.println( indice+ " -> " +  Accion.values()[i]);
@@ -34,7 +34,6 @@ public class Acciones {
 
     public Accion getAccionPreso(int accion) {
         if (accion == 1){
-            //PAGAR FIANZA
             return this.getAccion(6);
         }
         return this.getAccion(0);

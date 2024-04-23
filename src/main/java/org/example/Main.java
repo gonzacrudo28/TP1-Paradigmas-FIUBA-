@@ -31,11 +31,13 @@ public class Main {
 }
 /*
 COSAS PARA HACER:
-    • Agregar delay (se encarga top o intenta)
-    • Solucionar cuando eliga n cantidad de dados y sale un numero mayor a la cantidad de casilleros, q no rompa.
+    • Agregar delay (se encarga top o intenta) (OPCIONAL)
     • Limitar las acciones(habria que hacer casi lo mismo que cuando se juega un turno sin
-      que el jugador este preso. y que tenga solo las opciones terminar turno y pagar fianza)
-*Pr
+    • Si paga la fianza que le muestre las opcciones para jugar ese turno directamente
+    • Crear una accion que sea consultar precio de casa
+    • Modularizar JuegoController
+    • Hacer jugaTurnoView(?
+    comprar(construir) reste precio y validar constucciones
 */
 
 

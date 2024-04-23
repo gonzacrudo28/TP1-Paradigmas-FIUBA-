@@ -18,8 +18,6 @@ public class AdministradorTurnos {
         return actual;
     }
 
-
-
     private void generarOrdenDePaso(List<Jugador> jugadores){
         Collections.shuffle(jugadores);
     }
@@ -34,7 +32,7 @@ public class AdministradorTurnos {
     }
 
     private boolean perdio(Jugador jugador){
-        return jugador.getEstado() == Jugador.Estado.Quiebra;
+        return jugador.getEstado() == Estado.Quiebra;
     }
 
     public void avanzarTurno() {
@@ -48,8 +46,8 @@ public class AdministradorTurnos {
         this.jugadores.remove(jugador);
         avanzarTurno();
     }
-    public int tirarDados(int cantidadDeDados){
+    public int tirarDados(int cantidadDeLadosEnDado){
         Random random = new Random();
-        return random.nextInt(1,6*cantidadDeDados);
+        return random.nextInt(1,cantidadDeLadosEnDado);
     }
 }

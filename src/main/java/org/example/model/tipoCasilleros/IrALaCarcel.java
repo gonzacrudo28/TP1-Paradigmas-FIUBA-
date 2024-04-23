@@ -1,5 +1,5 @@
 package org.example.model.tipoCasilleros;
-
+import org.example.model.Estado;
 import org.example.model.Jugador;
 
 public class IrALaCarcel extends Casillero implements CasilleroEjecutable{
@@ -12,7 +12,7 @@ public class IrALaCarcel extends Casillero implements CasilleroEjecutable{
     }
 
     public void ejecutarCasillero(Jugador jugador) {
-        jugador.setEstado(Jugador.Estado.Preso);
+        jugador.setEstado(Estado.Preso);
         jugador.setCondena(duracionPena);
         jugador.setUbicacion(ubicacionCarcel);
         System.out.printf("Ups! %s se va preso %d turnos\n", jugador.getNombre(), duracionPena);
