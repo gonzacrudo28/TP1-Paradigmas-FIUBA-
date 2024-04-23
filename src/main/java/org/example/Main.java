@@ -37,6 +37,8 @@ COSAS PARA HACER:
     ver si funciona bien la compra de transporte
     • Hacer jugaTurnoView(?
     .comprar(construir) reste precio y validar constucciones
+    • Fijense que hay un error en los turnos, a veces repite el mismo jugador :$
+
 */
 
 

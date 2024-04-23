@@ -121,6 +121,17 @@ public class Propiedad extends Comprable {
     private int setPrecioBaseAlquiler(){
         return (int)(precio*Constantes.PORCENTAJE_ALQUILER);
     }
+
+    public void restarAlquiler(Jugador jugador){
+        if (jugador == propietario){
+            return;
+        } else if (this.estado.equals(EstadoPropiedad.COMPRADO)) {
+            double parsed = (double)(alquiler);
+            jugador.restarPlata(parsed);
+            propietario.sumarPlata(parsed);
+            System.out.printf("%s acaba de pagar %.2f por el alquiler de la propiedad a %s", jugador.getNombre(), parsed, propietario.getNombre());
+        }
+    }
 }
 
 

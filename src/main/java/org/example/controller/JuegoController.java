@@ -96,12 +96,19 @@ public class JuegoController {
         int casillaActual = administradorDeMovimientos.avanzarJugador(jugador, dados);
         System.out.println("Usted esta en el casillero: " + casillaActual + "\n" + resetColor);
 
+
+        if (esPropiedad(casillaActual)) {
+            pagarAlquiler(casillaActual, jugador);
+        }
+
+
         //deberia ir aca?
         if((casillaAnterior+dados) >= tablero.getCantidadCasilleros()) {
             juego.pagarBono(jugador);
         }
 
         Casillero casillero = tablero.getCasillero(casillaActual);
+
         if (casillero instanceof CasilleroEjecutable) {
             ejecutar(jugador,casillaActual);
         }
@@ -241,9 +248,23 @@ public class JuegoController {
         System.out.println("Accion imposible de realizar");
         return null;
     }
+    public void pagarAlquiler(int casillero, Jugador jugador) {
+        // Rompo TDA -G
+        if (esPropiedad(casillero)) {
+            DePropiedad casilleroPropiedad = tablero.getPropiedad(casillero);
+            Propiedad propiedad = casilleroPropiedad.getPropiedad();
+            if (jugador.getPlata() < (double) (propiedad.getAlquiler())) {
+                System.out.println("No te alcanza para poder pagar el alquiler");
+                //O cualquier otra accion pertinente
+                return;
+            }
+            propiedad.restarAlquiler(jugador);
+        }
+    }
+
 }
 
-//:
+
 
 
 
