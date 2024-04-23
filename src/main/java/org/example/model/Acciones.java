@@ -1,4 +1,5 @@
 package org.example.model;
+import org.fusesource.jansi.Ansi;
 
 public class Acciones {
 
@@ -15,9 +16,9 @@ public class Acciones {
         return null;
     }
 
-    public void getAcciones(){
+    public void getAcciones(Ansi colorANSI,Ansi resetColor){
         for (int i = 0; i < Accion.values().length; i++){
-            System.out.println(i +" -> " +  Accion.values()[i]);
+            System.out.println( colorANSI+""+ i +" -> " +  Accion.values()[i] + resetColor);
         }
     }
 

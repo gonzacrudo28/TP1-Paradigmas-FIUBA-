@@ -63,22 +63,6 @@ public class TableroView {
         }
         System.out.println();
     }
-    /*
-    public void mostrarR(ArrayList<Jugador> jugadores){
-        posciones= new HashMap<>();
-        for(Jugador jugador: jugadores){
-            posciones.put(jugador.getUbicacion(),jugador.getNombre());
-        }
-            for (int i = 0; i< tablero.getCantidadCasilleros(); i++){
-
-                if (posciones.containsKey(i)){
-                    System.out.printf("%d %s - %s\n",i, tablero.getCasillero(i).getEfecto(),posciones.get(i));
-                }else{
-                    System.out.printf("%d %s\n",i, tablero.getCasillero(i).getEfecto());
-                }
-        }
-
-    }*/
 
     //ESTA FUNCION TAMBIEN ESTA EN JUGADORVIEW, HAY Q USAR UNA PARA LOS 2
     private Ansi obtenerColorANSI(Colores.Color color) {

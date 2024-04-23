@@ -29,6 +29,17 @@ public class Barrio {
             this.propietarioBarrio = jugador;
         }
     }
+//esta misma funcion esta en CONSTRUCCION CONTROLER
+    private boolean esPropietarioBarrio(Jugador jugador){
+        ArrayList<Propiedad> listaDePropiedades = this.getPropiedades();
+        for (Propiedad propiedad : listaDePropiedades){
+            if (propiedad.getPropietario() != jugador){
+                System.out.println("ERROR: EL JUGADOR "+jugador.getNombre()+ " NO POSEE TODAS LAS PROPIEDADES DEL BARRIO NUMERO "+ this.getNumeroBarrio());
+                return false;
+            }
+        }
+        return true;
+    }
 
     public ArrayList<Propiedad> getPropiedades(){
         ArrayList<Propiedad> propiedades = new ArrayList<>();

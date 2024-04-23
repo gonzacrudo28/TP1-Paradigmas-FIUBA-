@@ -25,6 +25,7 @@ public class Configuracion {
                 .ConfiguracionCheckArgumentos.CASILLEROS.ordinal()));
         montoInicial = Integer.parseInt(configuraciones.get(CheckArgumentos
                 .ConfiguracionCheckArgumentos.DINERO_INICIAL.ordinal()));
+        System.out.println(montoInicial);
         cantidadDeDados= Integer.parseInt(configuraciones.get(CheckArgumentos
                 .ConfiguracionCheckArgumentos.CANTIDAD_DE_DADOS.ordinal()));
         montoVuelta = Integer.parseInt(configuraciones.get(CheckArgumentos
@@ -43,7 +44,7 @@ public class Configuracion {
 
     private ArrayList<Jugador> crearJugadores(List<String> configuraciones){
         List<String> nombres = List.of(configuraciones.get(0).split(" "));
-        int plataInicial = Integer.parseInt(configuraciones.get(2));
+        int plataInicial = Integer.parseInt(configuraciones.get(CheckArgumentos.ConfiguracionCheckArgumentos.DINERO_INICIAL.ordinal()));
         ArrayList<Jugador> jugadores = new ArrayList<Jugador>();
         for (String s : nombres) {
             Jugador jugador = new Jugador(s);

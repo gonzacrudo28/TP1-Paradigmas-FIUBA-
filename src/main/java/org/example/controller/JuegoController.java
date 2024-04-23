@@ -2,12 +2,14 @@ package org.example.controller;
 
 import org.example.model.*;
 import org.example.model.tipoCasilleros.*;
+import org.fusesource.jansi.Ansi;
 import org.jline.reader.LineReader;
 import org.jline.reader.LineReaderBuilder;
 import org.jline.terminal.TerminalBuilder;
 import org.jline.terminal.Terminal;
 import org.example.view.JuegoView;
 import java.io.IOException;
+import java.lang.reflect.Field;
 import java.util.List;
 
 
@@ -61,10 +63,14 @@ public class JuegoController {
             jugador.quedaLibre(dados);
             return;
         }
-        System.out.println("Es el turno de " + jugador.getNombre() + "\n" + "Tus dados son: " + dados + "\n");
+        Ansi colorANSI = null;
+        Ansi resetColor = null;
+        colorANSI = obtenerColorANSI(jugador.getColor());
+        resetColor = Ansi.ansi().reset();
+        System.out.println(colorANSI+"Es el turno de " + jugador.getNombre() + "\n" + "Tus dados son: " + dados + "\n");
         int casillaAnterior = jugador.getUbicacion();
         int casillaActual = administradorDeMovimientos.avanzarJugador(jugador, dados);
-        System.out.println("Usted esta en el casillero: " + casillaActual + "\n");
+        System.out.println("Usted esta en el casillero: " + casillaActual + "\n" + resetColor);
         //deberia ir aca?
         if((casillaAnterior+dados) >= tablero.getCantidadCasilleros()) {
             juego.pagarBono(jugador);
@@ -78,9 +84,9 @@ public class JuegoController {
 
         vistaJuego.mostrar();
             Acciones acciones = new Acciones();
-            acciones.getAcciones();
+            acciones.getAcciones(colorANSI,resetColor);
         while (numeroElecto != 0) {
-            String accion = reader.readLine("Seleccione la accion que quiere realizar indicando su numero (NUMERO):\n");
+            String accion = reader.readLine(colorANSI + "Seleccione la accion que quiere realizar indicando su numero (NUMERO):\n"+ resetColor );
             numeroElecto = corroboroAccion(accion);
             if (numeroElecto == Constantes.NEGATIVO) {
                 System.out.println("Accion inexistente\n");
@@ -193,7 +199,22 @@ public class JuegoController {
             comprable = casilleroEstacion.getEstacion();
             return comprable;
         }
+
+    //ESTA FUNCION ESTA REPETIDA 3 VECES, DESPUES HAY QUE SOLUCIONARLO BY TOPG :)
+    private Ansi obtenerColorANSI(Colores.Color color) {
+        try {
+            Field field = Ansi.Color.class.getDeclaredField(color.name());
+            Ansi.Color ansiColor = (Ansi.Color) field.get(null);
+            return Ansi.ansi().fg(ansiColor);
+        } catch (NoSuchFieldException | IllegalAccessException e) {
+            e.printStackTrace();
+            return Ansi.ansi();
+        }
     }
+
+}
+
+
 
 /*
     public Propiedad obtenerPropiedad(int casillero) {

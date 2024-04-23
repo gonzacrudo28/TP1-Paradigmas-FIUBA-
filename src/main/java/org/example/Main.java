@@ -30,10 +30,11 @@ public class Main {
     }
 }
 /*
-COSAS PARA HACER
-solucionar cuando eliga n cantidad de dados y sale un numero mayor a la cantidad de casilleros, q no rompa.
-y limitar las acciones(habria que hacer casi lo mismo que cuando se juega un turno sin
- que el jugador este preso. y que tenga solo las opciones terminar turno y pagar fianza)
+COSAS PARA HACER:
+    • Agregar delay (se encarga top o intenta)
+    • Solucionar cuando eliga n cantidad de dados y sale un numero mayor a la cantidad de casilleros, q no rompa.
+    • Limitar las acciones(habria que hacer casi lo mismo que cuando se juega un turno sin
+      que el jugador este preso. y que tenga solo las opciones terminar turno y pagar fianza)
 
 */
 
