@@ -7,6 +7,7 @@ import org.example.model.tipoCasilleros.DePropiedad;
 import java.util.ArrayList;
 import java.util.List;
 
+//.
 public class ConstruccionController {
     private Propiedad propiedad;
     private Barrio barrio;
