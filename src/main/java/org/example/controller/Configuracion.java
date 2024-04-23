@@ -2,7 +2,7 @@ package org.example.controller;
 
 import org.example.model.Colores;
 import org.example.model.Jugador;
-import org.example.model.Tablero;
+
 
 import java.util.ArrayDeque;
 import java.util.ArrayList;
@@ -12,6 +12,7 @@ import java.util.List;
 public class Configuracion {
     private int montoVuelta;
     private int montoInicial;
+    private int cantidadDeDados;
     private int condenaCarcel;
     private final int montoDeMulta;
     private int cantidadCasilleros;
@@ -24,6 +25,8 @@ public class Configuracion {
                 .ConfiguracionCheckArgumentos.CASILLEROS.ordinal()));
         montoInicial = Integer.parseInt(configuraciones.get(CheckArgumentos
                 .ConfiguracionCheckArgumentos.DINERO_INICIAL.ordinal()));
+        cantidadDeDados= Integer.parseInt(configuraciones.get(CheckArgumentos
+                .ConfiguracionCheckArgumentos.CANTIDAD_DE_DADOS.ordinal()));
         montoVuelta = Integer.parseInt(configuraciones.get(CheckArgumentos
                 .ConfiguracionCheckArgumentos.DINERO_VUELTA.ordinal()));
         condenaCarcel = Integer.parseInt(configuraciones.get(CheckArgumentos
@@ -57,16 +60,6 @@ public class Configuracion {
             jugadores.get(i).setColor(colores[i]);
         }
     }
-
-/*
-    public ArrayDeque<Jugador> creacionColaTurnos(){
-        ArrayDeque<Jugador> colaTurnos = new ArrayDeque<>();
-        for (Jugador jugadores : jugadores) {
-            colaTurnos.addLast(jugadores);
-        }
-        return colaTurnos;
-    }
-*/
     public int getMontoVuelta() {
         return montoVuelta;
     }
@@ -86,4 +79,6 @@ public class Configuracion {
     public int getCondenaCarcel(){return condenaCarcel;}
 
     public int getMontoMulta(){return montoDeMulta;}
+
+    public int getCantidadDeDados(){ return cantidadDeDados;}
 }

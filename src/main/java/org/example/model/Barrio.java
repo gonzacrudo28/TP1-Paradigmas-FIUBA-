@@ -2,12 +2,14 @@ package org.example.model;
 
 import org.example.model.Propiedad;
 import org.example.model.tipoCasilleros.Casillero;
+import org.example.model.tipoCasilleros.DePropiedad;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class Barrio {
-    private List<Casillero> casillerosPropiedades;
+    private List<DePropiedad> casillerosPropiedades;
+    private Jugador propietarioBarrio;
     private double precioBarrio;
     private int numeroBarrio;
 
@@ -21,11 +23,28 @@ public class Barrio {
         return numeroBarrio;
     }
 
-    public List<Casillero> getCasillerosPropiedades() {
-        return casillerosPropiedades;
+
+    public void setPropietarioBarrio(Jugador jugador){
+        if (esPropietarioBarrio(jugador)){
+            this.propietarioBarrio = jugador;
+        }
     }
 
-    public void addCasillero(Casillero casillero) {
+    public ArrayList<Propiedad> getPropiedades(){
+        ArrayList<Propiedad> propiedades = new ArrayList<>();
+        for (DePropiedad casillero : this.casillerosPropiedades){
+            propiedades.add(casillero.getPropiedad());
+        }
+        return propiedades;
+    }
+
+
+
+
+
+
+
+    public void addCasillero(DePropiedad casillero) {
         this.casillerosPropiedades.add(casillero);
     }
 

@@ -21,13 +21,15 @@ public class Juego {
 
     public Juego(List<String> configuraciones){
         Configuracion configuracion = new Configuracion(configuraciones);
+        this.configuracion = configuracion;
         jugadores = configuracion.getJugadores();
         this.administradorDeTurnos = new AdministradorTurnos(jugadores);
         this.tablero = new Tablero(configuracion);
         this.administradorDeMovimientos = new AdministradorDeMovimientos(tablero);
+        this.administradorDeMovimientos = administradorDeMovimientos;
         this.banco = new Banco(configuracion.getMontoVuelta());
     }
-
+    public int getFianza(){return configuracion.getMontoFianza();}
     public Jugador getJugadorActual() {
        return administradorDeTurnos.getTurnoActual();
     }
@@ -41,7 +43,7 @@ public class Juego {
     }
 
     public int tirarDados(){
-        return administradorDeTurnos.tirarDados();
+        return administradorDeTurnos.tirarDados(configuracion.getCantidadDeDados());
     }
     public Tablero getTablero() {
         return this.tablero;
@@ -68,5 +70,4 @@ public class Juego {
         }
         return jugadoresFuera == jugadores.size()-1;
     }
-
 }

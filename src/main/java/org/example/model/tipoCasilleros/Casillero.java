@@ -20,6 +20,7 @@ abstract public class Casillero {
     public  int getPrecio(){
         return  0;
     };
+
 }
 
 

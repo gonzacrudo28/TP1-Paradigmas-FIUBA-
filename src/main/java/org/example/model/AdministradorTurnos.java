@@ -48,10 +48,8 @@ public class AdministradorTurnos {
         this.jugadores.remove(jugador);
         avanzarTurno();
     }
-    public int tirarDados(){
+    public int tirarDados(int cantidadDeDados){
         Random random = new Random();
-        return random.nextInt(2,12);
+        return random.nextInt(1,6*cantidadDeDados);
     }
-
-
 }

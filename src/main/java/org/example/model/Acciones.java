@@ -20,4 +20,23 @@ public class Acciones {
             System.out.println(i +" -> " +  Accion.values()[i]);
         }
     }
+
+    public void getAccionesJugadorPreso(){
+        int indice = 1;
+        for (int i = 0; i < Accion.values().length; i++){
+            if (Accion.values()[i].equals(Accion.PAGAR_FIANZA) || Accion.values()[i].equals(Accion.TERMINAR_TURNO)){
+                System.out.println( indice+ " -> " +  Accion.values()[i]);
+                indice ++;
+            }
+        }
+    }
+
+    public Accion getAccionPreso(int accion) {
+        if (accion == 1){
+            //PAGAR FIANZA
+            return this.getAccion(6);
+        }
+        return this.getAccion(0);
+    }
+
 }

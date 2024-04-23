@@ -32,18 +32,25 @@ public class JuegoController {
     }
     public boolean jugarTurnoPreso(Jugador jugador){
         if(jugador.getEstado().equals(Jugador.Estado.Preso)){
-            // mostrar la opcion de pagar fianza
-           /* System.out.println("Es el turno de " + jugador.getNombre()+ ", Usted esta preso");
-            System.out.println("Solo puede pagar la fianza(accion nro 6) " +
-                    "o terminar turno\n");*/
-            if (jugador.getEstado().equals(Jugador.Estado.EnJuego)) {//and accion == No Pago)
-                //Ya la pagó, entonces vuelvo a jugar
-                return true;
+            // mostrar la opcion de pagar fianza y terminar turno;
+            Acciones acciones = new Acciones();
+            acciones.getAccionesJugadorPreso();
+           System.out.println("Maquinita estas en Canada, para pagar la fianza picale al 1 :) o 0 si queres probar suerte");
+            int numeroElecto = 1;
+            while (numeroElecto != 0){
+                String accion = reader.readLine("Seleccione la accion que quiere realizar indicando su numero (NUMERO):\n");
+                numeroElecto = corroboroAccion(accion);
+                if ((numeroElecto != 0 && numeroElecto != 1)) {
+                    System.out.println("Accion inexistente\n");
+                } else {
+                    Acciones.Accion accionElecta = acciones.getAccionPreso(numeroElecto);
+                    ejecutarAccion(accionElecta,jugador);
+                }
             }
-            return false;
         }
-        return true;
+        return jugador.getEstado().equals(Jugador.Estado.EnJuego);
     }
+
     public void jugarTurno() throws IOException {
         vistaJuego.muestaJugadoresInicial();
         juego.cambiarTurno();
@@ -51,12 +58,9 @@ public class JuegoController {
         int dados = juego.tirarDados();
         boolean puedeJugar = false;
         if (!jugarTurnoPreso(jugador)){
-            //el jugador decidio no pagar la fianza asi que tira para ver si puede salir (sale si saca
-            //un numero>condena restante (toda esa logica la hace la funcion queda libre)
             jugador.quedaLibre(dados);
-            //return;
+            return;
         }
-
         System.out.println("Es el turno de " + jugador.getNombre() + "\n" + "Tus dados son: " + dados + "\n");
         int casillaAnterior = jugador.getUbicacion();
         int casillaActual = administradorDeMovimientos.avanzarJugador(jugador, dados);
@@ -68,7 +72,6 @@ public class JuegoController {
 
         Casillero casillero = tablero.getCasillero(casillaActual);
         if (casillero instanceof CasilleroEjecutable) {
-            System.out.println("Casillero ejecutable" + casillaActual);
             ejecutar(jugador,casillaActual);
         }
         int numeroElecto = 1;
@@ -93,103 +96,105 @@ public class JuegoController {
 
     }
 
-    public void ejecutar(Jugador jugador,int ubicacionJugador){
+    public void ejecutar(Jugador jugador, int ubicacionJugador){
         CasilleroEjecutable casillero = tablero.getCasilleroEjecutable(ubicacionJugador);
-        System.out.println("Ejecutando " + casillero);
         casillero.ejecutarCasillero(jugador);
     }
 
     public int corroboroAccion(String accion) {
-        CheckStrToInt checkStrToInt = new CheckStrToInt();
-        return checkStrToInt.checkStringToInt(accion);
+            CheckStrToInt checkStrToInt = new CheckStrToInt();
+            return checkStrToInt.checkStringToInt(accion);
     }
 
     public void ejecutarAccion(Acciones.Accion accionElecta, Jugador jugador) {
-        CheckStrToInt checkStrToInt = new CheckStrToInt();
-        if (accionElecta == Acciones.Accion.CONSTRUIR) {
-            String casillero = reader.readLine("Seleccione el casillero en que se encuentra la porpiedad(NUMERO):");
-            int propiedad = (checkStrToInt.checkStringToInt(casillero));
+            CheckStrToInt checkStrToInt = new CheckStrToInt();
+            if (accionElecta == Acciones.Accion.CONSTRUIR) {
+                String casillero = reader.readLine("Seleccione el casillero en que se encuentra la porpiedad (NUMERO):");
+                int propiedad = (checkStrToInt.checkStringToInt(casillero));
                 Propiedad prop = obtenerPropiedadJugador(propiedad,jugador);
                 if (prop != null) {
-                    jugador.reformarPropiedad(prop);
-
-            }
-        } else if (accionElecta == Acciones.Accion.VENDER) {
-            String casillero = reader.readLine("Seleccione el casillero en que se encuentra la porpiedad(NUMERO):");
-            int propiedad = (checkStrToInt.checkStringToInt(casillero));
-                Propiedad prop = obtenerPropiedadJugador(propiedad,jugador);
-                if (prop != null) {
-                    jugador.venderPropiedad(prop);
+                    jugador.reformarPropiedad(tablero.getBarrio(prop),prop);
                 }
+            } else if (accionElecta == Acciones.Accion.VENDER) {
+                String casillero = reader.readLine("Seleccione el casillero en que se encuentra la porpiedad(NUMERO):");
+                int propiedad = (checkStrToInt.checkStringToInt(casillero));
+                    Propiedad prop = obtenerPropiedadJugador(propiedad,jugador);
+                    if (prop != null) {
+                        jugador.venderPropiedad(prop);
+                    }
 
-        } else if (accionElecta == Acciones.Accion.HIPOTECAR) {
-            String casillero = reader.readLine("Seleccione el casillero en que se encuentra la porpiedad(NUMERO):");
-            int propiedad = (checkStrToInt.checkStringToInt(casillero));
+            } else if (accionElecta == Acciones.Accion.HIPOTECAR) {
+                String casillero = reader.readLine("Seleccione el casillero en que se encuentra la porpiedad(NUMERO):");
+                int propiedad = (checkStrToInt.checkStringToInt(casillero));
+                    Propiedad prop = obtenerPropiedadJugador(propiedad,jugador);
+                    if (prop != null) {
+                        jugador.hipotecarPropiedad(prop);
+
+                }
+            } else if (accionElecta == Acciones.Accion.PAGAR_FIANZA) {
+                jugador.pagarFianza(juego.getFianza()); //ACA FALLA MAQUINAS
+            } else if (accionElecta == Acciones.Accion.DESHIPOTECAR) {
+                String casillero = reader.readLine("Seleccione el casillero en que se encuentra la porpiedad(NUMERO):");
+                int propiedad = (checkStrToInt.checkStringToInt(casillero));
                 Propiedad prop = obtenerPropiedadJugador(propiedad,jugador);
                 if (prop != null) {
-                    jugador.hipotecarPropiedad(prop);
-
+                    jugador.deshipotecarPropiedad(prop);
+                }
+            }else if (accionElecta == Acciones.Accion.COMPRAR) {
+                Comprable comprable = obtenerComprable(jugador.getUbicacion());
+                jugador.comprarComprable(comprable, jugador);
+                //Propiedad prop = obtenerPropiedad(jugador.getUbicacion());
+                //jugador.comprarPropiedad(prop,jugador);
             }
-        } else if (accionElecta == Acciones.Accion.PAGAR_FIANZA) {
-            jugador.pagarFianza();
-        } else if (accionElecta == Acciones.Accion.DESHIPOTECAR) {
-            String casillero = reader.readLine("Seleccione el casillero en que se encuentra la porpiedad(NUMERO):");
-            int propiedad = (checkStrToInt.checkStringToInt(casillero));
-            Propiedad prop = obtenerPropiedadJugador(propiedad,jugador);
-            if (prop != null) {
-                jugador.deshipotecarPropiedad(prop);
-            }
-        }else if (accionElecta == Acciones.Accion.COMPRAR) {
-            Comprable comprable = obtenerComprable(jugador.getUbicacion());
-            jugador.comprarComprable(comprable, jugador);
-            //Propiedad prop = obtenerPropiedad(jugador.getUbicacion());
-            //jugador.comprarPropiedad(prop,jugador);
         }
-    }
 
     public boolean esPropiedad(int casillero) {
-        if (casillero < tablero.getCantidadCasilleros()) {
-            TipoCasillero tipoCasillero = tablero.getTipoCasillero(casillero);
-            return tipoCasillero == TipoCasillero.PROPIEDAD;
-        }
-        return false;
-    }
-    public Propiedad obtenerPropiedadJugador(int casillero,Jugador jugador) {
-        if (esPropiedad(casillero)) {
-            List<Propiedad> propiedadList = jugador.getPropiedades();
-            for (Propiedad propiedad : propiedadList) {
-                if (propiedad.getUbicacion() == casillero) {
-                    return propiedad;
-                }
+            if (casillero < tablero.getCantidadCasilleros()) {
+                TipoCasillero tipoCasillero = tablero.getTipoCasillero(casillero);
+                return tipoCasillero == TipoCasillero.PROPIEDAD;
             }
-            System.out.println("Esa propiedad no te pertenece");
-            return null;
+            return false;
         }
-        System.out.println("Accion imposible de realizar");
-        return null;
-    }
-//faaaq
-    public boolean esComprable(int casillero) {
-        TipoCasillero tipoCasillero = tablero.getTipoCasillero(casillero);
-        return tipoCasillero == TipoCasillero.ESTACION ||
-                tipoCasillero == TipoCasillero.PROPIEDAD;
-    }
 
-    public Comprable obtenerComprable(int casillero) {
-        if(!esComprable(casillero)){
+    public Propiedad obtenerPropiedadJugador(int casillero, Jugador jugador) {
+            if (esPropiedad(casillero)) {
+                List<Propiedad> propiedadList = jugador.getPropiedades();
+                for (Propiedad propiedad : propiedadList) {
+                    if (propiedad.getUbicacion() == casillero) {
+                        return propiedad;
+                    }
+                }
+                System.out.println("Esa propiedad no te pertenece");
+                return null;
+            }
             System.out.println("Accion imposible de realizar");
             return null;
         }
-        Comprable comprable;
-        if(esPropiedad(casillero)){
-            DePropiedad casilleroPropiedad = tablero.getPropiedad(casillero);
-            comprable = casilleroPropiedad.getPropiedad();
+
+    //faaaq
+        public boolean esComprable(int casillero) {
+            TipoCasillero tipoCasillero = tablero.getTipoCasillero(casillero);
+            return tipoCasillero == TipoCasillero.ESTACION ||
+                    tipoCasillero == TipoCasillero.PROPIEDAD;
+        }
+
+    public Comprable obtenerComprable(int casillero) {
+            if(!esComprable(casillero)){
+                System.out.println("Accion imposible de realizar");
+                return null;
+            }
+            Comprable comprable;
+            if(esPropiedad(casillero)){
+                DePropiedad casilleroPropiedad = tablero.getPropiedad(casillero);
+                comprable = casilleroPropiedad.getPropiedad();
+                return comprable;
+            }
+            Estacion casilleroEstacion = tablero.getEstacion(casillero);
+            comprable = casilleroEstacion.getEstacion();
             return comprable;
         }
-        Estacion casilleroEstacion = tablero.getEstacion(casillero);
-        comprable = casilleroEstacion.getEstacion();
-        return comprable;
     }
+
 /*
     public Propiedad obtenerPropiedad(int casillero) {
         if (esPropiedad(casillero)) {
@@ -200,7 +205,7 @@ public class JuegoController {
         return null;
     }
 */
-}
+//:
 
 
 

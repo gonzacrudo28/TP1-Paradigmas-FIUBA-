@@ -14,7 +14,7 @@ import java.util.Random;
 public class Tablero {
     private Casillero[] casilleros;
     private int cantidadDeCasilleros;
-    private List<Barrio> barrios;
+    private ArrayList<Barrio> barrios;
     private Configuracion configuraciones;
 
     public Tablero(Configuracion configuraciones) {
@@ -99,7 +99,7 @@ public class Tablero {
         int posIrACarcel= (int)(this.cantidadDeCasilleros*Constantes.POS_IR_CARCEL);
         this.casilleros[Constantes.POS_LLEGADA_SALIDA]= new LlegadaPartida(Constantes.POS_LLEGADA_SALIDA,configuraciones.getMontoVuelta());
         this.casilleros[posCarcel]= new Carcel(posCarcel,configuraciones.getMontoFianza(),configuraciones.getCondenaCarcel());
-        this.casilleros[posIrACarcel] = new IrALaCarcel(posIrACarcel,configuraciones.getCondenaCarcel(),posIrACarcel);
+        this.casilleros[posIrACarcel] = new IrALaCarcel(posIrACarcel,configuraciones.getCondenaCarcel(),posCarcel);
         this.casilleros[posDePaso] = new DePaso(posDePaso);
     }
 
@@ -109,6 +109,18 @@ public class Tablero {
 
     public CasilleroEjecutable getCasilleroEjecutable(int numeroCasillero) {
         return (CasilleroEjecutable) this.casilleros[numeroCasillero];
+    }
+
+    public Barrio getBarrio(Propiedad propiedad) {
+        for(Barrio barrio : this.barrios){
+            if(barrio.getPropiedades().contains(propiedad)){
+                return barrio;
+            }
+        }
+        return null;
+    }
+    public ArrayList<Barrio> getBarrios() {
+        return this.barrios;
     }
 
 }

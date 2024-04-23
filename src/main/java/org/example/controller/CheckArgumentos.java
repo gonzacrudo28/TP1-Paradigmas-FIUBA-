@@ -12,6 +12,7 @@ public class CheckArgumentos{
     public enum ConfiguracionCheckArgumentos{
         JUGADORES,
         CASILLEROS,
+        CANTIDAD_DE_DADOS,
         DINERO_INICIAL,
         DINERO_VUELTA,
         TURNOS_PRESO,
@@ -25,7 +26,8 @@ public class CheckArgumentos{
         List<String> argumentos = new ArrayList<>();
         argumentos.add("Nombres (2 a 4 jugadores y separados por espacios)");
         argumentos.add("Cantidad de casilleros (minimo 10)");
-        argumentos.add("Monto de dinero inicial");
+        argumentos.add("Cantidad de dados en el juego (minimo 1)");
+        argumentos.add("Monto de dinero inicial (minimo 100)");
         argumentos.add("Monto de dinero por vuelta");
         argumentos.add("Cantidad de turnos preso");
         argumentos.add("Monto de multa");

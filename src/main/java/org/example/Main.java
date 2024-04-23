@@ -21,6 +21,7 @@ public class Main {
         List<String> argumentos = check.getConfiguraciones();
         Juego juego = new Juego(argumentos);
         JuegoController juegoController = new JuegoController(juego);
+
         while (!juego.terminado()){
             juegoController.jugarTurno();
         }
@@ -30,9 +31,7 @@ public class Main {
 }
 /*
 COSAS PARA HACER
-ver si no conviene que el usuario eliga la cant de dada
-
--carcel: si cae en IR a la carcel, modificar ubicacion de jugador para que vaya la a la carcel
+solucionar cuando eliga n cantidad de dados y sale un numero mayor a la cantidad de casilleros, q no rompa.
 y limitar las acciones(habria que hacer casi lo mismo que cuando se juega un turno sin
  que el jugador este preso. y que tenga solo las opciones terminar turno y pagar fianza)
 

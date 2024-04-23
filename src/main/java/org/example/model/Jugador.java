@@ -8,15 +8,15 @@ public class Jugador{
     private  Colores.Color color;
     private int plata;
     private int ubicacion;
-    private List<Propiedad> propiedades;
+    private ArrayList<Propiedad> propiedades;
     private Estado estado;
     private int condena;
 
 
     //mover a algun ejecutador de acciones
-    public void pagarFianza(){
+    public void pagarFianza(int fianza){
         if(condena != 0){
-            //restarPlata(Configuracion.getFianza());
+            restarPlata(fianza);
             condena = 0;
             System.out.println("Fianza pagada con exito");
             this.estado = Estado.EnJuego;
@@ -31,9 +31,11 @@ public class Jugador{
         propiedades.add(propiedad);
     }
 
-    public void reformarPropiedad(Propiedad propiedad){
-        propiedad.mejorarPropiedad();
-    }
+    public void reformarPropiedad(Barrio barrio,Propiedad propiedad){
+        propiedad.mejorarPropiedad(barrio,this);
+
+
+     }
 
     public void hipotecarPropiedad(Propiedad propiedad){
         propiedad.hipotecar();
@@ -102,6 +104,7 @@ public class Jugador{
 
 
 
+
     public String getNombre() {return this.nombre;}
     public Estado getEstado(){
         return this.estado;
@@ -112,7 +115,7 @@ public class Jugador{
         return this.condena;
     }
     public Colores.Color getColor() {return this.color;}
-    public List<Propiedad> getPropiedades(){return this.propiedades;}
+    public ArrayList<Propiedad> getPropiedades(){return this.propiedades;}
 
 
     public void restarPlata(int dinero){
@@ -152,10 +155,9 @@ public class Jugador{
         if (dados > condena){
             this.setCondena(0);
             this.estado = Estado.EnJuego;
-
             System.out.println("Jugador LIBRE por tirada dados mayor a condena");
         }
-        this.restarCondena();
+        //this.restarCondena();
     }
 
 
