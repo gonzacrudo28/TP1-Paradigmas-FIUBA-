@@ -61,7 +61,7 @@ public class Configuracion {
             jugadores.get(i).setColor(colores[i]);
         }
     }
-    public int getMontoVuelta() {
+    public double getMontoVuelta() {
         return montoVuelta;
     }
 
@@ -71,15 +71,13 @@ public class Configuracion {
 
     public ArrayList<Jugador> getJugadores() { return jugadores;}
 
-    public int getMontoFianza() { return montoFianza; }
+    public double getMontoFianza() { return  montoFianza; }
 
     public int getCantidadCasilleros() { return cantidadCasilleros; }
 
-    public int getMontoPorPasarSalida(){return montoVuelta;}
-
     public int getCondenaCarcel(){return condenaCarcel;}
 
-    public int getMontoMulta(){return montoDeMulta;}
+    public double getMontoMulta(){return montoDeMulta;}
 
     public int getCantidadDeLadosEnDado(){ return cantidadDeLados;}
 }

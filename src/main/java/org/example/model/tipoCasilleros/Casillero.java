@@ -17,10 +17,9 @@ abstract public class Casillero {
 
     public int getUbicacion(){return ubicacion;}
 
-    public  int getPrecio(){
-        return  0;
-    };
-
+    public double getPrecio(){
+        return 0;
+    }
 }
 
 

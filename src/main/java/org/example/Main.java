@@ -32,12 +32,11 @@ public class Main {
 /*
 COSAS PARA HACER:
     • Agregar delay (se encarga top o intenta) (OPCIONAL)
-    • Limitar las acciones(habria que hacer casi lo mismo que cuando se juega un turno sin
-    • Si paga la fianza que le muestre las opcciones para jugar ese turno directamente
-    • Crear una accion que sea consultar precio de casa
+    • Limitar las acciones(habria que
     • Modularizar JuegoController
+    ver si funciona bien la compra de transporte
     • Hacer jugaTurnoView(?
-    comprar(construir) reste precio y validar constucciones
+    .comprar(construir) reste precio y validar constucciones
 */
 
 

@@ -14,7 +14,7 @@ public class Propiedad extends Comprable {
 
     private int numeroDeBarrio;
     private Construcciones construcciones;
-    private int precioCasa;
+    private double precioCasa;
 
 
 
@@ -22,7 +22,7 @@ public class Propiedad extends Comprable {
         super(precio, ubicacion);
         this.numeroDeBarrio = numeroDeBarrio;
         this.construcciones = Construcciones.SIN_CASA;
-        this.precioCasa = (int)(precio*Constantes.PORCENTAJE_PRECIO_CASA);
+        this.precioCasa = (precio*Constantes.PORCENTAJE_PRECIO_CASA);
 
 
     }
@@ -31,7 +31,7 @@ public class Propiedad extends Comprable {
         SIN_CASA, UNA_CASA, DOS_CASAS, TRES_CASAS, HOTEL;
     }
 
-    public int getPrecioCasa() {
+    public double getPrecioCasa() {
         return precioCasa;
     }
 
@@ -102,10 +102,9 @@ public class Propiedad extends Comprable {
     }
 
     public void vender(){
-        // Falta chequear que haya vendido todas las construcciones -G
         double precioReventa = this.precio * Constantes.PORCENTAJE_DE_VENTA;
-        int plataVentaCasas = venderPropiedades();
-        this.propietario.sumarPlata((int)precioReventa + plataVentaCasas);
+        double plataVentaCasas = venderPropiedades();
+        this.propietario.sumarPlata(precioReventa + plataVentaCasas);
         this.liberar();
     }
 
@@ -113,9 +112,9 @@ public class Propiedad extends Comprable {
         this.alquiler = (int)(alquiler*Constantes.PORCENTAJE_ALQUILER_NUEVA_CASA) + alquiler;
     }
 
-    private int venderPropiedades(){
+    private double venderPropiedades(){
         List<Construcciones> tiposConstrucciones = Arrays.asList(Construcciones.values());
-        int cantPropiedades = tiposConstrucciones.indexOf(construcciones);
+        double cantPropiedades = tiposConstrucciones.indexOf(construcciones);
         return cantPropiedades*precioCasa;
     }
 

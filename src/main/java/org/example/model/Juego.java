@@ -29,7 +29,7 @@ public class Juego {
         this.administradorDeMovimientos = administradorDeMovimientos;
         this.banco = new Banco(configuracion.getMontoVuelta());
     }
-    public int getFianza(){return configuracion.getMontoFianza();}
+    public double getFianza(){return configuracion.getMontoFianza();}
     public Jugador getJugadorActual() {
        return administradorDeTurnos.getTurnoActual();
     }

@@ -17,6 +17,9 @@ public class DePropiedad extends Casillero implements CasilleroEjecutable {
         return propiedad;
     }
 
+    public double getPrecio() {
+        return propiedad.getPrecio();
+    }
     @Override
     public void ejecutarCasillero(Jugador jugador) {
         if (propiedad.getEstado() == Comprable.EstadoPropiedad.COMPRADO) {

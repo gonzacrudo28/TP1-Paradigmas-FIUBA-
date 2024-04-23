@@ -20,20 +20,22 @@ public class Estacion extends Casillero implements CasilleroEjecutable{
     @Override
     public void ejecutarCasillero(Jugador jugador) {
         int canEstaciones = jugador.getEstaciones().size();
-        if (canEstaciones == 0){
-            jugador.restarPlata((int)precio);
-            System.out.println("Pagas alquiler por caer en la estacion de "+ estacion.getNombrePropietario());
-            //Los jugadores que posean alguna estación, están exentos de abonar el
-            //monto al caer en la estación de otro jugador.
+        if (estacion.getPropietario() != null) {
+            if (canEstaciones == 0) {
+                jugador.restarPlata((int) precio);
+                System.out.println("Pagas alquiler por caer en la estacion de " + estacion.getNombrePropietario());
+                //Los jugadores que posean alguna estación, están exentos de abonar el
+                //monto al caer en la estación de otro jugador.
 
-        }else{
-            int cantEstaciones = jugador.getEstaciones().size();
-            jugador.restarPlata(cantEstaciones*estacion.getAlquiler());
-            //El monto a pagar se multiplicará por cada casilla de estación de transporte
-            //que posea el jugador propietario de dicha estación.
+            } else {
+                int cantEstaciones = jugador.getEstaciones().size();
+                jugador.restarPlata(cantEstaciones * estacion.getAlquiler());
+                //El monto a pagar se multiplicará por cada casilla de estación de transporte
+                //que posea el jugador propietario de dicha estación.
+            }
         }
-
     }
 
     public EstacionTransporte getEstacion(){ return this.estacion; }
+    public double getPrecio(){ return this.precio; }
 }

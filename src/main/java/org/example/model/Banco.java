@@ -2,9 +2,9 @@ package org.example.model;
 
 public class Banco {
 
-    private int bono;
+    private double bono;
 
-    public Banco(int bono) {
+    public Banco(double bono) {
         this.bono = bono;
     }
 
@@ -12,7 +12,7 @@ public class Banco {
         this.bono = bono;
     }
 
-    public int getBono(){
+    public double getBono(){
         return bono;
     }
 

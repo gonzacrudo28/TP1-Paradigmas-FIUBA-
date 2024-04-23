@@ -4,6 +4,7 @@ public class EstacionTransporte extends Comprable{
 
     public EstacionTransporte(double precio, int ubicacion) {
         super(precio, ubicacion);
+        this.propietario = null;
     }
 
     @Override

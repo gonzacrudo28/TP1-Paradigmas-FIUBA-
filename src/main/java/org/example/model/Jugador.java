@@ -9,7 +9,7 @@ import java.util.List;
 public class Jugador{
     private final String nombre;
     private  Colores.Color color;
-    private int plata;
+    private double plata;
     private int ubicacion;
     private ArrayList<Estacion> estaciones;
     private ArrayList<Propiedad> propiedades;
@@ -18,7 +18,7 @@ public class Jugador{
 
 
     //mover a algun ejecutador de acciones
-    public void pagarFianza(int fianza){
+    public void pagarFianza(double fianza){
        if (this.plata >= fianza){
            restarPlata(fianza);
            condena = 0;
@@ -71,7 +71,7 @@ public class Jugador{
         this.estaciones = new ArrayList<>();
     }
 
-    public void setPlata(int plata) {
+    public void setPlata(double plata) {
         this.plata = plata;
     }
     public void setColor(Colores.Color color) {
@@ -82,14 +82,11 @@ public class Jugador{
     }
     public void setCondena(int condena){this.condena = condena;}
 
-
-
-
     public String getNombre() {return this.nombre;}
     public Estado getEstado(){
         return this.estado;
     }
-    public int getPlata() {return plata;}
+    public double getPlata() {return plata;}
     public int getUbicacion() {return ubicacion;}
     public int getCondena(){
         return this.condena;
@@ -98,7 +95,7 @@ public class Jugador{
     public ArrayList<Propiedad> getPropiedades(){return this.propiedades;}
 
 
-    public void restarPlata(int dinero){
+    public void restarPlata(double dinero){
         if (plata > dinero){
             plata -= dinero;
             return;
@@ -111,7 +108,7 @@ public class Jugador{
         this.condena--;
     }
 
-    public void sumarPlata(int dinero){this.plata += dinero;}
+    public void sumarPlata(double dinero){this.plata += dinero;}
 
     public void setUbicacion(int ubicacion){ this.ubicacion = ubicacion; }
 

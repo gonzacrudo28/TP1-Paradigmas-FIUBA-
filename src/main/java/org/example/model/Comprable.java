@@ -2,6 +2,8 @@ package org.example.model;
 
 import org.example.controller.Constantes;
 
+import java.util.ArrayList;
+
 public abstract class Comprable {
 
     protected double precio;
@@ -40,4 +42,5 @@ public abstract class Comprable {
     public Comprable getComprable() {
         return this;
     };
+
 }

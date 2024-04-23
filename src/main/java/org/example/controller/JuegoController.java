@@ -10,7 +10,6 @@ import org.jline.terminal.TerminalBuilder;
 import org.jline.terminal.Terminal;
 import org.example.view.JuegoView;
 import java.io.IOException;
-
 import java.util.List;
 
 
@@ -33,6 +32,7 @@ public class JuegoController {
                 .terminal(terminal)
                 .build();
     }
+
 
 
     public void jugarTurno() throws IOException {

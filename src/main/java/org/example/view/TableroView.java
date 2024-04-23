@@ -46,7 +46,7 @@ public class TableroView {
                 }
                 imprimirNombresJugadores(jugadoresEnPosicion);
             }else{
-                if (tablero.getCasillero(i).getEfecto()!= "Propiedad" && tablero.getCasillero(i).getEfecto()!= "De transporte"){
+                if (tablero.getCasillero(i).getEfecto() != "Propiedad" && tablero.getCasillero(i).getEfecto() != "De transporte"){
                     System.out.println(i +" "+ tablero.getCasillero(i).getEfecto());
                 }else {
                     System.out.println(i + " " + tablero.getCasillero(i).getEfecto() + " (VALOR: $" + tablero.getCasillero(i).getPrecio()+ ")");
@@ -65,4 +65,5 @@ public class TableroView {
         }
         System.out.println();
     }
+
 }
