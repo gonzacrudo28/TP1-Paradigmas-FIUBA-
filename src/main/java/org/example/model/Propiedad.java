@@ -94,7 +94,7 @@ public class Propiedad extends Comprable {
     public void mejorarPropiedad(Barrio barrio, Jugador jugador){
         ConstruccionController construccionController = new ConstruccionController(this,barrio);
 
-        if (construccionController.validarConstruccion(jugador)){
+        if (construccionController.validarConstruccion(jugador, this)){
             this.construcciones = this.getSiguienteConstruccion(this.construcciones);
             actualizarAlquiler();
             System.out.println("Propiedad mejorada a "+this.getConstrucciones()+" con exito");

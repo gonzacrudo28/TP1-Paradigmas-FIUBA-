@@ -17,10 +17,8 @@ public class ConstruccionController {
         this.barrio = barrio;
     }
 
-    public boolean validarConstruccion(Jugador jugador){
-        //EN LA SEGUNDA COMPRA ESTA DANDO FALSO, DESPUES LO ARREGLO FUNCION PUEDE CONSTRUIR
-        System.out.println(this.puedeConstruir(jugador));
-        if (this.esPropietarioBarrio(jugador) && this.puedeConstruir(jugador)){
+    public boolean validarConstruccion(Jugador jugador,Propiedad propiedad){
+        if (this.esPropietarioBarrio(jugador) && this.puedeConstruir(jugador, propiedad)){
             return true;
         }
         return  false;
@@ -37,21 +35,21 @@ public class ConstruccionController {
         return true;
     }
 
-    private boolean puedeConstruir(Jugador jugador){
+    private boolean puedeConstruir(Jugador jugador,Propiedad propiedad){
+        if (propiedad.getConstrucciones() == Propiedad.Construcciones.HOTEL){
+            System.out.println("ERROR: EL JUGADOR "+jugador.getNombre()+ "YA POSEE UN HOTEL EN ESTA PROPIEDAD");
+            return false;
+        }
         ArrayList<Propiedad> listaDePropiedades = this.barrio.getPropiedades();
-        int maxima_diferencia = 0;
         for (int i=0; i<listaDePropiedades.size(); i++) {
-            for (int j=0; j < listaDePropiedades.size(); j++) {
-                int dif = listaDePropiedades.get(i).getConstrucciones().ordinal() - listaDePropiedades.get(j).getConstrucciones().ordinal();
-                if (dif > maxima_diferencia) {
-                    maxima_diferencia = dif;
-                }
+
+            int dif = propiedad.getConstrucciones().ordinal() - listaDePropiedades.get(i).getConstrucciones().ordinal();
+            if (dif>0){
+                System.out.println("ERROR: EL JUGADOR "+jugador.getNombre()+ " NO PUEDE CONSTUIR DEBIDO A QUE EXCEDE EL LIMITE DE DIFERENCIA ENTRE LAS CONTRUCCIONES DE LAS PROPIEDADES");
+                return  false;
             }
-        }
-        if (maxima_diferencia > 1){
-            System.out.println("ERROR: EL JUGADOR "+jugador.getNombre()+ " NO PUEDE CONSTUIR DEBIDO A QUE EXCEDE EL LIMITE DE DIFERENCIA ENTRE LAS CONTRUCCIONES DE LAS PROPIEDADES");
-        }
-        return maxima_diferencia < 1;
+            }
+        return true;
     }
     //Obs -> maxima_diferencia < 1 xq si pongo <= y efectivamente la diferencia es 1,
     // si agrego una casa esa diferencia es= 2(>1)
