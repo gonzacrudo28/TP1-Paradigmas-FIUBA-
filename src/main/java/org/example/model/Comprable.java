@@ -7,7 +7,7 @@ import java.util.ArrayList;
 public abstract class Comprable {
 
     protected double precio;
-    protected int alquiler;
+    protected double alquiler;
     protected Jugador propietario;
     protected EstadoPropiedad estado;
     protected int ubicacion;
@@ -22,14 +22,14 @@ public abstract class Comprable {
         this.ubicacion = ubicacion;
         this.propietario = null;
         this.estado = EstadoPropiedad.EN_VENTA;
-        this.alquiler = (int)(precio * Constantes.PORCENTAJE_ALQUILER);
+        this.alquiler = (precio * Constantes.PORCENTAJE_ALQUILER);
     }
 
     public EstadoPropiedad getEstado() {
         return this.estado;
     }
     public int getPrecio() { return (int)precio; }
-    public int getAlquiler(){ return alquiler; }
+    public double getAlquiler(){ return alquiler; }
     public Jugador getPropietario(){ return propietario;}
     public int getUbicacion() { return this.ubicacion; }
     public void setUbicacion(int ubicacion){ this.ubicacion = ubicacion; }

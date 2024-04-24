@@ -48,6 +48,6 @@ public class AdministradorTurnos {
     }
     public int tirarDados(int cantidadDeLadosEnDado){
         Random random = new Random();
-        return random.nextInt(1,cantidadDeLadosEnDado);
+        return random.nextInt(1,cantidadDeLadosEnDado+1);
     }
 }

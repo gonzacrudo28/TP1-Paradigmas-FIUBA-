@@ -12,7 +12,6 @@ public class DePropiedad extends Casillero implements CasilleroEjecutable {
         this.propiedad = new Propiedad(precio, numeroDeBarrio, casillero);
     }
 
-    //deberia ser get comprable
     public Propiedad getPropiedad() {
         return propiedad;
     }
@@ -23,8 +22,9 @@ public class DePropiedad extends Casillero implements CasilleroEjecutable {
     @Override
     public void ejecutarCasillero(Jugador jugador) {
         if (propiedad.getEstado() == Comprable.EstadoPropiedad.COMPRADO) {
-            jugador.restarPlata(propiedad.getAlquiler());
-            System.out.println(jugador.getNombre() + " pagaste alquiler por estar en la propiedad de " + propiedad.getNombrePropietario());
+            double alquiler = propiedad.getAlquiler();
+            jugador.restarPlata(alquiler);
+            System.out.printf("%s pagaste %f de alquiler por estar en la propiedad de %s\n",jugador.getNombre(),alquiler,propiedad.getNombrePropietario());
         }
 
     }

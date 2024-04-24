@@ -11,7 +11,7 @@ public class Jugador{
     private  Colores.Color color;
     private double plata;
     private int ubicacion;
-    private ArrayList<Estacion> estaciones;
+    private ArrayList<EstacionTransporte> estaciones;
     private ArrayList<Propiedad> propiedades;
     private Estado estado;
     private int condena;
@@ -35,16 +35,18 @@ public class Jugador{
         propiedades.add(propiedad);
     }
 
+    public void agregarEstacion(EstacionTransporte estacion){estaciones.add(estacion);}
+
     public void reformarPropiedad(Barrio barrio,Propiedad propiedad){
         propiedad.mejorarPropiedad(barrio,this);
      }
 
-    public void hipotecarPropiedad(Propiedad propiedad){
-        propiedad.hipotecar();
+    public void hipotecarPropiedad(Barrio barrio,Propiedad propiedad){
+        propiedad.hipotecar(barrio);
         this.sumarPlata(propiedad.getPrecio());
     }
 
-    public ArrayList<Estacion> getEstaciones() {
+    public ArrayList<EstacionTransporte> getEstaciones() {
         return estaciones;
     }
 
@@ -57,10 +59,13 @@ public class Jugador{
         int precioComprable = comprable.getPrecio();
         if (this.plata >= precioComprable) {
             comprable.setPropietario(jugador);
+
         }else{
             System.out.println("No se puede comprar propiedad");
         }
     }
+
+
 
     public Jugador(String nombre) {
         this.ubicacion = 0;
@@ -94,15 +99,29 @@ public class Jugador{
     public Colores.Color getColor() {return this.color;}
     public ArrayList<Propiedad> getPropiedades(){return this.propiedades;}
 
-
     public void restarPlata(double dinero){
         if (plata > dinero){
             plata -= dinero;
             return;
         }
         System.out.println("Ups!" + this.nombre + "no tiene dinero suficiente para pagar");
-        //Agregar parte de Controller config
+
+        while (dinero>plata) {
+            this.setEstado(Estado.Quiebra);
+            for (int i = 0; i < propiedades.size(); i++){
+                if (dinero > plata){
+                    propiedades.get(i).hipotecar();
+                } else if (dinero <= plata){
+                    this.setEstado(Estado.EnJuego);
+                    break;
+                }
+            }
+        }
+        if (this.estado == Estado.Quiebra){
+            System.out.printf("%s perdio! No tiene suficiente dinero para saldar sus deudas", this.nombre);
+        }
     }
+
 
     public void restarCondena(){
         this.condena--;
@@ -113,13 +132,6 @@ public class Jugador{
     public void setUbicacion(int ubicacion){ this.ubicacion = ubicacion; }
 
     public boolean estaEnQuiebra(){return Estado.Quiebra.equals(this.estado);}
-
-    public void perder(Jugador jugador){
-        jugador.setEstado(Estado.Quiebra);
-        for (Propiedad propiedad: propiedades){
-            propiedad.liberar();
-        }
-    }
 
     public void venderPropiedad(Propiedad propiedad){
         if (propiedad.getPropietario().equals(this)){
@@ -133,6 +145,7 @@ public class Jugador{
         this.setCondena(0);
         this.estado = Estado.EnJuego;
     }
+
 
 }
 

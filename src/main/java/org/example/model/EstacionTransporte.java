@@ -14,6 +14,7 @@ public class EstacionTransporte extends Comprable{
             this.estado = EstadoPropiedad.COMPRADO;
             System.out.println("Estacion comprada con exito");
             propietario.restarPlata((int)precio);
+            propietario.agregarEstacion(this);
             return;
         }
         System.out.println("La estacion ya fue comprada");

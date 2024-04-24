@@ -49,6 +49,10 @@ public class JuegoController {
     }
 
     public void jugarTurnoPreso(Jugador jugador){
+        Ansi colorANSI = null;
+        FuncionColorPrints funcionColorPrints = new FuncionColorPrints();
+        colorANSI = funcionColorPrints.obtenerColorANSI(jugador.getColor());
+        System.out.println(colorANSI+"Es el turno de " + jugador.getNombre() + "\n");
         Acciones acciones = new Acciones();
         acciones.getAccionesJugadorPreso();
         System.out.println(jugador.getNombre()+" esta preso, para pagar la fianza selecciona el 1 :) /n" +
@@ -75,6 +79,8 @@ public class JuegoController {
                 ejecutarAccion(accionElecta,jugador);
                 if(dados > jugador.getCondena()){
                     jugador.quedaLibre();
+                    System.out.println(jugador.getNombre()+ "queda libre por sacar "+ dados+
+                            "(dados) mayor que el numero de condena");
                 }
                 else {
                     jugador.restarCondena();
@@ -95,18 +101,7 @@ public class JuegoController {
         int casillaAnterior = jugador.getUbicacion();
         int casillaActual = administradorDeMovimientos.avanzarJugador(jugador, dados);
         System.out.println("Usted esta en el casillero: " + casillaActual + "\n" + resetColor);
-
-
-        if (esPropiedad(casillaActual)) {
-            pagarAlquiler(casillaActual, jugador);
-        }
-
-
-        //deberia ir aca?
-        if((casillaAnterior+dados) >= tablero.getCantidadCasilleros()) {
-            juego.pagarBono(jugador);
-        }
-
+        pagarBono(jugador,dados,casillaAnterior);
         Casillero casillero = tablero.getCasillero(casillaActual);
 
         if (casillero instanceof CasilleroEjecutable) {
@@ -160,16 +155,23 @@ public class JuegoController {
                 String casillero = reader.readLine("Seleccione el casillero en que se encuentra la porpiedad(NUMERO):");
                 int propiedad = (checkStrToInt.checkStringToInt(casillero));
                     Propiedad prop = obtenerPropiedadJugador(propiedad,jugador);
+
                     if (prop != null) {
                         jugador.venderPropiedad(prop);
                     }
 
             } else if (accionElecta == Acciones.Accion.HIPOTECAR) {
+                /*
+                 * HIPOTECAR TIENE QUE VALIDAR:
+                 * EN TODAS LAS CASAS DE ESE BARRIO NO TIENE Q TENER CONSTRUCCIONES
+                 *
+                 * */
                 String casillero = reader.readLine("Seleccione el casillero en que se encuentra la porpiedad(NUMERO):");
                 int propiedad = (checkStrToInt.checkStringToInt(casillero));
                     Propiedad prop = obtenerPropiedadJugador(propiedad,jugador);
                     if (prop != null) {
-                        jugador.hipotecarPropiedad(prop);
+                        /* */
+                        jugador.hipotecarPropiedad(tablero.getBarrio(prop),prop);
                 }
             } else if (accionElecta == Acciones.Accion.PAGAR_FIANZA) {
                 jugador.pagarFianza(juego.getFianza());
@@ -182,7 +184,7 @@ public class JuegoController {
                 }
             }else if (accionElecta == Acciones.Accion.COMPRAR) {
                 int ubicacionJugador = jugador.getUbicacion();
-                if (esPropiedad(ubicacionJugador)) {
+                if (esComprable(ubicacionJugador)) {
                     Comprable comprable = obtenerComprable(ubicacionJugador);
                     jugador.comprarComprable(comprable, jugador);
                 }
@@ -224,6 +226,12 @@ public class JuegoController {
                     tipoCasillero == TipoCasillero.PROPIEDAD;
         }
 
+        public void pagarBono(Jugador jugador,int dados,int casillaAnterior){
+            if((casillaAnterior+dados) >= tablero.getCantidadCasilleros()) {
+                juego.pagarBono(jugador);
+            }
+        }
+
     public Comprable obtenerComprable(int casillero) {
             if(!esComprable(casillero)){
                 System.out.println("Accion imposible de realizar");
@@ -248,19 +256,7 @@ public class JuegoController {
         System.out.println("Accion imposible de realizar");
         return null;
     }
-    public void pagarAlquiler(int casillero, Jugador jugador) {
-        // Rompo TDA -G
-        if (esPropiedad(casillero)) {
-            DePropiedad casilleroPropiedad = tablero.getPropiedad(casillero);
-            Propiedad propiedad = casilleroPropiedad.getPropiedad();
-            if (jugador.getPlata() < (double) (propiedad.getAlquiler())) {
-                System.out.println("No te alcanza para poder pagar el alquiler");
-                //O cualquier otra accion pertinente
-                return;
-            }
-            propiedad.restarAlquiler(jugador);
-        }
-    }
+
 
 }
 
