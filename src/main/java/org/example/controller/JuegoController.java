@@ -149,7 +149,7 @@ public class JuegoController {
                 int propiedad = (checkStrToInt.checkStringToInt(casillero));
                 Propiedad prop = obtenerPropiedadJugador(propiedad,jugador);
                 if (prop != null) {
-                    jugador.reformarPropiedad(tablero.getBarrio(prop),prop);
+                        jugador.reformarPropiedad(tablero.getBarrio(prop),prop);
                 }
             } else if (accionElecta == Acciones.Accion.VENDER) {
                 String casillero = reader.readLine("Seleccione el casillero en que se encuentra la porpiedad(NUMERO):");
@@ -161,20 +161,21 @@ public class JuegoController {
                     }
 
             } else if (accionElecta == Acciones.Accion.HIPOTECAR) {
-                /*
-                 * HIPOTECAR TIENE QUE VALIDAR:
-                 * EN TODAS LAS CASAS DE ESE BARRIO NO TIENE Q TENER CONSTRUCCIONES
-                 *
-                 * */
                 String casillero = reader.readLine("Seleccione el casillero en que se encuentra la porpiedad(NUMERO):");
                 int propiedad = (checkStrToInt.checkStringToInt(casillero));
                     Propiedad prop = obtenerPropiedadJugador(propiedad,jugador);
                     if (prop != null) {
-                        /* */
+
                         jugador.hipotecarPropiedad(tablero.getBarrio(prop),prop);
+
                 }
             } else if (accionElecta == Acciones.Accion.PAGAR_FIANZA) {
-                jugador.pagarFianza(juego.getFianza());
+                try {
+                    jugador.pagarFianza(juego.getFianza());
+                } catch (Exception e){
+                    //Mostrar las acciones de hipotecar
+                }
+
             } else if (accionElecta == Acciones.Accion.DESHIPOTECAR) {
                 String casillero = reader.readLine("Seleccione el casillero en que se encuentra la porpiedad(NUMERO):");
                 int propiedad = (checkStrToInt.checkStringToInt(casillero));
@@ -185,8 +186,13 @@ public class JuegoController {
             }else if (accionElecta == Acciones.Accion.COMPRAR) {
                 int ubicacionJugador = jugador.getUbicacion();
                 if (esComprable(ubicacionJugador)) {
-                    Comprable comprable = obtenerComprable(ubicacionJugador);
-                    jugador.comprarComprable(comprable, jugador);
+                    try {
+                        Comprable comprable = obtenerComprable(ubicacionJugador);
+                        jugador.comprarComprable(comprable, jugador);
+                    }catch (Exception e){
+                        //Mostrar hipotecar
+                    }
+
                 }
             }else if (accionElecta == Acciones.Accion.CONSULTAR_PRECIO_CASA){
                 String casillero = reader.readLine("Seleccione el casillero en que se encuentra la porpiedad(NUMERO):");

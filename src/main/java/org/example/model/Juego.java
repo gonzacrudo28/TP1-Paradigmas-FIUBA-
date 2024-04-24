@@ -5,7 +5,7 @@ import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.List;
 import org.example.controller.CheckArgumentos;
-import org.example.controller.CheckArgumentos.ConfiguracionCheckArgumentos;
+import org.example.controller.ConfiguracionCheckArgumentos;
 import org.example.controller.Configuracion;
 
 import org.example.model.Colores;

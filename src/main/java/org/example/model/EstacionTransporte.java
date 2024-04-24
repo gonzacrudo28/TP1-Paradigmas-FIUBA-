@@ -11,7 +11,7 @@ public class EstacionTransporte extends Comprable{
     public void setPropietario(Jugador propietario) {
         if(this.propietario == null){
             this.propietario = propietario;
-            this.estado = EstadoPropiedad.COMPRADO;
+            this.estado = EstadoPropiedades.COMPRADO;
             System.out.println("Estacion comprada con exito");
             propietario.restarPlata((int)precio);
             propietario.agregarEstacion(this);

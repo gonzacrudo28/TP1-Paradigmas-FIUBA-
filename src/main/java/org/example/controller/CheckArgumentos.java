@@ -1,24 +1,14 @@
 package org.example.controller;
 
-import com.sun.tools.javac.Main;
-import org.example.model.AdministradorTurnos;
-
+import org.example.controller.ConfiguracionCheckArgumentos;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
+
 public class CheckArgumentos{
-    public enum ConfiguracionCheckArgumentos{
-        JUGADORES,
-        CASILLEROS,
-        CANTIDAD_DE_LADOS_EN_DADO,
-        DINERO_INICIAL,
-        DINERO_VUELTA,
-        TURNOS_PRESO,
-        MULTA,
-        FIANZA
-    }
+
     private List<String> configuraciones;
     private Scanner entrada;
     public void CheckArgumentos() {

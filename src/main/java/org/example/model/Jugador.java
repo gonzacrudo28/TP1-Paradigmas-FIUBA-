@@ -15,6 +15,7 @@ public class Jugador{
     private ArrayList<Propiedad> propiedades;
     private Estado estado;
     private int condena;
+    private double patrimonio;
 
 
     //mover a algun ejecutador de acciones
@@ -30,7 +31,9 @@ public class Jugador{
     }
 
 
-
+    public void sumarAlPatrimonio(double monto){
+        this.patrimonio += monto;
+    }
     public void agregarPropiedad(Propiedad propiedad){
         propiedades.add(propiedad);
     }
@@ -42,9 +45,14 @@ public class Jugador{
      }
 
     public void hipotecarPropiedad(Barrio barrio,Propiedad propiedad){
-        propiedad.hipotecar(barrio);
-        this.sumarPlata(propiedad.getPrecio());
+        propiedad.hipotecar(barrio,this);
+        restarPatrimonio(propiedad.getPrecio());
+
     }
+    public void restarPatrimonio(double monto){
+        this.patrimonio -= monto;
+    }
+
 
     public ArrayList<EstacionTransporte> getEstaciones() {
         return estaciones;
@@ -52,13 +60,15 @@ public class Jugador{
 
     public void deshipotecarPropiedad(Propiedad propiedad){
         propiedad.deshipotecar();
-        this.restarPlata((int)(propiedad.getPrecio()* Constantes.PORCENTAJE_DE_DESHIPOTECAR));
+        this.restarPlata((propiedad.getPrecio()* Constantes.PORCENTAJE_DE_DESHIPOTECAR));
+        sumarAlPatrimonio(propiedad.getPrecio());
     }
 
     public void comprarComprable(Comprable comprable, Jugador jugador){
-        int precioComprable = comprable.getPrecio();
+        double precioComprable = comprable.getPrecio();
         if (this.plata >= precioComprable) {
             comprable.setPropietario(jugador);
+            sumarAlPatrimonio(precioComprable);
 
         }else{
             System.out.println("No se puede comprar propiedad");
@@ -74,6 +84,7 @@ public class Jugador{
         this.propiedades = new ArrayList<>();
         this.condena = 0;
         this.estaciones = new ArrayList<>();
+        this.patrimonio = 0;
     }
 
     public void setPlata(double plata) {
@@ -98,31 +109,29 @@ public class Jugador{
     }
     public Colores.Color getColor() {return this.color;}
     public ArrayList<Propiedad> getPropiedades(){return this.propiedades;}
+    public double getPatrimonio(){return this.patrimonio;}
 
     public void restarPlata(double dinero){
         if (plata > dinero){
             plata -= dinero;
             return;
         }
-        System.out.println("Ups!" + this.nombre + "no tiene dinero suficiente para pagar");
+        if (this.puedePagarlo(dinero)){
 
-        while (dinero>plata) {
-            this.setEstado(Estado.Quiebra);
-            for (int i = 0; i < propiedades.size(); i++){
-                if (dinero > plata){
-                    propiedades.get(i).hipotecar();
-                } else if (dinero <= plata){
-                    this.setEstado(Estado.EnJuego);
-                    break;
-                }
-            }
+        } else{
+            this.perder();
         }
-        if (this.estado == Estado.Quiebra){
-            System.out.printf("%s perdio! No tiene suficiente dinero para saldar sus deudas", this.nombre);
+
+    }
+    public boolean puedePagarlo(double dinero){
+        return dinero <= this.patrimonio + this.plata;
+    }
+    public void perder(){
+        this.setEstado(Estado.Quiebra);
+        for (Propiedad propiedades : this.propiedades) {
+            propiedades.liberar();
         }
     }
-
-
     public void restarCondena(){
         this.condena--;
     }
@@ -136,6 +145,7 @@ public class Jugador{
     public void venderPropiedad(Propiedad propiedad){
         if (propiedad.getPropietario().equals(this)){
             propiedad.vender();
+            restarPatrimonio(propiedad.getPrecio());
             return;
         }
         System.out.printf("%s no es el propietario, el dueño es %s", this.nombre, propiedad.getPropietario());

@@ -1,7 +1,9 @@
 package org.example.controller;
 
+
 import org.example.model.Colores;
 import org.example.model.Jugador;
+import org.example.controller.ConfiguracionCheckArgumentos;
 
 
 import java.util.ArrayDeque;
@@ -21,22 +23,14 @@ public class Configuracion {
 
 
     public Configuracion(List<String> configuraciones) {
-        cantidadCasilleros = Integer.parseInt(configuraciones.get(CheckArgumentos
-                .ConfiguracionCheckArgumentos.CASILLEROS.ordinal()));
-        montoInicial = Integer.parseInt(configuraciones.get(CheckArgumentos
-                .ConfiguracionCheckArgumentos.DINERO_INICIAL.ordinal()));
+        cantidadCasilleros = Integer.parseInt(configuraciones.get(ConfiguracionCheckArgumentos.CASILLEROS.ordinal()));
+        montoInicial = Integer.parseInt(configuraciones.get(ConfiguracionCheckArgumentos.DINERO_INICIAL.ordinal()));
         System.out.println(montoInicial);
-        cantidadDeLados= Integer.parseInt(configuraciones.get(CheckArgumentos
-                .ConfiguracionCheckArgumentos.CANTIDAD_DE_LADOS_EN_DADO.ordinal()));
-        montoVuelta = Integer.parseInt(configuraciones.get(CheckArgumentos
-                .ConfiguracionCheckArgumentos.DINERO_VUELTA.ordinal()));
-        condenaCarcel = Integer.parseInt(configuraciones.get(CheckArgumentos
-                .ConfiguracionCheckArgumentos.TURNOS_PRESO.ordinal()));
-        montoDeMulta = Integer.parseInt(configuraciones.get(CheckArgumentos
-                .ConfiguracionCheckArgumentos.MULTA.ordinal()));
-        montoFianza = Integer.parseInt(configuraciones.get(CheckArgumentos
-                .ConfiguracionCheckArgumentos.FIANZA.ordinal()));
-
+        cantidadDeLados= Integer.parseInt(configuraciones.get(ConfiguracionCheckArgumentos.CANTIDAD_DE_LADOS_EN_DADO.ordinal()));
+        montoVuelta = Integer.parseInt(configuraciones.get(ConfiguracionCheckArgumentos.DINERO_VUELTA.ordinal()));
+        condenaCarcel = Integer.parseInt(configuraciones.get(ConfiguracionCheckArgumentos.TURNOS_PRESO.ordinal()));
+        montoDeMulta = Integer.parseInt(configuraciones.get(ConfiguracionCheckArgumentos.MULTA.ordinal()));
+        montoFianza = Integer.parseInt(configuraciones.get(ConfiguracionCheckArgumentos.FIANZA.ordinal()));
         ArrayList<Jugador> jugadores = this.crearJugadores(configuraciones);
         this.jugadores = jugadores;
         asignacionColores(jugadores);
@@ -44,7 +38,7 @@ public class Configuracion {
 
     private ArrayList<Jugador> crearJugadores(List<String> configuraciones){
         List<String> nombres = List.of(configuraciones.get(0).split(" "));
-        int plataInicial = Integer.parseInt(configuraciones.get(CheckArgumentos.ConfiguracionCheckArgumentos.DINERO_INICIAL.ordinal()));
+        int plataInicial = Integer.parseInt(configuraciones.get(ConfiguracionCheckArgumentos.DINERO_INICIAL.ordinal()));
         ArrayList<Jugador> jugadores = new ArrayList<Jugador>();
         for (String s : nombres) {
             Jugador jugador = new Jugador(s);

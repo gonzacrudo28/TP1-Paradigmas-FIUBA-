@@ -1,6 +1,7 @@
 package org.example.model.tipoCasilleros;
 
 import org.example.model.*;
+import org.example.model.EstadoPropiedades;
 
 import java.io.Serializable;
 
@@ -21,7 +22,7 @@ public class DePropiedad extends Casillero implements CasilleroEjecutable {
     }
     @Override
     public void ejecutarCasillero(Jugador jugador) {
-        if (propiedad.getEstado() == Comprable.EstadoPropiedad.COMPRADO) {
+        if (propiedad.getEstado() == EstadoPropiedades.COMPRADO) {
             double alquiler = propiedad.getAlquiler();
             jugador.restarPlata(alquiler);
             System.out.printf("%s pagaste %f de alquiler por estar en la propiedad de %s\n",jugador.getNombre(),alquiler,propiedad.getNombrePropietario());

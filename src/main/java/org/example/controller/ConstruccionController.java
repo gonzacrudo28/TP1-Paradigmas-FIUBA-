@@ -1,5 +1,6 @@
 package org.example.controller;
 import org.example.model.Barrio;
+import org.example.model.Construcciones;
 import org.example.model.Jugador;
 import org.example.model.Propiedad;
 import org.example.model.tipoCasilleros.DePropiedad;
@@ -28,7 +29,7 @@ public class ConstruccionController {
         ArrayList<Propiedad> listaDePropiedades = this.barrio.getPropiedades();
         for (Propiedad propiedad : listaDePropiedades){
             if (propiedad.getPropietario() != jugador){
-                System.out.println("ERROR: EL JUGADOR "+jugador.getNombre()+ " NO POSEE TODAS LAS PROPIEDADES DEL BARRIO NUMERO "+ this.barrio.getNumeroBarrio());
+                System.out.println("El jugador "+jugador.getNombre()+ " no posee todas las propiedades del barrio  "+ this.barrio.getNumeroBarrio());
                 return false;
             }
         }
@@ -38,7 +39,11 @@ public class ConstruccionController {
 
 
     private boolean puedeConstruir(Jugador jugador,Propiedad propiedad){
-        if (propiedad.getConstrucciones() == Propiedad.Construcciones.HOTEL){
+        if (jugador.getPlata() < propiedad.getPrecioCasa()){
+            System.out.println("ERROR: EL JUGADOR " +jugador.getNombre()+ " NO TIENE SUFICIENTE PLATA");
+            return false;
+        }
+        if (propiedad.getConstrucciones() == Construcciones.HOTEL){
             System.out.println("ERROR: EL JUGADOR "+jugador.getNombre()+ "YA POSEE UN HOTEL EN ESTA PROPIEDAD");
             return false;
         }
@@ -54,9 +59,7 @@ public class ConstruccionController {
     }
 
 
-    private boolean puedeConstruccion(Barrio barrio,Propiedad propiedad){
-        
-    }
+
     //Obs -> maxima_diferencia < 1 xq si pongo <= y efectivamente la diferencia es 1,
     // si agrego una casa esa diferencia es= 2(>1)
 }

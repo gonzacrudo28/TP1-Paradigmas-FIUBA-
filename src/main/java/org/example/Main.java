@@ -31,12 +31,12 @@ public class Main {
 /*
 COSAS PARA HACER:
     • Agregar delay (se encarga top o intenta) (OPCIONAL)
-    • Limitar las acciones(habria que
     • Modularizar JuegoController
-    ver si funciona bien la compra de transporte
-    • Hacer jugaTurnoView(?
-    .comprar(construir) reste precio y validar constucciones
 
+    • Hacer jugaTurnoView(?
+    • ELIMINAR PROPIEDADES DEL JUGADOR EN EL TABLERO CUANDO ENTRA EN QUIEBRA
+    • COLORES Q SE PUEDAN ELEGIR
+    •
 
 */
 
