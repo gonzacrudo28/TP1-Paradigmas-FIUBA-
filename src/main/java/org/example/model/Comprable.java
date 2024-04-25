@@ -2,6 +2,7 @@ package org.example.model;
 
 import org.example.controller.Constantes;
 import org.example.model.EstadoPropiedades;
+import org.example.model.tipoCasilleros.TipoCasillero;
 
 import java.util.ArrayList;
 
@@ -24,6 +25,7 @@ public abstract class Comprable {
         this.alquiler = (precio * Constantes.PORCENTAJE_ALQUILER);
     }
 
+
     public EstadoPropiedades getEstado() {
         return this.estado;
     }
@@ -37,8 +39,11 @@ public abstract class Comprable {
         this.propietario = null;
         this.estado = EstadoPropiedades.EN_VENTA;
     }
+    public abstract void venderComprable();
+
     public Comprable getComprable() {
         return this;
     };
+
 
 }

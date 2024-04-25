@@ -4,7 +4,8 @@ package org.example.controller;
 import org.example.model.Colores;
 import org.example.model.Jugador;
 import org.example.controller.ConfiguracionCheckArgumentos;
-
+import org.jline.reader.LineReader;
+import org.jline.reader.LineReaderBuilder;
 
 import java.util.ArrayDeque;
 import java.util.ArrayList;
@@ -20,6 +21,7 @@ public class Configuracion {
     private int cantidadCasilleros;
     private int montoFianza;
     private ArrayList<Jugador> jugadores;
+    private ArrayList<Colores> colores;
 
 
     public Configuracion(List<String> configuraciones) {
@@ -40,8 +42,8 @@ public class Configuracion {
         List<String> nombres = List.of(configuraciones.get(0).split(" "));
         int plataInicial = Integer.parseInt(configuraciones.get(ConfiguracionCheckArgumentos.DINERO_INICIAL.ordinal()));
         ArrayList<Jugador> jugadores = new ArrayList<Jugador>();
-        for (String s : nombres) {
-            Jugador jugador = new Jugador(s);
+        for (String nombre : nombres) {
+            Jugador jugador = new Jugador(nombre);
             jugador.setPlata(plataInicial);
             jugadores.add(jugador);
         }
@@ -52,9 +54,35 @@ public class Configuracion {
     private void asignacionColores(List<Jugador> jugadores){
         Colores.Color[] colores = Colores.Color.values();
         for(int i = 0; i < jugadores.size(); i++){
-            jugadores.get(i).setColor(colores[i]);
+            System.out.println("El jugador " + jugadores.get(i).getNombre() + " debe elegir el color: ");
+            int opcionColor=this.elegirColor(colores);
+            jugadores.get(i).setColor(colores[opcionColor-1]);
+            colores[opcionColor -1] = null;
         }
     }
+
+    private int validarIngresoColor(Colores.Color[] colores, int opcion){
+        while(opcion <1 || opcion > colores.length || colores[opcion-1] ==null){
+            System.out.println("ERROR: NUMERO NO VALIDO");
+            opcion = elegirColor(colores);
+        }
+        return opcion;
+    }
+    private int  elegirColor(Colores.Color[] colores ){
+        LineReader reader = LineReaderBuilder.builder().build();
+        System.out.println("Los colores disponibles son:");
+        for (int i= 0; i < colores.length; i++){
+            if (colores[i]!= null){
+                System.out.println(i+1 +")Color: " + colores[i]);
+            }
+        }
+        String opcion = reader.readLine("Ingrese el numero de color que desea elegir: ");
+        int opcionInt = Integer.parseInt(opcion);
+        opcionInt = validarIngresoColor(colores, opcionInt);
+        return opcionInt;
+    }
+
+
     public double getMontoVuelta() {
         return montoVuelta;
     }

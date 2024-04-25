@@ -1,5 +1,14 @@
 package org.example.model;
 
 public class Colores {
-    public enum Color{MAGENTA,CYAN,RED,GREEN};
+    public enum Color {
+        BLACK,
+        RED,
+        GREEN,
+        YELLOW,
+        BLUE,
+        MAGENTA,
+        CYAN,
+        WHITE
+    }
 }

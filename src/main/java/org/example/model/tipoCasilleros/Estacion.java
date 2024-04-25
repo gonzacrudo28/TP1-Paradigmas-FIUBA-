@@ -10,23 +10,23 @@ import java.io.Serializable;
 public class Estacion extends Casillero implements CasilleroEjecutable{
     private double precio;
     private final EstacionTransporte estacion;
-    private Jugador propietario;
 
     public Estacion(int ubicacion,double precio){
         super("De transporte",TipoCasillero.ESTACION,ubicacion);
         this.precio = precio;
         this.estacion = new EstacionTransporte(precio,ubicacion);
-        this.propietario = estacion.getPropietario();
     }
 
     @Override
     public void ejecutarCasillero(Jugador jugador) {
+        //Funcion encargada de cobrar el alquiler
         int cantEstaciones = jugador.getEstaciones().size();
+        Jugador propietario = estacion.getPropietario();
         if (estacion.getPropietario() != null || propietario == jugador) {
             if (cantEstaciones == 0) {
                 double precio = estacion.getAlquiler() * propietario.getEstaciones().size();
                 jugador.restarPlata(precio);
-                System.out.printf("%s pagas %f de alquiler por caer en la estacion de %s",propietario.getNombre(),precio, estacion.getNombrePropietario());
+                System.out.printf("%s pagas %f de alquiler por caer en la estacion de %s\n",propietario.getNombre(),precio, jugador.getNombre());
                 propietario.sumarPlata(precio);
             }
         }

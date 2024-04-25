@@ -1,0 +1,7 @@
+package org.example.model;
+
+public enum Accion {
+    TERMINAR_TURNO, CONSTRUIR,CONSULTAR_PRECIO_CASA,VENDER,HIPOTECAR,
+    COMPRAR, PAGAR_FIANZA, DESHIPOTECAR;
+
+}

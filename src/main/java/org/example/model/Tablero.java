@@ -76,12 +76,14 @@ public class Tablero {
                 }else{
                     if (contadorDePropiedades == 0){
                         precioBarrio = (Constantes.PORCENTAJE_AUMENTO_BARRIO*contadorBarrios);
-                        nuevoBarrio = new Barrio(contadorBarrios,precioBarrio);
+                        nuevoBarrio = new Barrio(contadorBarrios-1,precioBarrio);
+                        System.out.println("numero de BARRIO "+(contadorBarrios-1));
                         this.barrios.add(nuevoBarrio);
                         contadorBarrios++;
                     }
                     //NICO: VER SI ESTO NO LO PODRIA HACER EL BARRIO
-                    DePropiedad casilleroDePropiedad = new DePropiedad(numeroCasillero,(int)(precioBarrio*configuraciones.getMontoInicial()),contadorBarrios);
+                    DePropiedad casilleroDePropiedad = new DePropiedad(numeroCasillero,(int)(precioBarrio*configuraciones.getMontoInicial()),contadorBarrios-2);
+                    System.out.println("BARRIO DE LA PROPIEDAD "+numeroCasillero+" "+(contadorBarrios-2));
                     nuevoBarrio.addCasillero(casilleroDePropiedad);
                     this.casilleros[numeroCasillero] = casilleroDePropiedad;
                     contadorDePropiedades++;

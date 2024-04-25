@@ -1,6 +1,8 @@
 package org.example.controller;
 
 import org.example.controller.ConfiguracionCheckArgumentos;
+import org.example.funciones.DelayPrint;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -12,7 +14,7 @@ public class CheckArgumentos{
     private List<String> configuraciones;
     private Scanner entrada;
     public void CheckArgumentos() {
-        System.out.println("Bienvenidos al Monopoly! Para jugar necesitamos que ingresen los siguientes datos:");
+        DelayPrint.delayPrint("Bienvenidos al Monopoly! Para jugar necesitamos que ingresen los siguientes datos:", 10);
         List<String> argumentos = new ArrayList<>();
         argumentos.add("Nombres (2 a 4 jugadores y separados por espacios)");
         argumentos.add("Cantidad de casilleros (minimo 10)");
@@ -25,7 +27,7 @@ public class CheckArgumentos{
         List<ConfiguracionCheckArgumentos> configuraciones = Arrays.asList(ConfiguracionCheckArgumentos.values());
         List<String> inputs = new ArrayList<>();
         this.entrada= new Scanner(System.in);
-        //ARREGLAR PRINCIPIO QUE SE ROMPE (TDA/DRY)
+        //ARREGLAR PRINCIPIO QUE SE ROMPE (DRY)
         for (int contador = 0; contador < argumentos.size(); contador++) {
             System.out.println(argumentos.get(contador));
             inputs.add(entrada.nextLine());

@@ -17,19 +17,17 @@ public class Jugador{
     private int condena;
     private double patrimonio;
 
-
     //mover a algun ejecutador de acciones
     public void pagarFianza(double fianza){
-       if (this.plata >= fianza){
+       if (condena != 0){
            restarPlata(fianza);
            condena = 0;
            System.out.println("Fianza pagada con exito");
            this.estado = Estado.EnJuego;
            return;
         }
-        System.out.println("No se puede pagar fianza");
+        System.out.println("No estas en la carcel!");
     }
-
 
     public void sumarAlPatrimonio(double monto){
         this.patrimonio += monto;
@@ -41,19 +39,13 @@ public class Jugador{
 
     public void agregarEstacion(EstacionTransporte estacion){estaciones.add(estacion);}
 
-    public void reformarPropiedad(Barrio barrio,Propiedad propiedad){
-        propiedad.mejorarPropiedad(barrio,this);
-     }
-
     public void hipotecarPropiedad(Barrio barrio,Propiedad propiedad){
         propiedad.hipotecar(barrio,this);
-        restarPatrimonio(propiedad.getPrecio());
 
     }
     public void restarPatrimonio(double monto){
         this.patrimonio -= monto;
     }
-
 
     public ArrayList<EstacionTransporte> getEstaciones() {
         return estaciones;
@@ -70,7 +62,6 @@ public class Jugador{
         if (this.plata >= precioComprable) {
             comprable.setPropietario(jugador);
             sumarAlPatrimonio(precioComprable);
-
         }else{
             System.out.println("No se puede comprar propiedad");
         }
@@ -116,17 +107,15 @@ public class Jugador{
         if (plata > dinero){
             plata -= dinero;
             return;
+        }else{
+            System.out.println("No tienes dinero sufieciente para comprar esta propiedad \nObs! Si quieres puedes hipotecar otra propiedad para comprar esta");
         }
-        if (this.puedePagarlo(dinero)){
-
-        } else{
-            this.perder();
-        }
-
     }
+
     public boolean puedePagarlo(double dinero){
         return dinero <= this.patrimonio + this.plata;
     }
+
     public void perder(){
         this.setEstado(Estado.Quiebra);
         for (Propiedad propiedades : this.propiedades) {
@@ -145,7 +134,7 @@ public class Jugador{
 
     public void venderPropiedad(Propiedad propiedad){
         if (propiedad.getPropietario().equals(this)){
-            propiedad.vender();
+            propiedad.venderComprable();
             restarPatrimonio(propiedad.getPrecio());
             eliminarPropiedad(propiedad);
             return;
@@ -161,6 +150,10 @@ public class Jugador{
 
     public void eliminarEstacion(EstacionTransporte estacionTransporte) {
         estaciones.remove(estacionTransporte);
+    }
+
+    public void vender(Comprable comprable){
+        comprable.venderComprable();
     }
 }
 

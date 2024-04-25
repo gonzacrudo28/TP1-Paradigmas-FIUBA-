@@ -1,9 +1,7 @@
 package org.example.controller;
 
-import org.example.model.Propiedad;
-import org.example.model.Barrio;
-import org.example.model.Jugador;
-import org.example.model.Construcciones;
+import org.example.model.*;
+
 public class CheckHipotecar {
     private Jugador jugador;
     private Barrio barrio;
@@ -16,8 +14,13 @@ public class CheckHipotecar {
     }
 
     public boolean validarHipotecar(){
+
         if (!jugador.getPropiedades().contains(propiedad)){
             System.out.println("ERROR: EL JUGADOR "+ jugador.getNombre() + " NO ES DUEÑO DE LA PROPIEDAD");
+            return false;
+        }
+        if (propiedad.getEstado() != EstadoPropiedades.COMPRADO){
+            System.out.println("ERROR: LA PROPIEDAD SE ENCUENTRA HIPOTECADA O EN VENTA");
             return false;
         }
         for (Propiedad propiedadDelBarrio: barrio.getPropiedades()){

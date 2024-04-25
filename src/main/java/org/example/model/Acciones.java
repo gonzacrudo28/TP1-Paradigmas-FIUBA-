@@ -1,14 +1,10 @@
 package org.example.model;
 import org.fusesource.jansi.Ansi;
+import org.example.model.Accion;
 
 public class Acciones {
 
 
-    public enum Accion {
-        TERMINAR_TURNO, CONSTRUIR,CONSULTAR_PRECIO_CASA, VENDER, HIPOTECAR,
-        COMPRAR, PAGAR_FIANZA, DESHIPOTECAR;
-
-    }
     public Accion getAccion(int accion){
         if(accion >= 0 && accion < Accion.values().length){
             return Accion.values()[accion];
