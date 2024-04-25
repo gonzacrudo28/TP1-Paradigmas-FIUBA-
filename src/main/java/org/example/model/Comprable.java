@@ -37,9 +37,6 @@ public abstract class Comprable {
         this.propietario = null;
         this.estado = EstadoPropiedades.EN_VENTA;
     }
-    public void vender(){
-
-    }
     public Comprable getComprable() {
         return this;
     };

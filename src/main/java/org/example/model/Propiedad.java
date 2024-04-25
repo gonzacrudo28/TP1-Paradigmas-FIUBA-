@@ -25,10 +25,7 @@ public class Propiedad extends Comprable {
         this.numeroDeBarrio = numeroDeBarrio;
         this.construcciones = Construcciones.SIN_CASA;
         this.precioCasa = (precio*Constantes.PORCENTAJE_PRECIO_CASA);
-
-
     }
-
 
 
     public double getPrecioCasa() {
@@ -113,11 +110,8 @@ public class Propiedad extends Comprable {
     }
 
     public void deconstruite(Barrio barrio, Jugador jugador){
-        if(this.construcciones.equals(Construcciones.SIN_CASA)){
-            return;
-        }
         ConstruccionController construccionController = new ConstruccionController(this,barrio);
-        if (construccionController.validarConstruccion(jugador, this)){
+        if (construccionController.validarVenta(jugador, this)){
             jugador.restarPatrimonio(this.getPrecioCasa());
             this.construcciones = this.getAnteriorConstruccion(this.construcciones);
             actualizarAlquiler();
@@ -132,14 +126,23 @@ public class Propiedad extends Comprable {
     }
 
 
-    public void venderCasa(Jugador jugador){
-        double precioReventa = this.precio * Constantes.PORCENTAJE_DE_VENTA;
-        this.propietario.sumarPlata(precioReventa);
-        this.liberarCasa(jugador);
+    public void VenderPropiedad(){
+        if(getConstrucciones()==Construcciones.SIN_CASA){
+            this.propietario.sumarPlata(getPrecio());
+            liberar();
+            return;
+        }
+        System.out.println("No se puede vender la propiedad (tiene casas/hotel)");
     }
 
-    public void liberarCasa(Jugador jugador){
-        deconstruite(getBarrio(), jugador);
+    public void venderCasa(Jugador jugador, Barrio barrio){
+        double precioReventa = this.precio * Constantes.PORCENTAJE_DE_VENTA;
+        this.propietario.sumarPlata(precioReventa);
+        this.liberarCasa(jugador, barrio);
+    }
+
+    public void liberarCasa(Jugador jugador, Barrio barrio){
+        deconstruite(barrio, jugador);
         this.alquiler = setPrecioBaseAlquiler();
     }
 

@@ -20,9 +20,14 @@ public class EstacionTransporte extends Comprable{
         System.out.println("La estacion ya fue comprada");
     }
 
+    public void venderEstacion(){
+        propietario.sumarPlata(getPrecio());
+        propietario.eliminarEstacion(this);
+        setPropietario(null);
+        this.estado = EstadoPropiedades.EN_VENTA;
+    }
+
     public String getNombrePropietario() {
         return propietario.getNombre();
     }
-
-
 }

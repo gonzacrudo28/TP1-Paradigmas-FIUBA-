@@ -18,12 +18,40 @@ public class ConstruccionController {
         this.barrio = barrio;
     }
 
+    public boolean validarVenta(Jugador jugador,Propiedad propiedad){
+        if (this.esPropietarioBarrio(jugador) && this.puedeVender(jugador, propiedad)){
+            return true;
+        }
+        return  false;
+    }
+
+    private boolean puedeVender(Jugador jugador,Propiedad propiedad){
+
+        if (propiedad.getConstrucciones() == Construcciones.SIN_CASA){
+            System.out.println("ERROR: EL JUGADOR "+jugador.getNombre()+ "NO TIENE CASAS PARA VENDER");
+            return false;
+        }
+        //ATENTI A ESE -1 QUE AGREGUE (SE SUPONE QUE NO DEBE HABER MAYOR DIFERENCIA DE 1
+        // CUANDO SE REALICE LA VENTA. OJOTA)
+        ArrayList<Propiedad> listaDePropiedades = this.barrio.getPropiedades();
+        for (int i=0; i<listaDePropiedades.size(); i++) {
+            int dif = (propiedad.getConstrucciones().ordinal()-1) - listaDePropiedades.get(i).getConstrucciones().ordinal();
+            if (dif>0){
+                System.out.println("ERROR: EL JUGADOR "+jugador.getNombre()+ " NO PUEDE VENDER DEBIDO A QUE EXCEDE EL LIMITE DE DIFERENCIA ENTRE LAS CONTRUCCIONES DE LAS PROPIEDADES");
+                return  false;
+            }
+        }
+        return true;
+    }
+
+
     public boolean validarConstruccion(Jugador jugador,Propiedad propiedad){
         if (this.esPropietarioBarrio(jugador) && this.puedeConstruir(jugador, propiedad)){
             return true;
         }
         return  false;
     }
+
 
     private boolean esPropietarioBarrio(Jugador jugador){
         ArrayList<Propiedad> listaDePropiedades = this.barrio.getPropiedades();
@@ -47,9 +75,11 @@ public class ConstruccionController {
             System.out.println("ERROR: EL JUGADOR "+jugador.getNombre()+ "YA POSEE UN HOTEL EN ESTA PROPIEDAD");
             return false;
         }
+        //ATENTI A ESE +1 QUE AGREGUE (SE SUPONE QUE NO DEBE HABER MAYOR DIFERENCIA DE 1
+        // CUANDO SE REALICE LA MEJORA. OJOTA)
         ArrayList<Propiedad> listaDePropiedades = this.barrio.getPropiedades();
         for (int i=0; i<listaDePropiedades.size(); i++) {
-            int dif = propiedad.getConstrucciones().ordinal() - listaDePropiedades.get(i).getConstrucciones().ordinal();
+            int dif = (propiedad.getConstrucciones().ordinal()+1) - listaDePropiedades.get(i).getConstrucciones().ordinal();
             if (dif>0){
                 System.out.println("ERROR: EL JUGADOR "+jugador.getNombre()+ " NO PUEDE CONSTUIR DEBIDO A QUE EXCEDE EL LIMITE DE DIFERENCIA ENTRE LAS CONTRUCCIONES DE LAS PROPIEDADES");
                 return  false;

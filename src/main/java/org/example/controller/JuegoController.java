@@ -155,7 +155,6 @@ public class JuegoController {
                 String casillero = reader.readLine("Seleccione el casillero en que se encuentra la porpiedad(NUMERO):");
                 int propiedad = (checkStrToInt.checkStringToInt(casillero));
                     Propiedad prop = obtenerPropiedadJugador(propiedad,jugador);
-
                     if (prop != null) {
                         jugador.venderPropiedad(prop);
                     }

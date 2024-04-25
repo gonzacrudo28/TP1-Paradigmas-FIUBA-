@@ -37,6 +37,7 @@ public class Jugador{
     public void agregarPropiedad(Propiedad propiedad){
         propiedades.add(propiedad);
     }
+    public void eliminarPropiedad(Propiedad propiedad){propiedades.remove(propiedad);}
 
     public void agregarEstacion(EstacionTransporte estacion){estaciones.add(estacion);}
 
@@ -146,6 +147,7 @@ public class Jugador{
         if (propiedad.getPropietario().equals(this)){
             propiedad.vender();
             restarPatrimonio(propiedad.getPrecio());
+            eliminarPropiedad(propiedad);
             return;
         }
         System.out.printf("%s no es el propietario, el dueño es %s", this.nombre, propiedad.getPropietario());
@@ -157,5 +159,8 @@ public class Jugador{
     }
 
 
+    public void eliminarEstacion(EstacionTransporte estacionTransporte) {
+        estaciones.remove(estacionTransporte);
+    }
 }
 
