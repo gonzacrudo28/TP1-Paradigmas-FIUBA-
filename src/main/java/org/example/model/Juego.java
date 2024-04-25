@@ -1,15 +1,11 @@
 package org.example.model;
 
-import java.text.CompactNumberFormat;
-import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.List;
-import org.example.controller.CheckArgumentos;
-import org.example.controller.ConfiguracionCheckArgumentos;
-import org.example.controller.Configuracion;
 
-import org.example.model.Colores;
-import java.util.concurrent.ScheduledExecutorService;
+import org.example.controller.AdministradorDeMovimientos;
+import org.example.controller.AdministradorTurnos;
+import org.example.controller.Configuracion;
 
 public class Juego {
     private ArrayList<Jugador> jugadores;
@@ -26,7 +22,6 @@ public class Juego {
         this.administradorDeTurnos = new AdministradorTurnos(jugadores);
         this.tablero = new Tablero(configuracion);
         this.administradorDeMovimientos = new AdministradorDeMovimientos(tablero);
-        this.administradorDeMovimientos = administradorDeMovimientos;
         this.banco = new Banco(configuracion.getMontoVuelta());
     }
     public double getFianza(){return configuracion.getMontoFianza();}
@@ -38,6 +33,9 @@ public class Juego {
         return checkEstadoJugadores(jugadores);
     }
 
+    public void eliminarJugador(Jugador jugador){
+        jugadores.remove(jugador);
+    }
     public void cambiarTurno() {
         administradorDeTurnos.avanzarTurno();
     }
@@ -62,12 +60,11 @@ public class Juego {
     }
 
     public boolean checkEstadoJugadores(List<Jugador> jugadores){
-        int jugadoresFuera = 0;
         for(Jugador jugador: jugadores){
-            if (jugador.estaEnQuiebra()){
-                jugadoresFuera++;
+            if (jugador.getEstado().equals(Estado.Gano)){
+                return true;
             }
         }
-        return jugadoresFuera == jugadores.size()-1;
+        return jugadores.size() == 1;
     }
 }

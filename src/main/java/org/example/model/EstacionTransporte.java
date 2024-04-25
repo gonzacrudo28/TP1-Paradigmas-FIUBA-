@@ -22,7 +22,7 @@ public class EstacionTransporte extends Comprable{
 
     public void venderComprable(){
         propietario.sumarPlata(precio);
-        propietario.eliminarEstacion(this);
+        propietario.eliminarComprable(this);
         setPropietario(null);
         this.estado = EstadoPropiedades.EN_VENTA;
     }

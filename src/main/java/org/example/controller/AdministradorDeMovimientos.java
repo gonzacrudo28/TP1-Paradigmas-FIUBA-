@@ -1,5 +1,6 @@
-package org.example.model;
+package org.example.controller;
 
+import org.example.model.Jugador;
 import org.example.model.Tablero;
 
 public class AdministradorDeMovimientos {

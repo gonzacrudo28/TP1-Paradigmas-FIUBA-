@@ -11,7 +11,8 @@ public class DeMulta extends Casillero implements CasilleroEjecutable {
 
 
     public void ejecutarCasillero(Jugador jugador) {
-        jugador.restarPlata(montoMulta);
-        System.out.println(jugador.getNombre() + " pagaste multa de $"+montoMulta);
+        if (jugador.restarPlata(montoMulta)){
+            System.out.println(jugador.getNombre() + " pagaste multa de $"+montoMulta);
+        }
     }
 }

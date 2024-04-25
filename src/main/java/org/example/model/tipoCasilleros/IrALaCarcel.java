@@ -2,7 +2,9 @@ package org.example.model.tipoCasilleros;
 import org.example.model.Estado;
 import org.example.model.Jugador;
 
-public class IrALaCarcel extends Casillero{
+import java.io.Serializable;
+
+public class IrALaCarcel extends Casillero implements CasilleroEjecutable{
     private final int duracionPena;
     private final int ubicacionCarcel;
     public IrALaCarcel(int ubicacion, int duracionPena,int ubicacionCarcel) {

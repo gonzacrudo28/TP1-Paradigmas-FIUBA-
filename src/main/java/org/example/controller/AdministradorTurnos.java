@@ -1,5 +1,8 @@
-package org.example.model;
+package org.example.controller;
 
+
+import org.example.model.Estado;
+import org.example.model.Jugador;
 
 import java.util.*;
 

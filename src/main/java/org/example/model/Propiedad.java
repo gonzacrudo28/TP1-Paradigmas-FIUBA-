@@ -58,13 +58,13 @@ public class Propiedad extends Comprable {
         return this.construcciones;
     }
 
-    public Construcciones getSiguienteConstruccion() {
-        if (construcciones == Construcciones.HOTEL) {
-            return Construcciones.HOTEL;
-        } else {
-            return siguienteConstruccion();
-        }
-    }
+//    public Construcciones getSiguienteConstruccion() {
+//        if (construcciones == Construcciones.HOTEL) {
+//            return Construcciones.HOTEL;
+//        } else {
+//            return siguienteConstruccion();
+//        }
+//    }
 
     public void sumarConstruccion() {
         construcciones = siguienteConstruccion();
@@ -97,6 +97,7 @@ public class Propiedad extends Comprable {
     public void ponerEnHipoteca() {
         estado = EstadoPropiedades.HIPOTECADO;
     }
+
     public void deshipotecar() {
         estado = EstadoPropiedades.COMPRADO;
     }
@@ -130,17 +131,18 @@ public class Propiedad extends Comprable {
 
     public void venderComprable() {
         this.propietario.sumarPlata(precio * Constantes.PORCENTAJE_DE_VENTA);
+        this.propietario.eliminarComprable(this);
     }
 
     public void actualizarAlquiler() {
         this.alquiler = (alquiler * Constantes.PORCENTAJE_ALQUILER_NUEVA_CASA) + alquiler;
     }
 
-    private double venderPropiedades() {
-        List<Construcciones> tiposConstrucciones = Arrays.asList(Construcciones.values());
-        double cantPropiedades = tiposConstrucciones.indexOf(construcciones);
-        return cantPropiedades * precioCasa;
-    }
+//    private double venderPropiedades() {
+//        List<Construcciones> tiposConstrucciones = Arrays.asList(Construcciones.values());
+//        double cantPropiedades = tiposConstrucciones.indexOf(construcciones);
+//        return cantPropiedades * precioCasa;
+//    }
 
     private int setPrecioBaseAlquiler() {
         return (int) (precio * Constantes.PORCENTAJE_ALQUILER);

@@ -3,13 +3,17 @@ package org.example.view;
 import org.example.funciones.FuncionColorPrints;
 import org.example.model.Colores;
 import org.example.model.Jugador;
+import org.example.model.Propiedad;
 import org.example.model.Tablero;
 import org.example.model.tipoCasilleros.Casillero;
+import org.example.model.tipoCasilleros.DePropiedad;
+import org.example.model.tipoCasilleros.Estacion;
 import org.fusesource.jansi.Ansi;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Objects;
 
 public class TableroView {
     private  Tablero tablero;
@@ -46,10 +50,15 @@ public class TableroView {
                 }
                 imprimirNombresJugadores(jugadoresEnPosicion);
             }else{
-                if (tablero.getCasillero(i).getEfecto() != "Propiedad" && tablero.getCasillero(i).getEfecto() != "De transporte"){
-                    System.out.println(i +" "+ tablero.getCasillero(i).getEfecto());
-                }else {
+//                if (!Objects.equals(tablero.getCasillero(i).getEfecto(), "Propiedad") && !Objects.equals(tablero.getCasillero(i).getEfecto(), "De transporte")){
+//                    System.out.println(i +" "+ tablero.getCasillero(i).getEfecto());
+//                }else {
+//                    System.out.println(i + " " + tablero.getCasillero(i).getEfecto() + " (VALOR: $" + tablero.getCasillero(i).getPrecio()+ ")");
+//                }
+                if (tablero.getCasillero(i) instanceof DePropiedad || tablero.getCasillero(i) instanceof Estacion){
                     System.out.println(i + " " + tablero.getCasillero(i).getEfecto() + " (VALOR: $" + tablero.getCasillero(i).getPrecio()+ ")");
+                }else {
+                    System.out.println(i +" "+ tablero.getCasillero(i).getEfecto());
                 }
             }
         }

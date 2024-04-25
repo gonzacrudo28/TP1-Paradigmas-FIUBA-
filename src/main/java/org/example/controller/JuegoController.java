@@ -48,8 +48,11 @@ public class JuegoController {
         }
         else if(jugador.getEstado() == Estado.Preso){
             jugarTurnoPreso(jugador);
-
+        }else{
+            juego.eliminarJugador(jugador);
+            juego.cambiarTurno();
         }
+
     }
 
     public void jugarTurnoPreso(Jugador jugador){
@@ -95,33 +98,34 @@ public class JuegoController {
 
 
 
-    public void jugarTurnoLibre(Jugador jugador){
+    public void jugarTurnoLibre(Jugador jugador) {
         int dados = juego.tirarDados();
         Ansi colorANSI = null;
         Ansi resetColor = null;
         FuncionColorPrints funcionColorPrints = new FuncionColorPrints();
         colorANSI = funcionColorPrints.obtenerColorANSI(jugador.getColor());
         resetColor = Ansi.ansi().reset();
-        System.out.println(colorANSI+"Es el turno de " + jugador.getNombre() + "\n" + "Tus dados son: " + dados + "\n");
+        System.out.println(colorANSI + "Es el turno de " + jugador.getNombre() + "\n" + "Tus dados son: " + dados + "\n");
         int casillaAnterior = jugador.getUbicacion();
         int casillaActual = administradorDeMovimientos.avanzarJugador(jugador, dados);
         System.out.println("Usted esta en el casillero: " + casillaActual + "\n" + resetColor);
-        pagarBono(jugador,dados,casillaAnterior);
+        pagarBono(jugador, dados, casillaAnterior);
         Casillero casillero = tablero.getCasillero(casillaActual);
 
         if (casillero instanceof CasilleroEjecutable) {
-            ejecutar(jugador,casillaActual);
+            ejecutar(jugador, casillaActual);
         }
 
-        if(jugador.getEstado() == Estado.Preso) return;
+        if (jugador.getEstado() == Estado.Preso) return;
 
         int numeroElecto = 1;
 
         vistaJuego.mostrar();
         Acciones acciones = new Acciones();
-        acciones.getAcciones(colorANSI,resetColor);
+        acciones.getAcciones(colorANSI, resetColor);
         while (numeroElecto != 0) {
-            String accion = reader.readLine(colorANSI + "Seleccione la accion que quiere realizar indicando su numero (NUMERO):\n"+ resetColor );numeroElecto = corroboroAccion(accion);
+            String accion = reader.readLine(colorANSI + "Seleccione la accion que quiere realizar indicando su numero (NUMERO):\n" + resetColor);
+            numeroElecto = corroboroAccion(accion);
             if (numeroElecto == Constantes.NEGATIVO) {
                 System.out.println("Accion inexistente\n");
             } else {
@@ -129,10 +133,37 @@ public class JuegoController {
                 if (accionElecta == null) {
                     System.out.println("Accion inexistente");// no hace falta pero lo dejo porlas
                 }
-                ejecutarAccion(accionElecta,jugador);
+                ejecutarAccion(accionElecta, jugador);
             }
         }
+        if (jugador.estaEnDeuda()) {
+            int ubicacion = jugador.getUbicacion();
+            Propiedad propiedad = tablero.getPropiedad(ubicacion).getPropiedad();
+            checkDeuda(jugador, propiedad);
+
+        }
+
+        if (jugador.estaEnQuiebra()) {
+            System.out.printf("%s perdio!\n", jugador.getNombre());
+            controlTablero.eliminarPropiedadesDelJugadorEnQuiebra(jugador);
+            juego.eliminarJugador(jugador);
+            juego.terminado();
+        }
+        /*
+        else if (jugador.estaEnQuiebra()) {
+            juego.terminado()
+        }*/
     }
+        public void checkDeuda(Jugador jugador,Propiedad propiedad){
+        if (jugador.restarPlata(propiedad.getAlquiler())){
+            System.out.println("Perfecto! El jugador "+jugador.getNombre() +" pudo pagar su deuda!");
+            jugador.setEstado(Estado.EnJuego);
+        }else{
+            System.out.println("EL JUGADOR "+ jugador.getNombre()+" NO PAGO SU DEUDA! ENTRÓ EN BANCARROTA");
+            jugador.setQuiebra();
+        }
+    }
+
     public void ejecutar(Jugador jugador, int ubicacionJugador){
         CasilleroEjecutable casillero = tablero.getCasilleroEjecutable(ubicacionJugador);
         casillero.ejecutarCasillero(jugador);
@@ -162,7 +193,7 @@ public class JuegoController {
                         if(comprable instanceof Propiedad){
                             controllConstrucciones.vender(jugador,(Propiedad) comprable);
                         }else if (comprable instanceof EstacionTransporte){
-                            jugador.vender(comprable);
+                            jugador.venderEstacion((EstacionTransporte)comprable);
                         }
                     }
 
@@ -190,7 +221,7 @@ public class JuegoController {
                 int ubicacionJugador = jugador.getUbicacion();
                 if (esComprable(ubicacionJugador)) {
                     Comprable comprable = obtenerComprable(ubicacionJugador);
-                    jugador.comprarComprable(comprable, jugador);
+                    jugador.comprarComprable(comprable);
                 }
             }else if (accionElecta == Accion.CONSULTAR_PRECIO_CASA){
                 String casillero = reader.readLine("Seleccione el casillero en que se encuentra la porpiedad(NUMERO):");

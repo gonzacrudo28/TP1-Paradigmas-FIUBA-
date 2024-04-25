@@ -43,7 +43,7 @@ public abstract class Comprable {
 
     public Comprable getComprable() {
         return this;
-    };
+    }
 
 
 }

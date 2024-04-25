@@ -33,16 +33,12 @@ public class Main {
 COSAS PARA HACER:
     • Agregar delay (se encarga top o intenta) (OPCIONAL)
     • Modularizar JuegoController
-
-    • Hacer jugaTurnoView(?
-    • ELIMINAR PROPIEDADES DEL JUGADOR EN EL TABLERO CUANDO ENTRA EN QUIEBRA
-
-    NO SE AUMENTA EL PRECIO DEL ALQUILER
-    EL PROPIO JUGADOR TIENE Q PAGAR SU ALQUIER
     PERDER
-    GANAR
-    VERIFICAR TURNO A TURNO SI PERDIO O GANO
+    explicar lo de ganar por los hoteles
+    acomodar los minimos y maximos en check argumentos
 
-*/
+
+
+    */
 
 

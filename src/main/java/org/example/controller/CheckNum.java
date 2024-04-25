@@ -4,18 +4,6 @@ import org.example.model.tipoCasilleros.Casillero;
 import org.example.controller.ConfiguracionCheckArgumentos;
 
 public class CheckNum {
-    public void checkNumerosDeCasilleros(String cantidad, ConfiguracionCheckArgumentos config) {
-        CheckStrToInt checkStrToInt = new CheckStrToInt();
-        int numero = checkStrToInt.checkStringToInt(cantidad);
-        if (numero <= 0 ){
-            System.out.println("Esa cantidad no es posible");
-            System.exit(0);
-        } else if (config == ConfiguracionCheckArgumentos.CASILLEROS && Constantes.CANTIDAD_CASILLEROS_BASE > numero) {
-            System.out.println("Esa cantidad no es posible");
-            System.exit(0);
-        }
-    }
-
     public void checkNumeroMaximoEnDado(String cantidad, ConfiguracionCheckArgumentos config,int cantidadDeCasillerosMaximos) {
         CheckStrToInt checkStrToInt = new CheckStrToInt();
         int numeroPuesto = checkStrToInt.checkStringToInt(cantidad);
@@ -27,4 +15,14 @@ public class CheckNum {
             System.exit(0);
         }
     }
+    public void checkNumeros(String cantidad, ConfiguracionCheckArgumentos config) {
+        CheckStrToInt checkStrToInt = new CheckStrToInt();
+        int numeroPuesto = checkStrToInt.checkStringToInt(cantidad);
+        if ((config == ConfiguracionCheckArgumentos.DINERO_INICIAL && numeroPuesto < Constantes.CANTIDAD_INICIAL_MINIMA) || (config == ConfiguracionCheckArgumentos.CASILLEROS && numeroPuesto < Constantes.CANTIDAD_CASILLEROS_MINIMA)){
+            System.out.println("Esa cantidad no alcanza el minimo permitido");
+            System.exit(0);
+        }
+
+        }
+
 }

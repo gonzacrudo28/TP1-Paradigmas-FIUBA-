@@ -14,10 +14,12 @@ public class CheckArgumentos{
     private List<String> configuraciones;
     private Scanner entrada;
     public void CheckArgumentos() {
+        CheckNum checkNum = new CheckNum();
+        CheckNombres checkNombres = new CheckNombres();
         DelayPrint.delayPrint("Bienvenidos al Monopoly! Para jugar necesitamos que ingresen los siguientes datos:", 10);
         List<String> argumentos = new ArrayList<>();
         argumentos.add("Nombres (2 a 4 jugadores y separados por espacios)");
-        argumentos.add("Cantidad de casilleros (minimo 10)");
+        argumentos.add("Cantidad de casilleros (minimo 12)");
         argumentos.add("Numero de caras del dado");
         argumentos.add("Monto de dinero inicial (minimo 100)");
         argumentos.add("Monto de dinero por vuelta");
@@ -27,24 +29,19 @@ public class CheckArgumentos{
         List<ConfiguracionCheckArgumentos> configuraciones = Arrays.asList(ConfiguracionCheckArgumentos.values());
         List<String> inputs = new ArrayList<>();
         this.entrada= new Scanner(System.in);
-        //ARREGLAR PRINCIPIO QUE SE ROMPE (DRY)
         for (int contador = 0; contador < argumentos.size(); contador++) {
             System.out.println(argumentos.get(contador));
             inputs.add(entrada.nextLine());
             if (contador == 0) {
-                CheckNombres checkNombres = new CheckNombres();
                 checkNombres.checkNombres(inputs.get(contador));
             }else if (contador == 1){
-                CheckNum checkNum = new CheckNum();
-                checkNum.checkNumerosDeCasilleros(inputs.get(contador),configuraciones.get(contador));
+                checkNum.checkNumeros(inputs.get(contador),configuraciones.get(contador));
                 int numeroDeCantidadDeCasilleros = Integer.parseInt(inputs.get(contador));
                 argumentos.set(2, "Numero maximo del dado a tirar (maximo " + numeroDeCantidadDeCasilleros + ")");
             }else if(contador==2) {
-                CheckNum checkNum = new CheckNum();
                 checkNum.checkNumeroMaximoEnDado(inputs.get(contador),configuraciones.get(contador),Integer.parseInt(inputs.get(ConfiguracionCheckArgumentos.CASILLEROS.ordinal())));
             }else{
-                CheckNum checkNum = new CheckNum();
-                checkNum.checkNumerosDeCasilleros(inputs.get(contador),configuraciones.get(contador));
+                checkNum.checkNumeros(inputs.get(contador),configuraciones.get(contador));
             }
         }
         this.configuraciones = inputs;

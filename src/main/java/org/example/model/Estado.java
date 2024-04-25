@@ -1,5 +1,5 @@
 package org.example.model;
 
 public enum Estado{
-    EnJuego,Preso,Quiebra,Perdio
+    EnJuego,Preso,Quiebra,Perdio,Gano,EnDeuda
 }

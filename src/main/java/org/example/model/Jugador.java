@@ -69,16 +69,35 @@ public class Jugador{
         sumarAlPatrimonio(propiedad.getPrecio());
     }
 
-    public void comprarComprable(Comprable comprable, Jugador jugador){
+    public void agregarComprable(Comprable comprable){
+        if(comprable instanceof Propiedad){
+            agregarPropiedad((Propiedad) comprable);
+        }else if(comprable instanceof EstacionTransporte) {
+            agregarEstacion((EstacionTransporte) comprable);
+        }
+    }
+
+    public void eliminarComprable(Comprable comprable){
+        if(comprable instanceof Propiedad) {
+            eliminarPropiedad((Propiedad)comprable);
+        }else if(comprable instanceof EstacionTransporte){
+        eliminarEstacion((EstacionTransporte)comprable);
+        }
+    }
+
+    public void comprarComprable(Comprable comprable){
         double precioComprable = comprable.getPrecio();
         if (this.plata >= precioComprable) {
-            comprable.setPropietario(jugador);
+            comprable.setPropietario(this);
             sumarAlPatrimonio(precioComprable);
+            agregarComprable(comprable);
         }else{
             System.out.println("No se puede comprar propiedad");
         }
     }
 
+    public void setQuiebra(){estado = Estado.Quiebra;}
+    public void setDeuda(){estado = Estado.EnDeuda;}
     public void setPlata(double plata) {
         this.plata = plata;
     }
@@ -103,12 +122,12 @@ public class Jugador{
     public ArrayList<Propiedad> getPropiedades(){return this.propiedades;}
     public double getPatrimonio(){return this.patrimonio;}
 
-    public void restarPlata(double dinero){
-        if (plata > dinero){
+    public boolean restarPlata(double dinero) {
+        if (plata > dinero) {
             plata -= dinero;
-            return;
-        }else{
-            System.out.println("No tienes dinero suficiente para comprar esta propiedad \nObs! Si quieres puedes hipotecar otra propiedad para comprar esta");
+            return true;
+        } else {
+        return false;
         }
     }
 
@@ -133,15 +152,19 @@ public class Jugador{
     public void setUbicacion(int ubicacion){ this.ubicacion = ubicacion; }
 
     public boolean estaEnQuiebra(){return Estado.Quiebra.equals(this.estado);}
+    public boolean estaEnDeuda(){return Estado.EnDeuda.equals(this.estado);}
 
-    public void venderPropiedad(Propiedad propiedad){
-        if (propiedad.getPropietario().equals(this)){
-            propiedad.venderComprable();
-            restarPatrimonio(propiedad.getPrecio());
-            eliminarPropiedad(propiedad);
-            return;
-        }
-        System.out.printf("%s no es el propietario, el dueño es %s", this.nombre, propiedad.getPropietario());
+//    public void venderPropiedad(Propiedad propiedad){
+//        if (propiedad.getPropietario().equals(this)){
+//            propiedad.venderComprable();
+//            restarPatrimonio(propiedad.getPrecio());
+//            eliminarPropiedad(propiedad);
+//            return;
+//        }
+//        System.out.printf("%s no es el propietario, el dueño es %s", this.nombre, propiedad.getPropietario());
+//    }
+    public double getPatrimonioTotal(){
+        return patrimonio + plata;
     }
 
     public void quedaLibre(){
@@ -153,8 +176,9 @@ public class Jugador{
         estaciones.remove(estacionTransporte);
     }
 
-    public void vender(Comprable comprable){
+    public void venderEstacion(Comprable comprable){
         comprable.venderComprable();
+        eliminarComprable(comprable);
         restarPatrimonio(comprable.getPrecio());
     }
 
@@ -164,6 +188,7 @@ public class Jugador{
                 return false;
             }
         }
+        this.setEstado(Estado.Gano);
         return true;
     }
 
