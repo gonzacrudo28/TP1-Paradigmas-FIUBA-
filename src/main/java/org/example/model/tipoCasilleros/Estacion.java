@@ -19,7 +19,6 @@ public class Estacion extends Casillero implements CasilleroEjecutable{
         //Funcion encargada de cobrar el alquiler
         Jugador propietario = estacion.getPropietario();
         if (estacion.getEstado() == EstadoPropiedades.COMPRADO && propietario != jugador) {
-
             if(jugador.getPatrimonioTotal() < estacion.getAlquiler()) {
                 System.out.println();
                 System.out.println("EL JUGADOR " + jugador.getNombre() + "ENTRÓ EN BANCARROTA. SIN DINERO SUFICIENTE.");
@@ -37,7 +36,6 @@ public class Estacion extends Casillero implements CasilleroEjecutable{
             }
         }
     }
-
     public EstacionTransporte getEstacion(){ return this.estacion; }
     public double getPrecio(){ return this.precio; }
 }

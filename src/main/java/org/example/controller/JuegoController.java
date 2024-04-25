@@ -11,6 +11,8 @@ import org.jline.terminal.Terminal;
 import org.example.view.JuegoView;
 import java.io.IOException;
 import org.example.model.Accion;
+
+import javax.security.auth.login.AccountException;
 import java.util.List;
 
 
@@ -155,12 +157,24 @@ public class JuegoController {
         }*/
     }
         public void checkDeuda(Jugador jugador,Propiedad propiedad){
-        if (jugador.restarPlata(propiedad.getAlquiler())){
-            System.out.println("Perfecto! El jugador "+jugador.getNombre() +" pudo pagar su deuda!");
-            jugador.setEstado(Estado.EnJuego);
+        if (tablero.getCasillero(jugador.getUbicacion()).getTipo() == TipoCasillero.MULTA){
+            Casillero casilleroDeMulta = tablero.getCasillero(jugador.getUbicacion());
+
+            if(jugador.restarPlata(casilleroDeMulta.getPrecio()) ){
+                System.out.println("Perfecto! El jugador "+jugador.getNombre() +" pudo pagar su multa!");
+            }else{
+                System.out.println("EL JUGADOR "+ jugador.getNombre()+" NO PAGO SU MULTA! ENTRÓ EN BANCARROTA");
+                jugador.setQuiebra();
+            }
+
         }else{
-            System.out.println("EL JUGADOR "+ jugador.getNombre()+" NO PAGO SU DEUDA! ENTRÓ EN BANCARROTA");
-            jugador.setQuiebra();
+            if (jugador.restarPlata(propiedad.getAlquiler())){
+                System.out.println("Perfecto! El jugador "+jugador.getNombre() +" pudo pagar su deuda!");
+                jugador.setEstado(Estado.EnJuego);
+            }else{
+                System.out.println("EL JUGADOR "+ jugador.getNombre()+" NO PAGO SU DEUDA! ENTRÓ EN BANCARROTA");
+                jugador.setQuiebra();
+            }
         }
     }
 
