@@ -6,7 +6,6 @@ public class Constantes {
     public static final double POS_CARCEL = 0.250;
     public static final double POS_DE_PASO = 0.500;
     public static final double POS_IR_CARCEL = 0.750;
-    public static final int CANTIDAD_CASILLEROS_BASE= 4;
     public static final double PORCENTAJE_DE_TRANSPORTE= 0.1;
     public static final int CANTIDAD_CASAS_POR_BARRIO = 3;
     public static final double PORCENTAJE_AUMENTO_BARRIO = 0.025;

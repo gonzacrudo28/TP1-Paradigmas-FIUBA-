@@ -3,6 +3,7 @@ package org.example.view;
 import org.example.funciones.FuncionColorPrints;
 import org.example.model.Colores;
 import org.example.model.Jugador;
+import org.example.model.Barrio;
 import org.example.model.Propiedad;
 import org.example.model.Tablero;
 import org.example.model.tipoCasilleros.Casillero;
@@ -45,18 +46,35 @@ public class TableroView {
                     if (tablero.getCasillero(i).getEfecto()!= "Propiedad" && tablero.getCasillero(i).getEfecto()!= "De transporte"){
                         System.out.print(i +" "+ tablero.getCasillero(i).getEfecto());
                     }else {
-                        System.out.print(i + " " + tablero.getCasillero(i).getEfecto() + " (VALOR: $" + tablero.getCasillero(i).getPrecio()+ ")");
+                        if (tablero.getCasillero(i) instanceof DePropiedad){
+                            ArrayList<Barrio> barrios = tablero.getBarrios();
+                            for (Barrio barrio: barrios){
+                                for (Propiedad propiedad: barrio.getPropiedades()){
+                                    if (propiedad == tablero.getCasillero(i).getPropiedad()){
+                                        System.out.print(i + " " + tablero.getCasillero(i).getEfecto() + " (VALOR: $" + tablero.getCasillero(i).getPrecio()+ ")" + " BARRIO: " + (barrio.getNumeroBarrio()+1));
+                                    }
+                                }
+                            }
+                        }else{
+                            System.out.print(i + " " + tablero.getCasillero(i).getEfecto() + " (VALOR: $" + tablero.getCasillero(i).getPrecio()+ ")");
+                        }
                     }
                 }
                 imprimirNombresJugadores(jugadoresEnPosicion);
             }else{
-//                if (!Objects.equals(tablero.getCasillero(i).getEfecto(), "Propiedad") && !Objects.equals(tablero.getCasillero(i).getEfecto(), "De transporte")){
-//                    System.out.println(i +" "+ tablero.getCasillero(i).getEfecto());
-//                }else {
-//                    System.out.println(i + " " + tablero.getCasillero(i).getEfecto() + " (VALOR: $" + tablero.getCasillero(i).getPrecio()+ ")");
-//                }
                 if (tablero.getCasillero(i) instanceof DePropiedad || tablero.getCasillero(i) instanceof Estacion){
-                    System.out.println(i + " " + tablero.getCasillero(i).getEfecto() + " (VALOR: $" + tablero.getCasillero(i).getPrecio()+ ")");
+                    if (tablero.getCasillero(i) instanceof DePropiedad){
+                        ArrayList<Barrio> barrios = tablero.getBarrios();
+                        for (Barrio barrio: barrios){
+                            for (Propiedad propiedad: barrio.getPropiedades()){
+                                if (propiedad == tablero.getCasillero(i).getPropiedad()){
+                                    System.out.println(i + " " + tablero.getCasillero(i).getEfecto() + " (VALOR: $" + tablero.getCasillero(i).getPrecio()+ ")" + " BARRIO: " + (barrio.getNumeroBarrio()+1));
+                                }
+                            }
+                        }
+                    }else{
+                        System.out.println(i + " " + tablero.getCasillero(i).getEfecto() + " (VALOR: $" + tablero.getCasillero(i).getPrecio()+ ")");
+                    }
                 }else {
                     System.out.println(i +" "+ tablero.getCasillero(i).getEfecto());
                 }

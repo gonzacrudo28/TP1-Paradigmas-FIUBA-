@@ -12,7 +12,7 @@ public class DePropiedad extends Casillero implements CasilleroEjecutable {
         super("Propiedad", TipoCasillero.PROPIEDAD, casillero);
         this.propiedad = new Propiedad(precio, numeroDeBarrio, casillero);
     }
-
+    @Override
     public Propiedad getPropiedad() {
         return propiedad;
     }

@@ -51,7 +51,9 @@ public class Propiedad extends Comprable {
             return;
 
         }
-        System.out.println("La propiedad ya fue comprada");
+        if (propietario!= null){
+            System.out.println("La estacion ya fue comprada");
+        }
     }
 
     public Construcciones getConstrucciones() {

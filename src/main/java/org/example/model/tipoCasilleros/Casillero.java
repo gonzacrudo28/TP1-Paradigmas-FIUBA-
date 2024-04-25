@@ -1,5 +1,7 @@
 package org.example.model.tipoCasilleros;
 
+import org.example.model.Propiedad;
+
 abstract public class Casillero {
     protected String efecto;
     protected TipoCasillero tipo;
@@ -19,6 +21,10 @@ abstract public class Casillero {
 
     public double getPrecio(){
         return 0;
+    }
+
+    public Propiedad getPropiedad(){
+        return null;
     }
 }
 

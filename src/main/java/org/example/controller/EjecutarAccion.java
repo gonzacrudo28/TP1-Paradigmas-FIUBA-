@@ -1,5 +1,8 @@
 package org.example.controller;
 
+import org.example.model.Jugador;
+import org.example.model.Tablero;
+
 public interface EjecutarAccion {
-    public void ejecutar();
+    void ejecutar(Jugador jugador, int propiedad, Tablero tablero,  ConstruccionController controller);
 }

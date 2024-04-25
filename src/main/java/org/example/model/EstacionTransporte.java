@@ -17,7 +17,9 @@ public class EstacionTransporte extends Comprable{
             propietario.agregarEstacion(this);
             return;
         }
-        System.out.println("La estacion ya fue comprada");
+        if (propietario!= null){
+            System.out.println("La estacion ya fue comprada");
+        }
     }
 
     public void venderComprable(){

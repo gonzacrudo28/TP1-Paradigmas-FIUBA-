@@ -123,11 +123,11 @@ public class Jugador{
     public double getPatrimonio(){return this.patrimonio;}
 
     public boolean restarPlata(double dinero) {
-        if (plata > dinero) {
+        if (plata >= dinero) {
             plata -= dinero;
             return true;
         } else {
-        return false;
+            return false;
         }
     }
 

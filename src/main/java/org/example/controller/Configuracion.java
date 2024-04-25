@@ -29,7 +29,6 @@ public class Configuracion {
     public Configuracion(List<String> configuraciones) {
         cantidadCasilleros = Integer.parseInt(configuraciones.get(ConfiguracionCheckArgumentos.CASILLEROS.ordinal()));
         montoInicial = Integer.parseInt(configuraciones.get(ConfiguracionCheckArgumentos.DINERO_INICIAL.ordinal()));
-        System.out.println(montoInicial);
         cantidadDeLados= Integer.parseInt(configuraciones.get(ConfiguracionCheckArgumentos.CANTIDAD_DE_LADOS_EN_DADO.ordinal()));
         montoVuelta = Integer.parseInt(configuraciones.get(ConfiguracionCheckArgumentos.DINERO_VUELTA.ordinal()));
         condenaCarcel = Integer.parseInt(configuraciones.get(ConfiguracionCheckArgumentos.TURNOS_PRESO.ordinal()));

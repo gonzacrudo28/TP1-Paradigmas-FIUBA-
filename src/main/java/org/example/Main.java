@@ -32,10 +32,13 @@ public class Main {
 /*
 COSAS PARA HACER:
     • Agregar delay (se encarga top o intenta) (OPCIONAL)
-    • Modularizar JuegoController
-    PERDER
-    explicar lo de ganar por los hoteles
-    acomodar los minimos y maximos en check argumentos
+    • IMPLEMENTAR GANAR
+    • IMPLEMENTAR DESHIPOTECAR
+    • BUSCAR BUGS
+    • SACAR ALGUNO PRINTS INECESARIO (?
+    • FUNCIOENS EXTRAS
+
+
 
 
 
