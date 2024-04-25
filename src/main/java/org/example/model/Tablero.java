@@ -125,4 +125,12 @@ public class Tablero {
         return this.barrios;
     }
 
+    public void eliminarPropiedad(Jugador jugador){
+        for (int i = 0; i < jugador.getPropiedades().size(); i++){
+            Propiedad propiedad = jugador.getPropiedades().get(i);
+            int numeroCasillero = propiedad.getUbicacion();
+            this.casilleros[numeroCasillero]= new DePaso(numeroCasillero);
+        }
+    }
+
 }

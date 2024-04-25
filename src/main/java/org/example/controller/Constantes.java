@@ -19,19 +19,3 @@ public class Constantes {
 
 }
 
-
-/*25
-* 25-4 = 21(CASILLEROS LIBRES)
-* 21/3 = 7(CANTIDAD CASILLEROS EXTRAS)
-* (21-7)/3 = 4 (BARIOS)
-*25-7-12-4 = 2 (SUMO EL RESTO A EXTRAS)
-*
-* L/G = 0
-* CARCEL = 1/4
-* ESTACIONAMIENTO = 1/2
-* IR CARCEL = 3/4
-*
-*
-* *
-*C/L _ _ _ ex ex C _ _ _ ex ex E _ _ _ ex ex IC _ _ _ ex ex _
-*/

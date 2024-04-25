@@ -17,6 +17,16 @@ public class Jugador{
     private int condena;
     private double patrimonio;
 
+    public Jugador(String nombre) {
+        this.ubicacion = 0;
+        this.nombre = nombre;
+        this.estado = Estado.EnJuego;
+        this.propiedades = new ArrayList<>();
+        this.condena = 0;
+        this.estaciones = new ArrayList<>();
+        this.patrimonio = 0;
+    }
+
     //mover a algun ejecutador de acciones
     public void pagarFianza(double fianza){
        if (condena != 0){
@@ -35,7 +45,9 @@ public class Jugador{
     public void agregarPropiedad(Propiedad propiedad){
         propiedades.add(propiedad);
     }
-    public void eliminarPropiedad(Propiedad propiedad){propiedades.remove(propiedad);}
+    public void eliminarPropiedad(Propiedad propiedad){
+        propiedades.remove(propiedad);
+    }
 
     public void agregarEstacion(EstacionTransporte estacion){estaciones.add(estacion);}
 
@@ -67,18 +79,6 @@ public class Jugador{
         }
     }
 
-
-
-    public Jugador(String nombre) {
-        this.ubicacion = 0;
-        this.nombre = nombre;
-        this.estado = Estado.EnJuego;
-        this.propiedades = new ArrayList<>();
-        this.condena = 0;
-        this.estaciones = new ArrayList<>();
-        this.patrimonio = 0;
-    }
-
     public void setPlata(double plata) {
         this.plata = plata;
     }
@@ -108,7 +108,7 @@ public class Jugador{
             plata -= dinero;
             return;
         }else{
-            System.out.println("No tienes dinero sufieciente para comprar esta propiedad \nObs! Si quieres puedes hipotecar otra propiedad para comprar esta");
+            System.out.println("No tienes dinero suficiente para comprar esta propiedad \nObs! Si quieres puedes hipotecar otra propiedad para comprar esta");
         }
     }
 
@@ -117,6 +117,8 @@ public class Jugador{
     }
 
     public void perder(){
+        //enganchar en algun lado con que la posicion de los casilleros de sus propiedades
+        //se conviertan en props de paso
         this.setEstado(Estado.Quiebra);
         for (Propiedad propiedades : this.propiedades) {
             propiedades.liberar();
@@ -147,13 +149,23 @@ public class Jugador{
         this.estado = Estado.EnJuego;
     }
 
-
     public void eliminarEstacion(EstacionTransporte estacionTransporte) {
         estaciones.remove(estacionTransporte);
     }
 
     public void vender(Comprable comprable){
         comprable.venderComprable();
+        restarPatrimonio(comprable.getPrecio());
     }
+
+    public boolean gano(){
+        for (Propiedad propiedad: propiedades){
+            if (!propiedad.tieneHotel()){
+                return false;
+            }
+        }
+        return true;
+    }
+
 }
 

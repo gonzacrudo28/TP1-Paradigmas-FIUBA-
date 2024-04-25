@@ -4,8 +4,10 @@ package org.example.controller;
 import org.example.model.Colores;
 import org.example.model.Jugador;
 import org.example.controller.ConfiguracionCheckArgumentos;
+import org.fusesource.jansi.Ansi;
 import org.jline.reader.LineReader;
 import org.jline.reader.LineReaderBuilder;
+import org.example.funciones.FuncionColorPrints;
 
 import java.util.ArrayDeque;
 import java.util.ArrayList;
@@ -52,6 +54,7 @@ public class Configuracion {
     }
 
     private void asignacionColores(List<Jugador> jugadores){
+        FuncionColorPrints funcionColorPrints = new FuncionColorPrints();
         Colores.Color[] colores = Colores.Color.values();
         for(int i = 0; i < jugadores.size(); i++){
             System.out.println("El jugador " + jugadores.get(i).getNombre() + " debe elegir el color: ");
@@ -69,11 +72,15 @@ public class Configuracion {
         return opcion;
     }
     private int  elegirColor(Colores.Color[] colores ){
+        FuncionColorPrints funcionColorPrints = new FuncionColorPrints();
         LineReader reader = LineReaderBuilder.builder().build();
         System.out.println("Los colores disponibles son:");
         for (int i= 0; i < colores.length; i++){
             if (colores[i]!= null){
-                System.out.println(i+1 +")Color: " + colores[i]);
+                Ansi colorANSI = funcionColorPrints.obtenerColorANSI(colores[i]);
+                Ansi resetColor = Ansi.ansi().reset();
+                System.out.println(i+1 +") Color: " + colorANSI+ colores[i] + resetColor);
+
             }
         }
         String opcion = reader.readLine("Ingrese el numero de color que desea elegir: ");

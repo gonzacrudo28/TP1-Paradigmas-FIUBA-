@@ -24,6 +24,7 @@ public class Main {
         while (!juego.terminado()){
             juegoController.jugarTurno();
         }
+
         check.CerrarScanner();
         System.out.println("El juego terminado");
     }
@@ -35,7 +36,12 @@ COSAS PARA HACER:
 
     • Hacer jugaTurnoView(?
     • ELIMINAR PROPIEDADES DEL JUGADOR EN EL TABLERO CUANDO ENTRA EN QUIEBRA
-    • COLORES Q SE PUEDAN ELEGIR
+
+    NO SE AUMENTA EL PRECIO DEL ALQUILER
+    EL PROPIO JUGADOR TIENE Q PAGAR SU ALQUIER
+    PERDER
+    GANAR
+    VERIFICAR TURNO A TURNO SI PERDIO O GANO
 
 */
 

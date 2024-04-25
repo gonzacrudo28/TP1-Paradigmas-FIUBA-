@@ -22,15 +22,16 @@ public class JuegoController {
     private Tablero tablero;
     private ConstruccionController controllConstrucciones;
 
+    private TableroController controlTablero;
     public JuegoController(Juego juego) throws IOException {
         System.out.println("Iniciando Juego");
         this.juego = juego;
         this.tablero = juego.getTablero();
         this.vistaJuego = new JuegoView(juego);
+        this.controlTablero = new TableroController(tablero);
         this.administradorDeMovimientos = new AdministradorDeMovimientos(juego.getTablero());
         this.controllConstrucciones = new ConstruccionController(tablero.getBarrios());
         Terminal terminal = TerminalBuilder.terminal();
-
         reader = LineReaderBuilder.builder()
                 .terminal(terminal)
                 .build();
@@ -93,6 +94,7 @@ public class JuegoController {
     }
 
 
+
     public void jugarTurnoLibre(Jugador jugador){
         int dados = juego.tirarDados();
         Ansi colorANSI = null;
@@ -119,22 +121,18 @@ public class JuegoController {
         Acciones acciones = new Acciones();
         acciones.getAcciones(colorANSI,resetColor);
         while (numeroElecto != 0) {
-            String accion = reader.readLine(colorANSI + "Seleccione la accion que quiere realizar indicando su numero (NUMERO):\n"+ resetColor );
-            numeroElecto = corroboroAccion(accion);
+            String accion = reader.readLine(colorANSI + "Seleccione la accion que quiere realizar indicando su numero (NUMERO):\n"+ resetColor );numeroElecto = corroboroAccion(accion);
             if (numeroElecto == Constantes.NEGATIVO) {
                 System.out.println("Accion inexistente\n");
             } else {
                 Accion accionElecta = acciones.getAccion(numeroElecto);
-
                 if (accionElecta == null) {
                     System.out.println("Accion inexistente");// no hace falta pero lo dejo porlas
                 }
                 ejecutarAccion(accionElecta,jugador);
             }
         }
-
     }
-
     public void ejecutar(Jugador jugador, int ubicacionJugador){
         CasilleroEjecutable casillero = tablero.getCasilleroEjecutable(ubicacionJugador);
         casillero.ejecutarCasillero(jugador);
@@ -232,8 +230,6 @@ public class JuegoController {
             System.out.println("Accion imposible de realizar");
             return null;
         }
-
-
         public boolean esComprable(int casillero) {
             TipoCasillero tipoCasillero = tablero.getTipoCasillero(casillero);
             return tipoCasillero == TipoCasillero.ESTACION ||

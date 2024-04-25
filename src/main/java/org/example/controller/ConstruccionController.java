@@ -4,11 +4,13 @@ import org.example.model.Construcciones;
 import org.example.model.Jugador;
 import org.example.model.Propiedad;
 import org.example.model.tipoCasilleros.DePropiedad;
+import org.example.controller.Constantes;
 
 import java.util.ArrayList;
 import java.util.List;
 
 //.
+
 public class ConstruccionController {
     private ArrayList<Barrio> barrios;
 
@@ -25,14 +27,17 @@ public class ConstruccionController {
         }
         if(propiedad.getConstrucciones() == Construcciones.SIN_CASA){
             if (validarVentaTerreno(barrio)){
-              propiedad.venderComprable();
+                double precioReventa = propiedad.getPrecio()*Constantes.PORCENTAJE_DE_VENTA;
+                jugador.restarPatrimonio(precioReventa);
+                propiedad.venderComprable();
             }
             //Caso donde se quiera vender el terreno
         }else{
             //Caso donde se quiere vender una casa
             if (validarVenta(jugador,propiedad)){
-                double precioReventa = propiedad.getPrecioCasa();
+                double precioReventa = propiedad.getPrecioCasa() * Constantes.PORCENTAJE_DE_VENTA;
                 jugador.sumarPlata(precioReventa);
+                jugador.restarPatrimonio(precioReventa);
                 deconstruirCasa(barrio,jugador,propiedad);
             }
         }
@@ -92,10 +97,11 @@ public class ConstruccionController {
     public void construirEnPropiedad(Jugador jugador,Propiedad propiedad){
         if (validarConstruccion(jugador, propiedad.getBarrio(),propiedad)){
             propiedad.sumarConstruccion();
+            System.out.println("ALQUILER VIEJO " +propiedad.getAlquiler());
             propiedad.actualizarAlquiler();
+            System.out.println("ALQUILER NUEVO "+propiedad.getAlquiler());
             jugador.restarPlata(propiedad.getPrecioCasa());
             jugador.sumarAlPatrimonio(propiedad.getPrecioCasa());
-
             System.out.println("Propiedad mejorada a "+propiedad.getConstrucciones()+" con exito");
         }
     }

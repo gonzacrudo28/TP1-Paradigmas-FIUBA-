@@ -19,12 +19,11 @@ public class Propiedad extends Comprable {
     private double precioCasa;
 
 
-
-    public Propiedad(int precio, int numeroDeBarrio,int ubicacion) {
+    public Propiedad(int precio, int numeroDeBarrio, int ubicacion) {
         super(precio, ubicacion);
         this.numeroDeBarrio = numeroDeBarrio;
         this.construcciones = Construcciones.SIN_CASA;
-        this.precioCasa = (precio*Constantes.PORCENTAJE_PRECIO_CASA);
+        this.precioCasa = (precio * Constantes.PORCENTAJE_PRECIO_CASA);
     }
 
 
@@ -33,13 +32,16 @@ public class Propiedad extends Comprable {
     }
 
 
-    public String getNombrePropietario(){
+    public String getNombrePropietario() {
         return propietario.getNombre();
     }
-    public int getBarrio() { return numeroDeBarrio; }
 
-   public void setPropietario(Jugador propietario) {
-        if(this.propietario == null){
+    public int getBarrio() {
+        return numeroDeBarrio;
+    }
+
+    public void setPropietario(Jugador propietario) {
+        if (this.propietario == null) {
             this.propietario = propietario;
             this.estado = EstadoPropiedades.COMPRADO;
             propietario.agregarPropiedad(this);
@@ -52,53 +54,52 @@ public class Propiedad extends Comprable {
         System.out.println("La propiedad ya fue comprada");
     }
 
-    public Construcciones getConstrucciones(){
+    public Construcciones getConstrucciones() {
         return this.construcciones;
     }
 
     public Construcciones getSiguienteConstruccion() {
         if (construcciones == Construcciones.HOTEL) {
             return Construcciones.HOTEL;
-        }else {
+        } else {
             return siguienteConstruccion();
         }
     }
-    public void sumarConstruccion(){
+
+    public void sumarConstruccion() {
         construcciones = siguienteConstruccion();
     }
 
-    public void restarConstruccion(){
+    public void restarConstruccion() {
         construcciones = anteriorConstruccion();
     }
 
-    private Construcciones anteriorConstruccion(){
+    private Construcciones anteriorConstruccion() {
         List<Construcciones> construccionesLista = Arrays.asList(Construcciones.values());
-        return construccionesLista.get(construccionesLista.indexOf(construcciones)-1);
-    }
-    private Construcciones siguienteConstruccion(){
-        List<Construcciones> construccionesLista = Arrays.asList(Construcciones.values());
-        return construccionesLista.get(construccionesLista.indexOf(construcciones)+1);
+        return construccionesLista.get(construccionesLista.indexOf(construcciones) - 1);
     }
 
-    public void hipotecar (Barrio barrio,Jugador jugador){
-        CheckHipotecar controladorHipoteca = new CheckHipotecar(jugador,barrio,this);
+    private Construcciones siguienteConstruccion() {
+        List<Construcciones> construccionesLista = Arrays.asList(Construcciones.values());
+        return construccionesLista.get(construccionesLista.indexOf(construcciones) + 1);
+    }
+
+    public void hipotecar(Barrio barrio, Jugador jugador) {
+        CheckHipotecar controladorHipoteca = new CheckHipotecar(jugador, barrio, this);
         if (controladorHipoteca.validarHipotecar()) {
-            System.out.println("PROPIEDAD "+ this.ubicacion + " FUE HIPOTECADA CON ÉXITO");
+            System.out.println("PROPIEDAD " + this.ubicacion + " FUE HIPOTECADA CON ÉXITO");
             ponerEnHipoteca();
-
             jugador.sumarPlata(this.getPrecio());
             jugador.restarPatrimonio(this.getPrecio());
         }
     }
 
-    public void ponerEnHipoteca(){
+    public void ponerEnHipoteca() {
         estado = EstadoPropiedades.HIPOTECADO;
     }
-
-    public void deshipotecar () {
+    public void deshipotecar() {
         estado = EstadoPropiedades.COMPRADO;
     }
-
 
 
 //    public void mejorarPropiedad(Barrio barrio, Jugador jugador){
@@ -120,41 +121,44 @@ public class Propiedad extends Comprable {
 //        this.liberar();
 //    }
 
-    public void liberar(){
+    public void liberar() {
         this.construcciones = Construcciones.SIN_CASA;
         this.propietario = null;
         this.estado = EstadoPropiedades.EN_VENTA;
         this.alquiler = setPrecioBaseAlquiler();
     }
 
-    public void venderComprable(){
-        this.propietario.sumarPlata(precio*Constantes.PORCENTAJE_DE_VENTA);
-        liberar();
+    public void venderComprable() {
+        this.propietario.sumarPlata(precio * Constantes.PORCENTAJE_DE_VENTA);
     }
 
-    public void actualizarAlquiler(){
-        this.alquiler = (int)(alquiler*Constantes.PORCENTAJE_ALQUILER_NUEVA_CASA) + alquiler;
+    public void actualizarAlquiler() {
+        this.alquiler = (alquiler * Constantes.PORCENTAJE_ALQUILER_NUEVA_CASA) + alquiler;
     }
 
-    private double venderPropiedades(){
+    private double venderPropiedades() {
         List<Construcciones> tiposConstrucciones = Arrays.asList(Construcciones.values());
         double cantPropiedades = tiposConstrucciones.indexOf(construcciones);
-        return cantPropiedades*precioCasa;
+        return cantPropiedades * precioCasa;
     }
 
-    private int setPrecioBaseAlquiler(){
-        return (int)(precio*Constantes.PORCENTAJE_ALQUILER);
+    private int setPrecioBaseAlquiler() {
+        return (int) (precio * Constantes.PORCENTAJE_ALQUILER);
     }
 
-    public void restarAlquiler(Jugador jugador){
-        if (jugador == propietario){
+    public void restarAlquiler(Jugador jugador) {
+        if (jugador == propietario) {
             return;
         } else if (this.estado.equals(EstadoPropiedades.COMPRADO)) {
-            double parsed = (double)(alquiler);
+            double parsed = (double) (alquiler);
             jugador.restarPlata(parsed);
             propietario.sumarPlata(parsed);
             System.out.printf("%s acaba de pagar %.2f por el alquiler de la propiedad a %s", jugador.getNombre(), parsed, propietario.getNombre());
         }
+    }
+
+    public boolean tieneHotel(){
+        return this.construcciones.equals(Construcciones.HOTEL);
     }
 }
 
