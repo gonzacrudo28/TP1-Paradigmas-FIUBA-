@@ -48,6 +48,7 @@ public class TableroView {
             }
             System.out.println("");
         }
+        System.out.println("");
     }
 
     private void imprimirCasillerosEstacion(int numeroDeCasillero, String formato){

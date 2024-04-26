@@ -23,6 +23,7 @@ public class ConstruccionController {
                 propiedad.venderComprable();
                 propiedad.liberar();
                 System.out.println("Propiedad vendida con exito!");
+                System.out.println("Ahora tienes $" + jugador.getPlata());
             }
         }else{
             System.out.println("Validacion dueño barrio, ELSE "+propiedad.getConstrucciones());

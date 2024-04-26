@@ -80,9 +80,18 @@ public class Configuracion {
 
             }
         }
-        String opcion = reader.readLine("Ingrese el numero de color que desea elegir: ");
-        int opcionInt = Integer.parseInt(opcion);
-        opcionInt = validarIngresoColor(colores, opcionInt);
+        int opcionInt = 1;
+        boolean falla = true;
+        while (falla) {
+            try {
+                String opcion = reader.readLine("Ingrese el número de color que desea elegir: ");
+                opcionInt = Integer.parseInt(opcion);
+                opcionInt = validarIngresoColor(colores, opcionInt);
+                falla = false;
+            } catch (NumberFormatException e) {
+                System.out.println("Error: Debe ingresar un número.");
+            }
+        }
         return opcionInt;
     }
 

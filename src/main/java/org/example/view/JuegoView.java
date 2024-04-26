@@ -17,7 +17,7 @@ public class JuegoView {
     public void mostrar(){
         FuncionesExtras.delay(1000);
         tableroView.mostrar(jugadores);
-        FuncionesExtras.delay(1000);
+        FuncionesExtras.delay(2000);
         JugadorView jugadorView = new JugadorView(jugadores);
         jugadorView.mostrarJugadores();
         FuncionesExtras.delay(1000);
