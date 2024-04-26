@@ -1,15 +1,19 @@
 <h1>TP Monopoly - Grupo Las Maquinas</h1>
 
 
-### Pasos de ejecucion (lista de comandos):
+### Instrucciones:
 <ol>
   <li>
-      git clone git@github.com:facundolescano0/TPparadigmas.git 
+      
+    git clone git@github.com:facundolescano0/TPparadigmas.git 
+    
   </li>
- <li>
-      mvn clean package 
+ <li>      
+
+    mvn clean package 
  </li> 
 <li>
+  
     java -jar  target/tp1-1.0-SNAPSHOT-jar-with-dependencies.jar
 </li>
 </ol>
