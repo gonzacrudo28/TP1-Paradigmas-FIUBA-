@@ -7,6 +7,7 @@ import java.io.Serializable;
 public class IrALaCarcel extends Casillero implements CasilleroEjecutable{
     private final int duracionPena;
     private final int ubicacionCarcel;
+
     public IrALaCarcel(int ubicacion, int duracionPena,int ubicacionCarcel) {
         super("IrALaCarcel",TipoCasillero.IR_A_LA_CARCEL,ubicacion);
         this.duracionPena = duracionPena;

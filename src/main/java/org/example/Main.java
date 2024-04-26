@@ -1,21 +1,11 @@
 package org.example;
-
-
-import org.example.controller.Configuracion;
 import org.example.controller.JuegoController;
-import org.example.funciones.FuncionColorPrints;
-import org.example.funciones.FuncionesExtras;
 import org.example.model.*;
 import org.example.controller.CheckArgumentos;
-import org.example.model.tipoCasilleros.Casillero;
-import org.example.view.JugadorView;
-
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 public class Main {
-
     public static void main(String[] args) throws IOException {
         CheckArgumentos check = new CheckArgumentos();
         List<String> argumentos = check.getConfiguraciones();

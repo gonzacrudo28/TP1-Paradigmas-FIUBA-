@@ -18,9 +18,11 @@ abstract public class Casillero {
     public String getEfecto(){return efecto;}
 
     public int getUbicacion(){return ubicacion;}
+
     public double getPrecio(){
         return 0;
     }
+
     public  <T extends Comprable> T getPropiedad(){
         return null;
     }

@@ -3,21 +3,13 @@ package org.example.model;
 
 import org.example.controller.CheckHipotecar;
 import org.example.controller.Constantes;
-import org.example.controller.ConstruccionController;
-import org.example.model.Construcciones;
-
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-// Enum EstadoPropiedad
 
-// Clase Propiedad
 public class Propiedad extends Comprable {
-
     private int numeroDeBarrio;
     private Construcciones construcciones;
     private double precioCasa;
-
 
     public Propiedad(int precio, int numeroDeBarrio, int ubicacion) {
         super(precio, ubicacion);
@@ -26,11 +18,9 @@ public class Propiedad extends Comprable {
         this.precioCasa = (precio * Constantes.PORCENTAJE_PRECIO_CASA);
     }
 
-
     public double getPrecioCasa() {
         return precioCasa;
     }
-
 
     public String getNombrePropietario() {
         return propietario.getNombre();
@@ -57,14 +47,6 @@ public class Propiedad extends Comprable {
     public Construcciones getConstrucciones() {
         return this.construcciones;
     }
-
-//    public Construcciones getSiguienteConstruccion() {
-//        if (construcciones == Construcciones.HOTEL) {
-//            return Construcciones.HOTEL;
-//        } else {
-//            return siguienteConstruccion();
-//        }
-//    }
 
     public void sumarConstruccion() {
         construcciones = siguienteConstruccion();
@@ -109,8 +91,6 @@ public class Propiedad extends Comprable {
         estado = EstadoPropiedades.HIPOTECADO;
     }
 
-
-
     public void liberar() {
         this.construcciones = Construcciones.SIN_CASA;
         this.propietario = null;
@@ -132,11 +112,9 @@ public class Propiedad extends Comprable {
         return (int) (precio * Constantes.PORCENTAJE_ALQUILER);
     }
 
-
     public boolean tieneHotel(){
         return this.construcciones.equals(Construcciones.HOTEL);
     }
-
 }
 
 

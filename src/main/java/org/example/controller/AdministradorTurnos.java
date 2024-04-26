@@ -17,6 +17,7 @@ public class AdministradorTurnos {
         this.jugadores = jugadores;
         this.turnos = this.colaDeTurnos();
     }
+
     public Jugador getTurnoActual() {
         return actual;
     }
@@ -49,6 +50,7 @@ public class AdministradorTurnos {
         this.jugadores.remove(jugador);
         avanzarTurno();
     }
+
     public int tirarDados(int cantidadDeLadosEnDado){
         Random random = new Random();
         return random.nextInt(1,cantidadDeLadosEnDado+1);

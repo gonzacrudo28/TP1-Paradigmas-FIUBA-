@@ -14,7 +14,6 @@ public class CheckHipotecar {
     }
 
     public boolean validarHipotecar(){
-
         if (!jugador.getPropiedades().contains(propiedad)){
             System.out.println("ERROR: EL JUGADOR "+ jugador.getNombre() + " NO ES DUEÑO DE LA PROPIEDAD");
             return false;
@@ -31,5 +30,4 @@ public class CheckHipotecar {
         }
         return true;
     }
-
 }

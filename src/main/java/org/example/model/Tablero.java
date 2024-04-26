@@ -4,12 +4,8 @@ import org.example.controller.Constantes;
 import org.example.model.tipoCasilleros.*;
 import org.example.model.tipoCasilleros.Estacion;
 import org.example.controller.Configuracion;
-
-
-import java.util.List;
 import java.util.ArrayList;
 import java.util.Random;
-
 
 public class Tablero {
     private Casillero[] casilleros;
@@ -28,6 +24,7 @@ public class Tablero {
     public DePropiedad getPropiedad(int numeroCasilla) {
         return (DePropiedad) this.casilleros[numeroCasilla];
     }
+
     public Estacion getEstacion(int numeroCasilla) {
         return (Estacion) this.casilleros[numeroCasilla];
     }
@@ -89,9 +86,6 @@ public class Tablero {
         }
     }
 
-
-    //LOS PRECIO DE LOS BARRIOS VAN DE 0.025*
-
     private void posicionarCasillerosBase(){
         int posCarcel = (int) (this.cantidadDeCasilleros*Constantes.POS_CARCEL);
         int posDePaso= (int) (this.cantidadDeCasilleros*Constantes.POS_DE_PASO);
@@ -121,13 +115,4 @@ public class Tablero {
     public ArrayList<Barrio> getBarrios() {
         return this.barrios;
     }
-
-//    public void eliminarPropiedad(Jugador jugador){
-//        for (int i = 0; i < jugador.getPropiedades().size(); i++){
-//            Propiedad propiedad = jugador.getPropiedades().get(i);
-//            int numeroCasillero = propiedad.getUbicacion();
-//            this.casilleros[numeroCasillero]= new DePaso(numeroCasillero);
-//        }
-//    }
-
 }

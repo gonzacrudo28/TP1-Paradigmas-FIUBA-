@@ -2,7 +2,6 @@ package org.example.view;
 
 import org.example.funciones.FuncionesExtras;
 import org.example.model.Jugador;
-import org.example.model.Tablero;
 import java.util.ArrayList;
 import java.util.HashMap;
 import org.example.model.Juego;
@@ -18,20 +17,21 @@ public class JuegoView {
         this.juego = juego;
         this.tableroView = new TableroView(juego.getTablero());
     }
+
     public void mostrar(){
-        FuncionesExtras.delay(2000);
+        FuncionesExtras.delay(0000);
         tableroView.mostrar(jugadores);
-        FuncionesExtras.delay(2000);
+        FuncionesExtras.delay(0000);
 
         JugadorView jugadorView = new JugadorView(jugadores);
 
         jugadorView.mostrarJugadores();
-        FuncionesExtras.delay(2000);
+        FuncionesExtras.delay(0000);
 
     }
+
     public void muestaJugadoresInicial(){
         JugadorView jugadorView = new JugadorView(jugadores);
         jugadorView.mostrarJugadores();
     }
-
 }

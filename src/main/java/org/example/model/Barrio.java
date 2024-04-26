@@ -1,9 +1,7 @@
 package org.example.model;
 
-import org.example.model.Propiedad;
-import org.example.model.tipoCasilleros.Casillero;
-import org.example.model.tipoCasilleros.DePropiedad;
 
+import org.example.model.tipoCasilleros.DePropiedad;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,15 +22,11 @@ public class Barrio {
         return numeroBarrio;
     }
 
-
     public void setPropietarioBarrio(Jugador jugador){
 
         this.propietarioBarrio = jugador;
 
     }
-
-//esta misma funcion esta en CONSTRUCCION CONTROLER
-
 
     public ArrayList<Propiedad> getPropiedades(){
         ArrayList<Propiedad> propiedades = new ArrayList<>();
@@ -42,16 +36,11 @@ public class Barrio {
         return propiedades;
     }
 
-
-public Jugador getPropietario(){
+    public Jugador getPropietario(){
         return propietarioBarrio;
 }
 
     public void addCasillero(DePropiedad casillero) {
         this.casillerosPropiedades.add(casillero);
-    }
-
-    public double getPrecioBarrio() {
-        return precioBarrio;
     }
 }

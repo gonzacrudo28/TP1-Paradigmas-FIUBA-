@@ -3,12 +3,9 @@ package org.example.view;
 
 
 import org.example.funciones.FuncionColorPrints;
-import org.example.model.Colores;
 import org.example.model.Jugador;
 import java.util.List;
 import org.fusesource.jansi.Ansi;
-import org.fusesource.jansi.AnsiConsole;
-import java.lang.reflect.Field;
 
 public class JugadorView {
     private final List<Jugador> jugadores;

@@ -2,8 +2,6 @@ package org.example.model.tipoCasilleros;
 
 import org.example.model.*;
 
-import java.io.Serializable;
-
 public class Estacion extends Casillero implements CasilleroEjecutable{
     private double precio;
     private final EstacionTransporte estacion;
@@ -18,9 +16,9 @@ public class Estacion extends Casillero implements CasilleroEjecutable{
     public EstacionTransporte getPropiedad() {
         return estacion;
     }
+
     @Override
     public void ejecutarCasillero(Jugador jugador) {
-        //Funcion encargada de cobrar el alquiler
         Jugador propietario = estacion.getPropietario();
         if (estacion.getEstado() == EstadoPropiedades.COMPRADO && propietario != jugador) {
             if(jugador.getPatrimonioTotal() < estacion.getAlquiler()) {
@@ -40,6 +38,8 @@ public class Estacion extends Casillero implements CasilleroEjecutable{
             }
         }
     }
+
     public EstacionTransporte getEstacion(){ return this.estacion; }
+
     public double getPrecio(){ return this.precio; }
 }

@@ -46,6 +46,7 @@ public class FuncionesExtras {
         System.out.println("Accion imposible de realizar");
         return null;
     }
+
     public Propiedad obtenerPropiedadJugador(int casillero, Jugador jugador) {
         if (esPropiedad(casillero)) {
             List<Propiedad> propiedadList = jugador.getPropiedades();
@@ -60,6 +61,7 @@ public class FuncionesExtras {
         System.out.println("Accion imposible de realizar");
         return null;
     }
+
     public Comprable obtenerComprable(int casillero) {
         if(!esComprable(casillero)){
             System.out.println("Accion imposible de realizar");
@@ -83,6 +85,7 @@ public class FuncionesExtras {
         }
         return null;
     }
+
     public boolean esPropiedad(int casillero) {
         if (casillero < tablero.getCantidadCasilleros()) {
             TipoCasillero tipoCasillero = tablero.getTipoCasillero(casillero);
@@ -90,11 +93,13 @@ public class FuncionesExtras {
         }
         return false;
     }
+
     public boolean esComprable(int casillero) {
         TipoCasillero tipoCasillero = tablero.getTipoCasillero(casillero);
         return tipoCasillero == TipoCasillero.ESTACION ||
                 tipoCasillero == TipoCasillero.PROPIEDAD;
     }
+
     public Tablero getTablero(){
         return tablero;
     }

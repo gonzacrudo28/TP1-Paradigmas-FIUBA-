@@ -6,11 +6,9 @@ import org.example.model.Propiedad;
 import java.util.ArrayList;
 import java.util.List;
 
-//.
 
 public class ConstruccionController {
     private ArrayList<Barrio> barrios;
-
 
     public ConstruccionController(ArrayList<Barrio> barrios) {
         this.barrios = barrios;
@@ -48,7 +46,6 @@ public class ConstruccionController {
         }
     }
 
-
     public boolean validarVentaTerreno(Barrio barrio){
         List<Propiedad> propiedadList = barrio.getPropiedades();
         for (Propiedad prop: propiedadList) {
@@ -71,7 +68,6 @@ public class ConstruccionController {
         }
         return true;
     }
-
 
     public boolean validarConstruccion(Jugador jugador,int barrio,Propiedad propiedad){
         if (!esPropietarioBarrio(jugador,barrios.get(barrio))) {

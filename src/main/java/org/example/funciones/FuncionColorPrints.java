@@ -2,7 +2,6 @@ package org.example.funciones;
 
 import org.example.model.Colores;
 import org.fusesource.jansi.Ansi;
-
 import java.lang.reflect.Field;
 
 public class FuncionColorPrints {

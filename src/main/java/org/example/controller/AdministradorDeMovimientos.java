@@ -10,9 +10,7 @@ public class AdministradorDeMovimientos {
         this.cantCasillas = tablero.getCantidadCasilleros();
     }
 
-    private boolean pasaPorSalida(Jugador jugador, int tiradaDados){
-    return (jugador.getUbicacion() + tiradaDados) >= cantCasillas;
-    }
+    private boolean pasaPorSalida(Jugador jugador, int tiradaDados){return (jugador.getUbicacion() + tiradaDados) >= cantCasillas;}
 
     public int avanzarJugador(Jugador jugador,int dados){
         int posNueva = jugador.getUbicacion() + dados;
@@ -23,9 +21,5 @@ public class AdministradorDeMovimientos {
         }
         jugador.setUbicacion(posNueva);
         return posNueva;
-
     }
-
-
-
 }

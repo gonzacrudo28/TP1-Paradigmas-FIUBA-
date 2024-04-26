@@ -4,11 +4,11 @@ import org.example.model.Jugador;
 
 public class LlegadaPartida extends Casillero implements CasilleroEjecutable{
     private double bono;
+
     public LlegadaPartida(int ubicacion,double bono) {
         super("Llegada/Partida",TipoCasillero.LLEGADA_INICIO,ubicacion);
         this.bono = bono;
     }
-
 
     public void ejecutarCasillero(Jugador jugador) {
         jugador.sumarPlata(bono);

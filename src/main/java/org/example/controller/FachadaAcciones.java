@@ -1,7 +1,6 @@
 package org.example.controller;
 
 import org.example.model.Jugador;
-import org.example.model.Tablero;
 
 public class FachadaAcciones implements ListaAcciones{
     private Hipotecar hipoteca;
@@ -10,25 +9,21 @@ public class FachadaAcciones implements ListaAcciones{
     private ConsultarPrecios consultarPrecios;
     private Construir construir;
     private Deshipotecar deshipotecar;
-    private PagarFianza fianza;
 
-    private JuegoController juego;
-
-
-
-public FachadaAcciones(Hipotecar hipoteca,Comprar comprar,Vender vender,ConsultarPrecios consultarPrecios,Construir construir,Deshipotecar deshipotecar,PagarFianza fianza) {
+public FachadaAcciones(Hipotecar hipoteca,Comprar comprar,Vender vender,ConsultarPrecios consultarPrecios,Construir construir,Deshipotecar deshipotecar) {
     this.hipoteca = hipoteca;
     this.comprar = comprar;
     this.vender = vender;
     this.consultarPrecios = consultarPrecios;
     this.construir = construir;
     this.deshipotecar = deshipotecar;
-    this.fianza = fianza;
 }
+
     @Override
     public void comprar(Jugador jugador,int num,ConstruccionController controller) {
         comprar.ejecutar(jugador,num,controller);
     }
+
     @Override
     public void construir(Jugador jugador, int propiedad, ConstruccionController controller) {
         construir.ejecutar(jugador,propiedad,controller);
@@ -53,10 +48,4 @@ public FachadaAcciones(Hipotecar hipoteca,Comprar comprar,Vender vender,Consulta
     public void vender(Jugador jugador, int propiedad,  ConstruccionController controller) {
         vender.ejecutar(jugador,propiedad,controller);
     }
-
-    @Override
-    public void pagar_fianza(Jugador jugador, int montoFianza,ConstruccionController controller) {
-        fianza.ejecutar(jugador,montoFianza,controller);
-    }
-
 }

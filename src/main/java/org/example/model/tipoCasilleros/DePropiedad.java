@@ -3,8 +3,6 @@ package org.example.model.tipoCasilleros;
 import org.example.model.*;
 import org.example.model.EstadoPropiedades;
 
-import java.io.Serializable;
-
 public class DePropiedad extends Casillero implements CasilleroEjecutable {
     private final Propiedad propiedad;
 
@@ -12,6 +10,7 @@ public class DePropiedad extends Casillero implements CasilleroEjecutable {
         super("Propiedad", TipoCasillero.PROPIEDAD, casillero);
         this.propiedad = new Propiedad(precio, numeroDeBarrio, casillero);
     }
+
     @Override
     public Propiedad getPropiedad() {
         return propiedad;
@@ -20,6 +19,7 @@ public class DePropiedad extends Casillero implements CasilleroEjecutable {
     public double getPrecio() {
         return propiedad.getPrecio();
     }
+
     @Override
     public void ejecutarCasillero(Jugador jugador) {
         Jugador propietario = propiedad.getPropietario();
@@ -43,5 +43,3 @@ public class DePropiedad extends Casillero implements CasilleroEjecutable {
 
     }
 }
-
-

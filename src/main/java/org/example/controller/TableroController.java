@@ -3,9 +3,7 @@ package org.example.controller;
 import org.example.model.Propiedad;
 import org.example.model.Tablero;
 import org.example.model.tipoCasilleros.DePaso;
-
 import org.example.model.Jugador;
-
 import java.util.ArrayList;
 
 public class TableroController {
@@ -14,6 +12,7 @@ public class TableroController {
     public  TableroController(Tablero tablero) {
         this.tablero = tablero;
     }
+
     public void eliminarPropiedadesDelJugadorEnQuiebra(Jugador jugador){
         ArrayList<Propiedad> propiedades = jugador.getPropiedades();
         for (Propiedad propiedad : propiedades) {
@@ -22,9 +21,7 @@ public class TableroController {
             DePaso NuevoCasilleroDePaso = new DePaso(ubicacion);
             tablero.getTodosLosCasilleros()[ubicacion] =   NuevoCasilleroDePaso;
         }
-
     }
-
 }
 
 

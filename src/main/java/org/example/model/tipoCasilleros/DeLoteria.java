@@ -1,7 +1,6 @@
 package org.example.model.tipoCasilleros;
 
 import org.example.model.Jugador;
-
 import java.util.Random;
 
 public class DeLoteria extends Casillero implements CasilleroEjecutable{

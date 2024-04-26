@@ -1,33 +1,27 @@
 package org.example.view;
 
 import org.example.funciones.FuncionColorPrints;
-import org.example.model.Colores;
 import org.example.model.EstacionTransporte;
-
 import org.example.model.Jugador;
 import org.example.model.Barrio;
 import org.example.model.Propiedad;
 import org.example.model.Tablero;
-import org.example.model.tipoCasilleros.Casillero;
 import org.example.model.tipoCasilleros.DePropiedad;
 import org.example.model.tipoCasilleros.Estacion;
 import org.fusesource.jansi.Ansi;
-
-import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Objects;
 
 public class TableroView {
     private  Tablero tablero;
     private HashMap<Integer,String> posciones;
     private HashMap<Integer, ArrayList<Jugador>> posJugador;
+
     public TableroView(Tablero tablero){
         this.tablero= tablero;
     }
 
-    //OPTIMIZAR ESTA FUNCION
-    public void mostrar(ArrayList<Jugador> jugadores){
+    public void mostrar2(ArrayList<Jugador> jugadores){
         int anchoNumero = String.valueOf(tablero.getCantidadCasilleros()).length();
         int anchoCasillero = 20;
         int anchoPrecio = 10;
@@ -37,7 +31,6 @@ public class TableroView {
         Ansi resetColor = Ansi.ansi().reset();
         String formato = "|"+"%-" + anchoNumero + "s" + "|" + "%-" + anchoCasillero + "s" + "|" + "%-" + anchoPrecio + "s" + "|" + "%-" + anchoBarrio + "s" + "|" + "%-" + anchoPropietario + "s" + "|";
         System.out.println(String.format(formato, "N°", "CASILLERO", "PRECIO", "BARRIO", "PROPIETARIO", "JUGADORES") + " JUGADORES");
-
         this.posJugador= new HashMap<>();
         for(Jugador jugador: jugadores){
             if (posJugador.get(jugador.getUbicacion())!=null){
@@ -53,8 +46,6 @@ public class TableroView {
             ArrayList<Jugador> jugadoresEnPosicion = posJugador.get(i);
             if (jugadoresEnPosicion!=null){
                 if (posJugador.containsKey(i)){
-                    //PRODRIA SER UN ENUM EN VEZ DE PREGUNTAR POR EL EFECTO
-                    //ARREGLAR, ROMPE DRY
                     if (tablero.getCasillero(i).getEfecto()!= "Propiedad" && tablero.getCasillero(i).getEfecto()!= "De transporte"){
                         System.out.print(String.format(formato, i, tablero.getCasillero(i).getEfecto(), "", "", ""));
                     }else {
@@ -100,6 +91,7 @@ public class TableroView {
                             for (Propiedad propiedad: barrio.getPropiedades()){
                                 Jugador propietario = propiedad.getPropietario();
                                 if (propiedad == tablero.getCasillero(i).getPropiedad()){
+
                                     if (propietario ==null){
                                         System.out.println(String.format(formato, i, tablero.getCasillero(i).getEfecto(), "$"+ tablero.getCasillero(i).getPrecio(), "BARRIO:"+ barrio.getNumeroBarrio(), "SIN PROPIETARIO"));
                                     }else{
@@ -129,6 +121,7 @@ public class TableroView {
             }
         }
     }
+
     private void imprimirNombresJugadores(ArrayList<Jugador> jugadores){
         Ansi colorANSI = null;
         Ansi resetColor = null;
@@ -141,4 +134,70 @@ public class TableroView {
         System.out.println();
     }
 
+    public void mostrar(ArrayList<Jugador> jugadores){
+        int anchoNumero = String.valueOf(tablero.getCantidadCasilleros()).length();
+        int anchoCasillero = 20;
+        int anchoPrecio = 10;
+        int anchoBarrio = 10;
+        int anchoPropietario = 15;
+        Ansi colorANSI = Ansi.ansi().reset();
+        Ansi resetColor = Ansi.ansi().reset();
+        String formato = "|"+"%-" + anchoNumero + "s" + "|" + "%-" + anchoCasillero + "s" + "|" + "%-" + anchoPrecio + "s" + "|" + "%-" + anchoBarrio + "s" + "|" + "%-" + anchoPropietario + "s" + "|";
+        System.out.println(String.format(formato, "N°", "CASILLERO", "PRECIO", "BARRIO", "PROPIETARIO", "JUGADORES") + " JUGADORES");
+        this.posJugador= new HashMap<>();
+        for(Jugador jugador: jugadores){
+            if (posJugador.get(jugador.getUbicacion())!=null){
+                posJugador.get(jugador.getUbicacion()).add(jugador);
+            }else{
+                ArrayList<Jugador> listaDeJugador = new ArrayList<>();
+                listaDeJugador.add(jugador);
+                posJugador.put(jugador.getUbicacion(),listaDeJugador);
+            }
+        }
+        FuncionColorPrints funcionColorPrints = new FuncionColorPrints();
+        for (int i = 0; i< tablero.getCantidadCasilleros(); i++){
+            ArrayList<Jugador> jugadoresEnPosicion = posJugador.get(i);
+                if (!(tablero.getCasillero(i) instanceof DePropiedad) && !(tablero.getCasillero(i) instanceof Estacion)) {
+                    System.out.print(String.format(formato, i, tablero.getCasillero(i).getEfecto(), "", "", ""));
+                }else {
+                    if (tablero.getCasillero(i) instanceof DePropiedad){
+                        ArrayList<Barrio> barrios = tablero.getBarrios();
+                        for (Barrio barrio: barrios){
+                            for (Propiedad propiedad: barrio.getPropiedades()){
+                                Jugador propietario = propiedad.getPropietario();
+                                if (propiedad == tablero.getCasillero(i).getPropiedad()){
+                                    if (propietario == null){
+                                        if (propiedad == tablero.getCasillero(i).getPropiedad()){
+                                            System.out.print(String.format(formato, i, tablero.getCasillero(i).getEfecto(), "$" + tablero.getCasillero(i).getPrecio(), "BARRIO:" +  barrio.getNumeroBarrio(), "SIN PROPIETARIO"));
+                                        }
+                                    }else{
+                                        String nombre = propiedad.getNombrePropietario();
+                                        colorANSI = funcionColorPrints.obtenerColorANSI(propietario.getColor());
+                                        resetColor = Ansi.ansi().reset();
+                                        System.out.print(colorANSI+String.format(formato, i, tablero.getCasillero(i).getEfecto(), "$" + tablero.getCasillero(i).getPrecio(), "BARRIO:" +  barrio.getNumeroBarrio(), nombre)+resetColor);
+                                    }
+                                }
+                            }
+                        }
+                    }else{
+                        EstacionTransporte propiedad= tablero.getCasillero(i).getPropiedad();
+                        Jugador propietario = propiedad.getPropietario();
+                        if (propietario != null){
+                            colorANSI = funcionColorPrints.obtenerColorANSI(propietario.getColor());
+                            resetColor = Ansi.ansi().reset();
+                            String nombre = propiedad.getNombrePropietario();
+                            System.out.print(colorANSI+String.format(formato, i, tablero.getCasillero(i).getEfecto(), "$"+tablero.getCasillero(i).getPrecio(), "", nombre)+resetColor);
+                        }else{
+                            System.out.print(String.format(formato, i, tablero.getCasillero(i).getEfecto(), "$"+tablero.getCasillero(i).getPrecio(), "", "SIN PROPIETARIO"));
+                        }
+                    }
+                }
+                if (jugadoresEnPosicion!=null){
+                    imprimirNombresJugadores(jugadoresEnPosicion);
+                }
+                System.out.println("");
+        }
+    }
 }
+
+

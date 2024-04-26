@@ -3,13 +3,10 @@ package org.example.controller;
 
 import org.example.model.Colores;
 import org.example.model.Jugador;
-import org.example.controller.ConfiguracionCheckArgumentos;
 import org.fusesource.jansi.Ansi;
 import org.jline.reader.LineReader;
 import org.jline.reader.LineReaderBuilder;
 import org.example.funciones.FuncionColorPrints;
-
-import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -70,6 +67,7 @@ public class Configuracion {
         }
         return opcion;
     }
+
     private int  elegirColor(Colores.Color[] colores ){
         FuncionColorPrints funcionColorPrints = new FuncionColorPrints();
         LineReader reader = LineReaderBuilder.builder().build();
@@ -87,7 +85,6 @@ public class Configuracion {
         opcionInt = validarIngresoColor(colores, opcionInt);
         return opcionInt;
     }
-
 
     public double getMontoVuelta() {
         return montoVuelta;
