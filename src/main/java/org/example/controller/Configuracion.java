@@ -4,11 +4,10 @@ package org.example.controller;
 import org.example.model.Colores;
 import org.example.model.Jugador;
 import org.fusesource.jansi.Ansi;
-import org.jline.reader.LineReader;
-import org.jline.reader.LineReaderBuilder;
 import org.example.funciones.FuncionColorPrints;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 
 public class Configuracion {
@@ -68,9 +67,8 @@ public class Configuracion {
         return opcion;
     }
 
-    private int  elegirColor(Colores.Color[] colores ){
+    private int elegirColor(Colores.Color[] colores ){
         FuncionColorPrints funcionColorPrints = new FuncionColorPrints();
-        LineReader reader = LineReaderBuilder.builder().build();
         System.out.println("Los colores disponibles son:");
         for (int i= 0; i < colores.length; i++){
             if (colores[i]!= null){
@@ -84,7 +82,9 @@ public class Configuracion {
         boolean falla = true;
         while (falla) {
             try {
-                String opcion = reader.readLine("Ingrese el número de color que desea elegir: ");
+                Scanner scanner = new Scanner(System.in);
+                System.out.println("Ingrese el número de color que desea elegir: ");
+                String opcion = scanner.nextLine();
                 opcionInt = Integer.parseInt(opcion);
                 opcionInt = validarIngresoColor(colores, opcionInt);
                 falla = false;

@@ -7,15 +7,20 @@ import java.util.List;
 
 public class Main {
     public static void main(String[] args) throws IOException {
-        CheckArgumentos check = new CheckArgumentos();
-        List<String> argumentos = check.getConfiguraciones();
-        Juego juego = new Juego(argumentos);
-        JuegoController juegoController = new JuegoController(juego);
+        try{
+            CheckArgumentos check = new CheckArgumentos();
+            List<String> argumentos = check.getConfiguraciones();
+            Juego juego = new Juego(argumentos);
+            JuegoController juegoController = new JuegoController(juego);
 
-        while (!juego.terminado()){
-            juegoController.jugarTurno();
+            while (!juego.terminado()) {
+                juegoController.jugarTurno();
+            }
+            System.out.println("El juego terminado");
+        }catch (IOException e){
+            e.printStackTrace();
         }
-        System.out.println("El juego terminado");
+
     }
 }
 
