@@ -16,6 +16,10 @@
 
     mvn clean package 
  </li> 
+ <li>      
+
+    clear
+ </li> 
 <li>
   
     java -jar  target/tp1-1.0-SNAPSHOT-jar-with-dependencies.jar
