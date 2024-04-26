@@ -60,8 +60,8 @@ public class ConstruccionController {
     public boolean validarVenta(Jugador jugador,Propiedad propiedad){
         ArrayList<Propiedad> listaDePropiedades = this.barrios.get(propiedad.getBarrio()).getPropiedades();
         for (Propiedad propiedadLista : listaDePropiedades) {
-            int dif = Math.abs(propiedad.getConstrucciones().ordinal() - propiedadLista.getConstrucciones().ordinal()) ;
-            if (dif != 0) {
+            int dif = Math.abs(propiedad.getConstrucciones().ordinal()- 1 - propiedadLista.getConstrucciones().ordinal()) ;
+            if (dif > 1) {
                 System.out.println("ERROR: EL JUGADOR " + jugador.getNombre() + " NO PUEDE VENDER DEBIDO A QUE EXCEDE EL LIMITE DE DIFERENCIA ENTRE LAS CONTRUCCIONES DE LAS PROPIEDADES");
                 return false;
             }
