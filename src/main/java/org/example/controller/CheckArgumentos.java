@@ -54,30 +54,26 @@ public class CheckArgumentos{
                 }
                 inputs.add(string);
                 int numeroDeCantidadDeCasilleros = Integer.parseInt(inputs.get(contador));
-                argumentos.set(2, "Numero maximo del dado a tirar (maximo " + numeroDeCantidadDeCasilleros + ")");
+                argumentos.set(2, ("Numero maximo del dado a tirar (maximo " + numeroDeCantidadDeCasilleros + ")"));
             }else if(contador==2) {
-                boolean boole = checkNum.checkNumeroMaximoEnDado(inputs.get(contador),configuraciones.get(contador),Integer.parseInt(inputs.get(ConfiguracionCheckArgumentos.CASILLEROS.ordinal())));
-
+                boolean boole = checkNum.checkNumeroMaximoEnDado(string,configuraciones.get(contador),Integer.parseInt(inputs.get(ConfiguracionCheckArgumentos.CASILLEROS.ordinal())));
                 while (!boole){
                     string = reader.readLine(argumentos.get(contador));
-                    boole = checkNum.checkNumeroMaximoEnDado(inputs.get(contador),configuraciones.get(contador),Integer.parseInt(inputs.get(ConfiguracionCheckArgumentos.CASILLEROS.ordinal())));
+                    boole = checkNum.checkNumeroMaximoEnDado(string,configuraciones.get(contador),Integer.parseInt(inputs.get(ConfiguracionCheckArgumentos.CASILLEROS.ordinal())));
 
                 }
                 inputs.add(string);
 
             }else{
-                boolean boole = checkNum.checkNumeros(inputs.get(contador),configuraciones.get(contador));
+                boolean boole = checkNum.checkNumeros(string,configuraciones.get(contador));
                 while (!boole){
                     string = reader.readLine(argumentos.get(contador));
-                    boole = checkNum.checkNumeros(inputs.get(contador),configuraciones.get(contador));
+                    boole = checkNum.checkNumeros(string,configuraciones.get(contador));
                 }
                 inputs.add(string);
             }
         }
         this.configuraciones = inputs;
-    }
-    public void CerrarScanner(){
-        this.entrada.close();
     }
     public List<String> getConfiguraciones() {
         return this.configuraciones;

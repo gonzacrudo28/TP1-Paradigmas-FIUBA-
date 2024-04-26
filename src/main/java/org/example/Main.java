@@ -16,8 +16,6 @@ public class Main {
 
     public static void main(String[] args) throws IOException {
         CheckArgumentos check = new CheckArgumentos();
-
-        try    check.CheckArgumentos()
         List<String> argumentos = check.getConfiguraciones();
         Juego juego = new Juego(argumentos);
         JuegoController juegoController = new JuegoController(juego);
@@ -30,9 +28,6 @@ public class Main {
         System.out.println("El juego terminado");
     }
 }
-/*
-ESTETICA:
-    AGREGAR DELAY
-*/
+
 
 
