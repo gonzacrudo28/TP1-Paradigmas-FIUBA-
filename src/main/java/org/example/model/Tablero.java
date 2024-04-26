@@ -41,11 +41,9 @@ public class Tablero {
     public Casillero[] getTodosLosCasilleros(){
         return casilleros;
     }
-
     public TipoCasillero getTipoCasillero(int posicion){
         return casilleros[posicion].getTipo();
     }
-
     private void crearRestoDeCasilleros(Configuracion configuraciones){
         Random random = new Random();
         int contadorDePropiedades = 0;
@@ -85,7 +83,6 @@ public class Tablero {
             }
         }
     }
-
     private void posicionarCasillerosBase(){
         int posCarcel = (int) (this.cantidadDeCasilleros*Constantes.POS_CARCEL);
         int posDePaso= (int) (this.cantidadDeCasilleros*Constantes.POS_DE_PASO);
@@ -95,15 +92,12 @@ public class Tablero {
         this.casilleros[posIrACarcel] = new IrALaCarcel(posIrACarcel,configuraciones.getCondenaCarcel(),posCarcel);
         this.casilleros[posDePaso] = new DePaso(posDePaso);
     }
-
     public int getCantidadCasilleros() {
         return this.cantidadDeCasilleros;
     }
-
     public CasilleroEjecutable getCasilleroEjecutable(int numeroCasillero) {
         return (CasilleroEjecutable) this.casilleros[numeroCasillero];
     }
-
     public Barrio getBarrio(Propiedad propiedad) {
         for(Barrio barrio : this.barrios){
             if(barrio.getPropiedades().contains(propiedad)){
@@ -112,6 +106,13 @@ public class Tablero {
         }
         return null;
     }
+
+    public Casillero  getCarcel() {
+        int posCarcel = (int) (this.cantidadDeCasilleros*Constantes.POS_CARCEL);
+        return this.casilleros[posCarcel];
+
+    }
+
     public ArrayList<Barrio> getBarrios() {
         return this.barrios;
     }

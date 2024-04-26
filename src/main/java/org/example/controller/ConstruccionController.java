@@ -97,7 +97,7 @@ public class ConstruccionController {
             propiedad.sumarConstruccion();
             propiedad.actualizarAlquiler();
             jugador.restarPlata(propiedad.getPrecioCasa());
-            jugador.sumarAlPatrimonio(propiedad.getPrecioCasa());
+            jugador.sumarAlPatrimonio(propiedad.getPrecioCasa()* Constantes.PORCENTAJE_DE_VENTA);
             System.out.println("Propiedad mejorada a "+propiedad.getConstrucciones()+" con exito");
         }
     }

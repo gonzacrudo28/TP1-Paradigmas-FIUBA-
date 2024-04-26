@@ -78,10 +78,15 @@ public class FuncionesExtras {
         return comprable;
     }
 
-    public Comprable obtenerComprableJugador(int casillero, Jugador jugador){
+    public Comprable ChequearComprableYDueñoJugador(int casillero, Jugador jugador){
         Comprable comprable = obtenerComprable(casillero);
         if(comprable != null && comprable.getPropietario()==jugador){
             return comprable;
+        }
+        if (comprable == null){
+                System.out.println("El casillero no es un objeto comprable.");
+        }else{
+                System.out.println("El jugador " + jugador.getNombre() + " no es dueño de esta ubicación");
         }
         return null;
     }

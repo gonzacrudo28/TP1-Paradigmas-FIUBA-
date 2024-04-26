@@ -26,6 +26,8 @@ abstract public class Casillero {
     public  <T extends Comprable> T getPropiedad(){
         return null;
     }
+
+    public double getFianza(){return 0;}
 }
 
 

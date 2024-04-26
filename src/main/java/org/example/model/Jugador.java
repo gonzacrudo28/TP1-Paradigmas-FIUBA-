@@ -154,6 +154,7 @@ public class Jugador{
         comprable.venderComprable();
         eliminarComprable(comprable);
         restarPatrimonio(comprable.getPrecio());
+        System.out.println("Ahora tiene $" + this.getPlata());
     }
 }
 

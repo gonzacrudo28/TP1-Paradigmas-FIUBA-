@@ -10,17 +10,17 @@ public class Acciones {
         return null;
     }
 
-    public void getAcciones(Ansi colorANSI,Ansi resetColor){
+    public void acciones(Ansi colorANSI,Ansi resetColor){
         for (int i = 0; i < Accion.values().length-1; i++){
             System.out.println( colorANSI+""+ i +" -> " +  Accion.values()[i] + resetColor);
         }
     }
 
-    public void getAccionesJugadorPreso(){
+    public void accionesJugadorPreso(Ansi colorANSI,Ansi resetColor){
         int indice = 0;
         for (int i = 0; i < Accion.values().length; i++){
-            if (Accion.values()[i].equals(Accion.PAGAR_FIANZA) || Accion.values()[i].equals(Accion.TERMINAR_TURNO)){
-                System.out.println( indice+ " -> " +  Accion.values()[i]);
+            if (Accion.values()[i].equals(Accion.PAGAR_FIANZA) || Accion.values()[i].equals(Accion.TIRAR_DADOS) ){
+                System.out.println(colorANSI+ ""+  indice+ " -> " +  Accion.values()[i] + resetColor);
                 indice ++;
             }
         }
@@ -28,7 +28,7 @@ public class Acciones {
 
     public Accion getAccionPreso(int accion) {
         if (accion == 1){
-            return this.getAccion(6);
+            return this.getAccion(8);
         }
         return this.getAccion(0);
     }

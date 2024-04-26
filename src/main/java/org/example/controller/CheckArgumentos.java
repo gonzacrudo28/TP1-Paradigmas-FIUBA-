@@ -16,7 +16,6 @@ import java.util.Scanner;
 public class CheckArgumentos{
     private LineReader reader;
     private List<String> configuraciones;
-    private Scanner entrada;
     public CheckArgumentos()  throws IOException {
         Terminal terminal = TerminalBuilder.terminal();
         reader = LineReaderBuilder.builder()
@@ -55,10 +54,10 @@ public class CheckArgumentos{
                 int numeroDeCantidadDeCasilleros = Integer.parseInt(inputs.get(contador));
                 argumentos.set(2, ("Numero maximo del dado a tirar (maximo " + numeroDeCantidadDeCasilleros + "): "));
             }else if(contador==2) {
-                boolean boole = checkNum.checkNumeroMaximoEnDado(string,configuraciones.get(contador),Integer.parseInt(inputs.get(ConfiguracionCheckArgumentos.CASILLEROS.ordinal())));
+                boolean boole = checkNum.checkNumeroMaximoEnDado(string,Integer.parseInt(inputs.get(ConfiguracionCheckArgumentos.CASILLEROS.ordinal())));
                 while (!boole){
                     string = reader.readLine(argumentos.get(contador));
-                    boole = checkNum.checkNumeroMaximoEnDado(string,configuraciones.get(contador),Integer.parseInt(inputs.get(ConfiguracionCheckArgumentos.CASILLEROS.ordinal())));
+                    boole = checkNum.checkNumeroMaximoEnDado(string,Integer.parseInt(inputs.get(ConfiguracionCheckArgumentos.CASILLEROS.ordinal())));
 
                 }
                 inputs.add(string);

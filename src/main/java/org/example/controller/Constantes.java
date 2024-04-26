@@ -14,8 +14,10 @@ public class Constantes {
     public static final double PORCENTAJE_DE_VENTA = 0.8;
     public static final double PORCENTAJE_PRECIO_CASA = 0.25;
     public static final double PORCENTAJE_ALQUILER = 0.8;
+    public static  final double PORCENTAJE_HIPOTECA = 0.6;
     public static final double PORCENTAJE_ALQUILER_NUEVA_CASA = 0.5;
     public static final int CANTIDAD_CASILLEROS_MINIMA = 12;
     public static final int CANTIDAD_INICIAL_MINIMA = 100;
+
 }
 

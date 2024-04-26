@@ -9,6 +9,7 @@ public class Carcel extends Casillero{
         this.cantTurnos = cantTurnos;
     }
 
+    @Override
     public double getFianza() {
         return this.fianza;
     }

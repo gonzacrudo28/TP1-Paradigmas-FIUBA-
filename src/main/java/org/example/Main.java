@@ -11,6 +11,7 @@ public class Main {
         List<String> argumentos = check.getConfiguraciones();
         Juego juego = new Juego(argumentos);
         JuegoController juegoController = new JuegoController(juego);
+
         while (!juego.terminado()){
             juegoController.jugarTurno();
         }

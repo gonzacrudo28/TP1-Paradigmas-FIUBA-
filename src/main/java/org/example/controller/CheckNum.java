@@ -4,7 +4,7 @@ import org.example.model.tipoCasilleros.Casillero;
 import org.example.controller.ConfiguracionCheckArgumentos;
 
 public class CheckNum {
-    public boolean checkNumeroMaximoEnDado(String cantidad, ConfiguracionCheckArgumentos config,int cantidadDeCasillerosMaximos) {
+    public boolean checkNumeroMaximoEnDado(String cantidad,int cantidadDeCasillerosMaximos) {
         CheckStrToInt checkStrToInt = new CheckStrToInt();
         int numeroPuesto = checkStrToInt.checkStringToInt(cantidad);
         if (numeroPuesto <= 0 ){

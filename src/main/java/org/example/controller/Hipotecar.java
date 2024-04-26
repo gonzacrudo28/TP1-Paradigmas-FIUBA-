@@ -11,7 +11,6 @@ public class Hipotecar implements  EjecutarAccion{
     public Hipotecar(FuncionesExtras func){
         this.funcionesExtras = func;
     }
-
     public void ejecutar(Jugador jugador, int propiedad, ConstruccionController controller) {
         Propiedad prop = funcionesExtras.obtenerPropiedadJugador(propiedad,jugador);
         if (prop != null) {

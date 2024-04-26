@@ -10,7 +10,7 @@ public class DeMulta extends Casillero implements CasilleroEjecutable {
     }
 
    @Override
-    public double  getPrecio(){
+    public double getPrecio(){
         return montoMulta;
     }
 
@@ -23,7 +23,7 @@ public class DeMulta extends Casillero implements CasilleroEjecutable {
             if (jugador.restarPlata(montoMulta)){
                 System.out.println(jugador.getNombre() + " pagaste multa de $"+montoMulta);
             }else{
-                System.out.println(jugador.getNombre() +"¡no tienes dinero suficiente para pagar la multa!\n\tDEBES HIPOTECAR SI O SI ANTES DE AVANZAR, SINO VA A PERDER");
+                System.out.println(jugador.getNombre() +" ¡no tienes dinero suficiente para pagar la multa!\nDEBES HIPOTECAR O VENDER SI O SI ANTES DE AVANZAR, SINO VA A PERDER");
                 System.out.println("Antes de avanzar el turno debes tener $" + montoMulta + " sino perderás automaticamente. La deuda se paga al final de su turno.");
                 jugador.setDeuda();
             }

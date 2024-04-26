@@ -23,9 +23,7 @@ public class Barrio {
     }
 
     public void setPropietarioBarrio(Jugador jugador){
-
         this.propietarioBarrio = jugador;
-
     }
 
     public ArrayList<Propiedad> getPropiedades(){

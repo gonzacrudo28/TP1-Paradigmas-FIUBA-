@@ -1,6 +1,7 @@
 package org.example.controller;
 
 import org.example.model.Jugador;
+import org.example.model.tipoCasilleros.Casillero;
 
 public interface ListaAcciones {
     void construir(Jugador jugador, int propiedad, ConstruccionController controller);
@@ -9,6 +10,7 @@ public interface ListaAcciones {
     void hipotecar(Jugador jugador, int propiedad, ConstruccionController controller);
     void comprar(Jugador jugador, int propiedad, ConstruccionController controller);
     void deshipotecar(Jugador jugador, int propiedad,  ConstruccionController controller);
+    void pagar_fianza(Jugador jugador,Casillero carcel);
 }
 
 
