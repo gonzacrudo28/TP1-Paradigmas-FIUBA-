@@ -28,6 +28,7 @@ public class JuegoController {
     private TableroController controlTablero;
     private FuncionesExtras funcionesExtras;
     private CheckGanarJugador checkGanarJugador;
+
     public JuegoController(Juego juego) throws IOException {
         System.out.println("Iniciando Juego");
         this.juego = juego;
@@ -69,7 +70,7 @@ public class JuegoController {
         System.out.println(colorANSI+"Es el turno de " + jugador.getNombre() + "\n");
         Acciones acciones = new Acciones();
         acciones.getAccionesJugadorPreso();
-        System.out.println(jugador.getNombre()+" esta preso, para pagar la fianza selecciona el 1 :) /n" +
+        System.out.println(jugador.getNombre()+" esta preso, para pagar la fianza selecciona el 1 :) \n" +
                " o 0 si queres tirar dados para probar suerte");
 
         int numeroElecto = 1;

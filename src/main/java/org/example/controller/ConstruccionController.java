@@ -19,27 +19,29 @@ public class ConstruccionController {
         this.barrios = barrios;
     }
 
-    public void vender(Jugador jugador,Propiedad propiedad){
-        Barrio barrio = barrios.get(propiedad.getBarrio());
-        if(barrio.getPropietario()!=jugador){
-            System.out.println("No sos el dueño de este barrio");
-            return;
-        }
+    public void venderSiendoPropietarioBarrio(Jugador jugador,Propiedad propiedad, Barrio barrio) {
         if(propiedad.getConstrucciones() == Construcciones.SIN_CASA){
             if (validarVentaTerreno(barrio)){
                 double precioReventa = propiedad.getPrecio()*Constantes.PORCENTAJE_DE_VENTA;
                 jugador.restarPatrimonio(precioReventa);
                 propiedad.venderComprable();
             }
-            //Caso donde se quiera vender el terreno
         }else{
-            //Caso donde se quiere vender una casa
             if (validarVenta(jugador,propiedad)){
-                double precioReventa = propiedad.getPrecioCasa() * Constantes.PORCENTAJE_DE_VENTA;
+                double precioReventa = propiedad.getPrecioCasa();
                 jugador.sumarPlata(precioReventa);
-                jugador.restarPatrimonio(precioReventa);
                 deconstruirCasa(barrio,jugador,propiedad);
             }
+        }
+    }
+    public void vender(Jugador jugador,Propiedad propiedad){
+        Barrio barrio = barrios.get(propiedad.getBarrio());
+        if (barrio.getPropietario() == jugador){
+            venderSiendoPropietarioBarrio(jugador,propiedad,barrio);
+        }else{
+            double precioReventa = propiedad.getPrecio()*Constantes.PORCENTAJE_DE_VENTA;
+            jugador.restarPatrimonio(precioReventa);
+            propiedad.venderComprable();
         }
     }
 
@@ -56,13 +58,10 @@ public class ConstruccionController {
     }
 
     public boolean validarVenta(Jugador jugador,Propiedad propiedad){
-        if (barrios.get(propiedad.getBarrio()).getPropietario() == jugador){
-            return false;
-        }
         ArrayList<Propiedad> listaDePropiedades = this.barrios.get(propiedad.getBarrio()).getPropiedades();
         for (Propiedad propiedadLista : listaDePropiedades) {
-            int dif = propiedad.getConstrucciones().ordinal() - propiedadLista.getConstrucciones().ordinal();
-            if (dif > 0) {
+            int dif = Math.abs(propiedad.getConstrucciones().ordinal() - propiedadLista.getConstrucciones().ordinal()) ;
+            if (dif != 0) {
                 System.out.println("ERROR: EL JUGADOR " + jugador.getNombre() + " NO PUEDE VENDER DEBIDO A QUE EXCEDE EL LIMITE DE DIFERENCIA ENTRE LAS CONTRUCCIONES DE LAS PROPIEDADES");
                 return false;
             }
@@ -85,8 +84,8 @@ public class ConstruccionController {
         }
         ArrayList<Propiedad> listaDePropiedades = barrios.get(propiedad.getBarrio()).getPropiedades();
         for (int i=0; i<listaDePropiedades.size(); i++) {
-            int dif = (propiedad.getConstrucciones().ordinal()) - listaDePropiedades.get(i).getConstrucciones().ordinal();
-            if (dif>0){
+            int dif = propiedad.getConstrucciones().ordinal() - listaDePropiedades.get(i).getConstrucciones().ordinal();
+            if (dif > 0){
                 System.out.println("ERROR: EL JUGADOR "+jugador.getNombre()+ " NO PUEDE CONSTUIR DEBIDO A QUE EXCEDE EL LIMITE DE DIFERENCIA ENTRE LAS CONTRUCCIONES DE LAS PROPIEDADES");
                 return  false;
             }
@@ -97,9 +96,7 @@ public class ConstruccionController {
     public void construirEnPropiedad(Jugador jugador,Propiedad propiedad){
         if (validarConstruccion(jugador, propiedad.getBarrio(),propiedad)){
             propiedad.sumarConstruccion();
-            System.out.println("ALQUILER VIEJO " +propiedad.getAlquiler());
             propiedad.actualizarAlquiler();
-            System.out.println("ALQUILER NUEVO "+propiedad.getAlquiler());
             jugador.restarPlata(propiedad.getPrecioCasa());
             jugador.sumarAlPatrimonio(propiedad.getPrecioCasa());
             System.out.println("Propiedad mejorada a "+propiedad.getConstrucciones()+" con exito");
@@ -118,13 +115,10 @@ public class ConstruccionController {
         return true;
     }
 
-
-
-    //Obs -> maxima_diferencia < 1 xq si pongo <= y efectivamente la diferencia es 1,
-    // si agrego una casa esa diferencia es= 2(>1)
     public void deconstruirCasa(Barrio barrio, Jugador jugador,Propiedad propiedad){
             jugador.restarPatrimonio(propiedad.getPrecioCasa());
             propiedad.restarConstruccion();
             propiedad.actualizarAlquiler();
+            System.out.println("Propiedad fue reducida a "+propiedad.getConstrucciones());
     }
 }

@@ -47,12 +47,10 @@ public class Propiedad extends Comprable {
             propietario.agregarPropiedad(this);
             System.out.println("Propiedad comprada con exito");
             propietario.restarPlata(precio);
-
             return;
-
         }
         if (propietario!= null){
-            System.out.println("La estacion ya fue comprada");
+            System.out.println("La propiedad ya fue comprada");
         }
     }
 
@@ -92,7 +90,18 @@ public class Propiedad extends Comprable {
             System.out.println("PROPIEDAD " + this.ubicacion + " FUE HIPOTECADA CON ÉXITO");
             ponerEnHipoteca();
             jugador.sumarPlata(this.getPrecio());
-            jugador.restarPatrimonio(this.getPrecio());
+            jugador.restarPatrimonio(this.getPrecio()*Constantes.PORCENTAJE_PRECIO_CASA);
+        }
+    }
+
+    public void deshipotecar(Jugador jugador) {
+        if (jugador == this.propietario && this.estado == EstadoPropiedades.HIPOTECADO){
+            System.out.println("SU PROPIEDAD SE DESHIPOTECO CON EXITO");
+            estado = EstadoPropiedades.COMPRADO;
+            jugador.restarPlata((this.getPrecio()* Constantes.PORCENTAJE_DE_DESHIPOTECAR));
+            jugador.sumarAlPatrimonio(this.getPrecio());
+        }else{
+            System.out.println("ERROR: NO ES POSIBLE HIPOTECAR SU PROPIEDAD");
         }
     }
 
@@ -100,9 +109,6 @@ public class Propiedad extends Comprable {
         estado = EstadoPropiedades.HIPOTECADO;
     }
 
-    public void deshipotecar() {
-        estado = EstadoPropiedades.COMPRADO;
-    }
 
 
 //    public void mejorarPropiedad(Barrio barrio, Jugador jugador){
@@ -164,7 +170,9 @@ public class Propiedad extends Comprable {
     public boolean tieneHotel(){
         return this.construcciones.equals(Construcciones.HOTEL);
     }
+
 }
+
 
 
 

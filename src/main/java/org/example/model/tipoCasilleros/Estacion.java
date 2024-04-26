@@ -25,7 +25,7 @@ public class Estacion extends Casillero implements CasilleroEjecutable{
                 jugador.setQuiebra();
             }else{
                 double alquiler = estacion.getAlquiler();
-
+                propietario.sumarPlata(alquiler);
                 if (jugador.restarPlata(alquiler)){
                     System.out.printf("%s pagaste %f de alquiler por estar en la estacion de %s\n",jugador.getNombre(),alquiler,estacion.getNombrePropietario());
                 }else{

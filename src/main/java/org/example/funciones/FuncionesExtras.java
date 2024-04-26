@@ -45,7 +45,7 @@ public class FuncionesExtras {
             System.out.println("Accion imposible de realizar");
             return null;
         }
-        Comprable comprable;
+        Comprable comprable = null;
         if(esPropiedad(casillero)){
             DePropiedad casilleroPropiedad = tablero.getPropiedad(casillero);
             comprable = casilleroPropiedad.getPropiedad();

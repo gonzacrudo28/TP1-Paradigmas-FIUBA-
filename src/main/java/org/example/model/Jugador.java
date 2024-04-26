@@ -64,9 +64,7 @@ public class Jugador{
     }
 
     public void deshipotecarPropiedad(Propiedad propiedad){
-        propiedad.deshipotecar();
-        this.restarPlata((propiedad.getPrecio()* Constantes.PORCENTAJE_DE_DESHIPOTECAR));
-        sumarAlPatrimonio(propiedad.getPrecio());
+        propiedad.deshipotecar(this);
     }
 
     public void agregarComprable(Comprable comprable){
@@ -89,7 +87,7 @@ public class Jugador{
         double precioComprable = comprable.getPrecio();
         if (this.plata >= precioComprable) {
             comprable.setPropietario(this);
-            sumarAlPatrimonio(precioComprable);
+            sumarAlPatrimonio(precioComprable * Constantes.PORCENTAJE_DE_VENTA);
             agregarComprable(comprable);
         }else{
             System.out.println("No se puede comprar propiedad");
@@ -154,15 +152,6 @@ public class Jugador{
     public boolean estaEnQuiebra(){return Estado.Quiebra.equals(this.estado);}
     public boolean estaEnDeuda(){return Estado.EnDeuda.equals(this.estado);}
 
-//    public void venderPropiedad(Propiedad propiedad){
-//        if (propiedad.getPropietario().equals(this)){
-//            propiedad.venderComprable();
-//            restarPatrimonio(propiedad.getPrecio());
-//            eliminarPropiedad(propiedad);
-//            return;
-//        }
-//        System.out.printf("%s no es el propietario, el dueño es %s", this.nombre, propiedad.getPropietario());
-//    }
     public double getPatrimonioTotal(){
         return patrimonio + plata;
     }

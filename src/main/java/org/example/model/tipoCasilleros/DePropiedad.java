@@ -22,15 +22,16 @@ public class DePropiedad extends Casillero implements CasilleroEjecutable {
     }
     @Override
     public void ejecutarCasillero(Jugador jugador) {
-        if (propiedad.getEstado() == EstadoPropiedades.COMPRADO && propiedad.getPropietario() != jugador) {
+        Jugador propietario = propiedad.getPropietario();
+        if (propiedad.getEstado() == EstadoPropiedades.COMPRADO && propietario != jugador) {
             if(jugador.getPatrimonioTotal() < propiedad.getAlquiler()) {
                 System.out.println();
                 System.out.println("EL JUGADOR " + jugador.getNombre() + "ENTRÓ EN BANCARROTA. SIN DINERO SUFICIENTE.");
                 jugador.setQuiebra();
             }else{
                 double alquiler = propiedad.getAlquiler();
-
                 if (jugador.restarPlata(alquiler)){
+                    propietario.sumarPlata(alquiler);
                     System.out.printf("%s pagaste %f de alquiler por estar en la propiedad de %s\n",jugador.getNombre(),alquiler,propiedad.getNombrePropietario());
                 }else{
                     System.out.println(jugador.getNombre() +"¡no tienes dinero suficiente para pagar el alquiler de esta propiedad!\n\tDEBES HIPOTECAR SI O SI ANTES DE AVANZAR, SINO VA A PERDER");
