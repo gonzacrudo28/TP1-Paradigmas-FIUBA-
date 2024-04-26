@@ -10,7 +10,7 @@ public interface ListaAcciones {
     void hipotecar(Jugador jugador, int propiedad, ConstruccionController controller);
     void comprar(Jugador jugador, int propiedad, ConstruccionController controller);
     void pagar_fianza(Jugador jugador, int propiedad, ConstruccionController controller);
-    void deshipotecar(Jugador jugador, int propiedad, ConstruccionController controller);
+    void deshipotecar(Jugador jugador, int propiedad,  ConstruccionController controller);
 }
 
 

@@ -44,8 +44,6 @@ public class JuegoController {
     }
     public ConstruccionController getConstruccionController(){return this.controllConstrucciones;}
 
-
-
     public void jugarTurno() throws IOException {
         vistaJuego.muestaJugadoresInicial();
         juego.cambiarTurno();
@@ -61,7 +59,6 @@ public class JuegoController {
         }
 
     }
-
     public void jugarTurnoPreso(Jugador jugador){
         Ansi colorANSI = null;
         FuncionColorPrints funcionColorPrints = new FuncionColorPrints();
@@ -102,8 +99,6 @@ public class JuegoController {
             }
         }
     }
-
-
 
     public void jugarTurnoLibre(Jugador jugador) {
         int dados = juego.tirarDados();
