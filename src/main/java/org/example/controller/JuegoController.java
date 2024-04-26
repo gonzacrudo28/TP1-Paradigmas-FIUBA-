@@ -3,6 +3,7 @@ package org.example.controller;
 import org.example.funciones.FuncionColorPrints;
 import org.example.funciones.FuncionesExtras;
 import org.example.model.*;
+import org.example.controller.CheckGanarJugador;
 import org.example.model.tipoCasilleros.*;
 import org.fusesource.jansi.Ansi;
 import org.jline.reader.LineReader;
@@ -26,6 +27,7 @@ public class JuegoController {
     private FachadaAcciones fachada;
     private TableroController controlTablero;
     private FuncionesExtras funcionesExtras;
+    private CheckGanarJugador checkGanarJugador;
     public JuegoController(Juego juego) throws IOException {
         System.out.println("Iniciando Juego");
         this.juego = juego;
@@ -39,6 +41,7 @@ public class JuegoController {
                 .terminal(terminal)
                 .build();
         this.funcionesExtras = new FuncionesExtras(juego);
+        this.checkGanarJugador= new CheckGanarJugador(tablero);
         this.fachada = new FachadaAcciones(new Hipotecar(funcionesExtras),new Comprar(funcionesExtras),new Vender(funcionesExtras),new ConsultarPrecios(funcionesExtras),new Construir(funcionesExtras),new Deshipotecar(funcionesExtras),new PagarFianza());
 
     }
@@ -153,6 +156,9 @@ public class JuegoController {
             System.out.printf("%s perdio!\n", jugador.getNombre());
             controlTablero.eliminarPropiedadesDelJugadorEnQuiebra(jugador);
             juego.eliminarJugador(jugador);
+            juego.terminado();
+        }
+        if (checkGanarJugador.ComprobarGanarJugador(jugador)){
             juego.terminado();
         }
 
