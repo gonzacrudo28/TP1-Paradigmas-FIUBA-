@@ -20,8 +20,11 @@ public class Comprar implements EjecutarAccion{
         int ubicacionJugador = jugador.getUbicacion();
         if (funcionesExtras.esComprable(ubicacionJugador)) {
             Comprable comprable = funcionesExtras.obtenerComprable(ubicacionJugador);
-            if (comprable.getPropietario() != null) {
+            Jugador propietario = comprable.getPropietario();
+            if (propietario == null) {
                 jugador.comprarComprable(comprable);
+            }else{
+                System.out.println("No se puede comprar. Esta propiedad ya pertenece a " + propietario.getNombre());
             }
         }
     }

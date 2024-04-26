@@ -1,7 +1,6 @@
 package org.example.controller;
 
-import org.example.controller.ConfiguracionCheckArgumentos;
-import org.example.funciones.DelayPrint;
+import org.example.funciones.FuncionesExtras;
 import org.jline.reader.LineReader;
 import org.jline.reader.LineReaderBuilder;
 import org.jline.terminal.TerminalBuilder;
@@ -25,16 +24,16 @@ public class CheckArgumentos{
                 .build();
         CheckNum checkNum = new CheckNum();
         CheckNombres checkNombres = new CheckNombres();
-        DelayPrint.delayPrint("Bienvenidos al Monopoly! Para jugar necesitamos que ingresen los siguientes datos:", 10);
+        FuncionesExtras.delayPrint("Bienvenidos al Monopoly! Para jugar necesitamos que ingresen los siguientes datos:", 10);
         List<String> argumentos = new ArrayList<>();
-        argumentos.add("Nombres (2 a 4 jugadores y separados por espacios)");
-        argumentos.add("Cantidad de casilleros (minimo 12)");
-        argumentos.add("Numero de caras del dado");
-        argumentos.add("Monto de dinero inicial (minimo 100)");
-        argumentos.add("Monto de dinero por vuelta");
-        argumentos.add("Cantidad de turnos preso");
-        argumentos.add("Monto de multa");
-        argumentos.add("Monto de fianza");
+        argumentos.add("Nombres (2 a 4 jugadores y separados por espacios): ");
+        argumentos.add("Cantidad de casilleros (minimo 12): ");
+        argumentos.add("Numero de caras del dado: ");
+        argumentos.add("Monto de dinero inicial (minimo 100): ");
+        argumentos.add("Monto de dinero por vuelta: ");
+        argumentos.add("Cantidad de turnos preso: ");
+        argumentos.add("Monto de multa: ");
+        argumentos.add("Monto de fianza: ");
         List<ConfiguracionCheckArgumentos> configuraciones = Arrays.asList(ConfiguracionCheckArgumentos.values());
         List<String> inputs = new ArrayList<>();
         for (int contador = 0; contador < argumentos.size(); contador++) {
@@ -54,7 +53,7 @@ public class CheckArgumentos{
                 }
                 inputs.add(string);
                 int numeroDeCantidadDeCasilleros = Integer.parseInt(inputs.get(contador));
-                argumentos.set(2, ("Numero maximo del dado a tirar (maximo " + numeroDeCantidadDeCasilleros + ")"));
+                argumentos.set(2, ("Numero maximo del dado a tirar (maximo " + numeroDeCantidadDeCasilleros + "): "));
             }else if(contador==2) {
                 boolean boole = checkNum.checkNumeroMaximoEnDado(string,configuraciones.get(contador),Integer.parseInt(inputs.get(ConfiguracionCheckArgumentos.CASILLEROS.ordinal())));
                 while (!boole){

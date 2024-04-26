@@ -18,6 +18,26 @@ public class FuncionesExtras {
 
     }
 
+    public static void delay(int tiempo) {
+        try {
+            Thread.sleep(tiempo);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void delayPrint(String text, int delayMillis) {
+        for (char c : text.toCharArray()) {
+            System.out.print(c);
+            try {
+                Thread.sleep(delayMillis);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+        System.out.println("");
+    }
+
     public Propiedad obtenerPropiedad(int casillero) {
         if (esPropiedad(casillero)) {
             DePropiedad casilleroPropiedad = tablero.getPropiedad(casillero);

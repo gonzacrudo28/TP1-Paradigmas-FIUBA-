@@ -70,8 +70,7 @@ public class JuegoController {
         System.out.println(colorANSI+"Es el turno de " + jugador.getNombre() + "\n");
         Acciones acciones = new Acciones();
         acciones.getAccionesJugadorPreso();
-        System.out.println(jugador.getNombre()+" esta preso, para pagar la fianza selecciona el 1 :) \n" +
-               " o 0 si queres tirar dados para probar suerte");
+        System.out.println(jugador.getNombre()+" esta PRESO, si deseas pagar la fianza selecciona el 1 o 0 si quieres tirar dados para probar suerte");
 
         int numeroElecto = 1;
         while (numeroElecto != 0){

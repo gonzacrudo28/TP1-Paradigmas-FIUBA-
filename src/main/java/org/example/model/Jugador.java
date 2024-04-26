@@ -129,18 +129,19 @@ public class Jugador{
         }
     }
 
-    public boolean puedePagarlo(double dinero){
-        return dinero <= this.patrimonio + this.plata;
-    }
+//    public boolean puedePagarlo(double dinero){
+//        return dinero <= this.patrimonio + this.plata;
+//    }
+//
+//    public void perder(){
+//        //enganchar en algun lado con que la posicion de los casilleros de sus propiedades
+//        //se conviertan en props de paso
+//        this.setEstado(Estado.Quiebra);
+//        for (Propiedad propiedades : this.propiedades) {
+//            propiedades.liberar();
+//        }
+//    }
 
-    public void perder(){
-        //enganchar en algun lado con que la posicion de los casilleros de sus propiedades
-        //se conviertan en props de paso
-        this.setEstado(Estado.Quiebra);
-        for (Propiedad propiedades : this.propiedades) {
-            propiedades.liberar();
-        }
-    }
     public void restarCondena(){
         this.condena--;
     }
@@ -164,6 +165,7 @@ public class Jugador{
     public void eliminarEstacion(EstacionTransporte estacionTransporte) {
         estaciones.remove(estacionTransporte);
     }
+
 
     public void venderEstacion(Comprable comprable){
         comprable.venderComprable();

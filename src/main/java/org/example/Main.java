@@ -3,6 +3,8 @@ package org.example;
 
 import org.example.controller.Configuracion;
 import org.example.controller.JuegoController;
+import org.example.funciones.FuncionColorPrints;
+import org.example.funciones.FuncionesExtras;
 import org.example.model.*;
 import org.example.controller.CheckArgumentos;
 import org.example.model.tipoCasilleros.Casillero;
@@ -19,12 +21,9 @@ public class Main {
         List<String> argumentos = check.getConfiguraciones();
         Juego juego = new Juego(argumentos);
         JuegoController juegoController = new JuegoController(juego);
-
         while (!juego.terminado()){
             juegoController.jugarTurno();
         }
-
-
         System.out.println("El juego terminado");
     }
 }

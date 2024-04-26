@@ -15,6 +15,15 @@ public class Juego {
     private Configuracion configuracion;
     private Banco banco;
 
+    /*
+Juego(List<String>)
+double getFianza()
+Jugador getJugadorActual()
+Boolean terminado()
+
+
+    */
+
     public Juego(List<String> configuraciones){
         Configuracion configuracion = new Configuracion(configuraciones);
         this.configuracion = configuracion;
@@ -39,7 +48,16 @@ public class Juego {
     public void cambiarTurno() {
         administradorDeTurnos.avanzarTurno();
     }
+/*
+eliminarJugador(Jugador jugador)
+cambiarTurno()
+Tablero getTablero()
 
+
+
+
+
+*/
     public int tirarDados(){
         return administradorDeTurnos.tirarDados(configuracion.getCantidadDeLadosEnDado());
     }

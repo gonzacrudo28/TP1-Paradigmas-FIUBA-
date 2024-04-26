@@ -111,25 +111,6 @@ public class Propiedad extends Comprable {
 
 
 
-//    public void mejorarPropiedad(Barrio barrio, Jugador jugador){
-//        ConstruccionController construccionController = new ConstruccionController(this,barrio);
-//        if (construccionController.validarConstruccion(jugador, this)){
-//            this.construcciones = this.getSiguienteConstruccion(this.construcciones);
-//            actualizarAlquiler();
-//            jugador.restarPlata(this.getPrecioCasa());
-//            jugador.sumarAlPatrimonio(this.getPrecioCasa());
-//            System.out.println("Propiedad mejorada a "+this.getConstrucciones()+" con exito");
-//        }
-//    }
-
-
-//    public void vender(){
-//        double precioReventa = this.precio * Constantes.PORCENTAJE_DE_VENTA;
-//        double plataVentaCasas = venderPropiedades();
-//        this.propietario.sumarPlata(precioReventa + plataVentaCasas);
-//        this.liberar();
-//    }
-
     public void liberar() {
         this.construcciones = Construcciones.SIN_CASA;
         this.propietario = null;
@@ -151,16 +132,6 @@ public class Propiedad extends Comprable {
         return (int) (precio * Constantes.PORCENTAJE_ALQUILER);
     }
 
-    public void restarAlquiler(Jugador jugador) {
-        if (jugador == propietario) {
-            return;
-        } else if (this.estado.equals(EstadoPropiedades.COMPRADO)) {
-            double parsed = (double) (alquiler);
-            jugador.restarPlata(parsed);
-            propietario.sumarPlata(parsed);
-            System.out.printf("%s acaba de pagar %.2f por el alquiler de la propiedad a %s", jugador.getNombre(), parsed, propietario.getNombre());
-        }
-    }
 
     public boolean tieneHotel(){
         return this.construcciones.equals(Construcciones.HOTEL);
