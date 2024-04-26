@@ -137,7 +137,8 @@ public class Propiedad extends Comprable {
         this.alquiler = setPrecioBaseAlquiler();
     }
 
-    public void venderComprable() {
+    public void
+    venderComprable() {
         this.propietario.sumarPlata(precio * Constantes.PORCENTAJE_DE_VENTA);
         this.propietario.eliminarComprable(this);
     }
@@ -145,12 +146,6 @@ public class Propiedad extends Comprable {
     public void actualizarAlquiler() {
         this.alquiler = (alquiler * Constantes.PORCENTAJE_ALQUILER_NUEVA_CASA) + alquiler;
     }
-
-//    private double venderPropiedades() {
-//        List<Construcciones> tiposConstrucciones = Arrays.asList(Construcciones.values());
-//        double cantPropiedades = tiposConstrucciones.indexOf(construcciones);
-//        return cantPropiedades * precioCasa;
-//    }
 
     private int setPrecioBaseAlquiler() {
         return (int) (precio * Constantes.PORCENTAJE_ALQUILER);

@@ -3,9 +3,6 @@ import org.example.model.Barrio;
 import org.example.model.Construcciones;
 import org.example.model.Jugador;
 import org.example.model.Propiedad;
-import org.example.model.tipoCasilleros.DePropiedad;
-import org.example.controller.Constantes;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,13 +17,17 @@ public class ConstruccionController {
     }
 
     public void venderSiendoPropietarioBarrio(Jugador jugador,Propiedad propiedad, Barrio barrio) {
+        System.out.println("Validacion dueño barrio "+propiedad.getConstrucciones());
         if(propiedad.getConstrucciones() == Construcciones.SIN_CASA){
             if (validarVentaTerreno(barrio)){
                 double precioReventa = propiedad.getPrecio()*Constantes.PORCENTAJE_DE_VENTA;
                 jugador.restarPatrimonio(precioReventa);
                 propiedad.venderComprable();
+                propiedad.liberar();
+                System.out.println("Propiedad vendida con exito!");
             }
         }else{
+            System.out.println("Validacion dueño barrio, ELSE "+propiedad.getConstrucciones());
             if (validarVenta(jugador,propiedad)){
                 double precioReventa = propiedad.getPrecioCasa();
                 jugador.sumarPlata(precioReventa);
@@ -42,6 +43,8 @@ public class ConstruccionController {
             double precioReventa = propiedad.getPrecio()*Constantes.PORCENTAJE_DE_VENTA;
             jugador.restarPatrimonio(precioReventa);
             propiedad.venderComprable();
+            propiedad.liberar();
+            System.out.println("Propiedad vendida con exito!");
         }
     }
 

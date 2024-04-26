@@ -15,6 +15,10 @@ public class Estacion extends Casillero implements CasilleroEjecutable{
     }
 
     @Override
+    public EstacionTransporte getPropiedad() {
+        return estacion;
+    }
+    @Override
     public void ejecutarCasillero(Jugador jugador) {
         //Funcion encargada de cobrar el alquiler
         Jugador propietario = estacion.getPropietario();

@@ -16,7 +16,8 @@ public class Main {
 
     public static void main(String[] args) throws IOException {
         CheckArgumentos check = new CheckArgumentos();
-        check.CheckArgumentos();
+
+        try    check.CheckArgumentos()
         List<String> argumentos = check.getConfiguraciones();
         Juego juego = new Juego(argumentos);
         JuegoController juegoController = new JuegoController(juego);
@@ -25,18 +26,13 @@ public class Main {
             juegoController.jugarTurno();
         }
 
-        check.CerrarScanner();
+
         System.out.println("El juego terminado");
     }
 }
 /*
-PRIMORDIAL:
-    • IMPLEMENTAR GANAR
-    • IMPLEMENTAR DESHIPOTECAR
-    • BUSCAR BUGS
 ESTETICA:
     AGREGAR DELAY
-
 */
 
 

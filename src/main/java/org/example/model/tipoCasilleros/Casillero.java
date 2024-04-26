@@ -1,5 +1,5 @@
 package org.example.model.tipoCasilleros;
-
+import org.example.model.Comprable;
 import org.example.model.Propiedad;
 
 abstract public class Casillero {
@@ -18,12 +18,10 @@ abstract public class Casillero {
     public String getEfecto(){return efecto;}
 
     public int getUbicacion(){return ubicacion;}
-
     public double getPrecio(){
         return 0;
     }
-
-    public Propiedad getPropiedad(){
+    public  <T extends Comprable> T getPropiedad(){
         return null;
     }
 }

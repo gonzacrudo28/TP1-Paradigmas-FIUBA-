@@ -2,7 +2,12 @@ package org.example.controller;
 
 import org.example.controller.ConfiguracionCheckArgumentos;
 import org.example.funciones.DelayPrint;
+import org.jline.reader.LineReader;
+import org.jline.reader.LineReaderBuilder;
+import org.jline.terminal.TerminalBuilder;
+import org.jline.terminal.Terminal;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -10,10 +15,14 @@ import java.util.Scanner;
 
 
 public class CheckArgumentos{
-
+    private LineReader reader;
     private List<String> configuraciones;
     private Scanner entrada;
-    public void CheckArgumentos() {
+    public CheckArgumentos()  throws IOException {
+        Terminal terminal = TerminalBuilder.terminal();
+        reader = LineReaderBuilder.builder()
+                .terminal(terminal)
+                .build();
         CheckNum checkNum = new CheckNum();
         CheckNombres checkNombres = new CheckNombres();
         DelayPrint.delayPrint("Bienvenidos al Monopoly! Para jugar necesitamos que ingresen los siguientes datos:", 10);
@@ -28,20 +37,41 @@ public class CheckArgumentos{
         argumentos.add("Monto de fianza");
         List<ConfiguracionCheckArgumentos> configuraciones = Arrays.asList(ConfiguracionCheckArgumentos.values());
         List<String> inputs = new ArrayList<>();
-        this.entrada= new Scanner(System.in);
         for (int contador = 0; contador < argumentos.size(); contador++) {
-            System.out.println(argumentos.get(contador));
-            inputs.add(entrada.nextLine());
+            String string = reader.readLine(argumentos.get(contador));
             if (contador == 0) {
-                checkNombres.checkNombres(inputs.get(contador));
+                boolean boole = checkNombres.checkNombres(string);
+                while (!boole){
+                    string = reader.readLine(argumentos.get(contador));
+                    boole = checkNombres.checkNombres(string);
+                }
+                inputs.add(string);
             }else if (contador == 1){
-                checkNum.checkNumeros(inputs.get(contador),configuraciones.get(contador));
+                boolean boole = checkNum.checkNumeros(string,configuraciones.get(contador));
+                while (!boole){
+                    string = reader.readLine(argumentos.get(contador));
+                    boole = checkNum.checkNumeros(string,configuraciones.get(contador));
+                }
+                inputs.add(string);
                 int numeroDeCantidadDeCasilleros = Integer.parseInt(inputs.get(contador));
                 argumentos.set(2, "Numero maximo del dado a tirar (maximo " + numeroDeCantidadDeCasilleros + ")");
             }else if(contador==2) {
-                checkNum.checkNumeroMaximoEnDado(inputs.get(contador),configuraciones.get(contador),Integer.parseInt(inputs.get(ConfiguracionCheckArgumentos.CASILLEROS.ordinal())));
+                boolean boole = checkNum.checkNumeroMaximoEnDado(inputs.get(contador),configuraciones.get(contador),Integer.parseInt(inputs.get(ConfiguracionCheckArgumentos.CASILLEROS.ordinal())));
+
+                while (!boole){
+                    string = reader.readLine(argumentos.get(contador));
+                    boole = checkNum.checkNumeroMaximoEnDado(inputs.get(contador),configuraciones.get(contador),Integer.parseInt(inputs.get(ConfiguracionCheckArgumentos.CASILLEROS.ordinal())));
+
+                }
+                inputs.add(string);
+
             }else{
-                checkNum.checkNumeros(inputs.get(contador),configuraciones.get(contador));
+                boolean boole = checkNum.checkNumeros(inputs.get(contador),configuraciones.get(contador));
+                while (!boole){
+                    string = reader.readLine(argumentos.get(contador));
+                    boole = checkNum.checkNumeros(inputs.get(contador),configuraciones.get(contador));
+                }
+                inputs.add(string);
             }
         }
         this.configuraciones = inputs;

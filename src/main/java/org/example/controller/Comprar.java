@@ -20,7 +20,9 @@ public class Comprar implements EjecutarAccion{
         int ubicacionJugador = jugador.getUbicacion();
         if (funcionesExtras.esComprable(ubicacionJugador)) {
             Comprable comprable = funcionesExtras.obtenerComprable(ubicacionJugador);
-            jugador.comprarComprable(comprable);
+            if (comprable.getPropietario() != null) {
+                jugador.comprarComprable(comprable);
+            }
         }
     }
     }
