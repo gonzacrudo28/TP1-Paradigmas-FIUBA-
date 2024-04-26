@@ -30,18 +30,15 @@ public class Main {
     }
 }
 /*
-COSAS PARA HACER:
-    • Agregar delay (se encarga top o intenta) (OPCIONAL)
+PRIMORDIAL:
     • IMPLEMENTAR GANAR
     • IMPLEMENTAR DESHIPOTECAR
     • BUSCAR BUGS
-    • SACAR ALGUNO PRINTS INECESARIO (?
-    • FUNCIOENS EXTRAS
+    • FUNCIONES EXTRAS
 
-
-
-
-
-    */
+ESTETICA:
+    • Agregar del
+    • SACAR ALGUNO PRINTS INECESARIOS
+*/
 
 

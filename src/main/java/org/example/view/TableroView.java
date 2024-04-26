@@ -51,7 +51,7 @@ public class TableroView {
                             for (Barrio barrio: barrios){
                                 for (Propiedad propiedad: barrio.getPropiedades()){
                                     if (propiedad == tablero.getCasillero(i).getPropiedad()){
-                                        System.out.print(i + " " + tablero.getCasillero(i).getEfecto() + " (VALOR: $" + tablero.getCasillero(i).getPrecio()+ ")" + " BARRIO: " + (barrio.getNumeroBarrio()+1));
+                                        System.out.print(i + " " + tablero.getCasillero(i).getEfecto() + " (VALOR: $" + tablero.getCasillero(i).getPrecio()+ ")" + " BARRIO: " + barrio.getNumeroBarrio());
                                     }
                                 }
                             }
@@ -68,7 +68,7 @@ public class TableroView {
                         for (Barrio barrio: barrios){
                             for (Propiedad propiedad: barrio.getPropiedades()){
                                 if (propiedad == tablero.getCasillero(i).getPropiedad()){
-                                    System.out.println(i + " " + tablero.getCasillero(i).getEfecto() + " (VALOR: $" + tablero.getCasillero(i).getPrecio()+ ")" + " BARRIO: " + (barrio.getNumeroBarrio()+1));
+                                    System.out.println(i + " " + tablero.getCasillero(i).getEfecto() + " (VALOR: $" + tablero.getCasillero(i).getPrecio()+ ")" + " BARRIO: " + barrio.getNumeroBarrio());
                                 }
                             }
                         }

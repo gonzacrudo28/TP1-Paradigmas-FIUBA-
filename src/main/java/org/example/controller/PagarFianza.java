@@ -5,7 +5,7 @@ import org.example.model.Tablero;
 
 public class PagarFianza implements EjecutarAccion{
     @Override
-    public void ejecutar(Jugador jugador, int montoFianza, Tablero tablero, ConstruccionController controller){
+    public void ejecutar(Jugador jugador, int montoFianza, ConstruccionController controller){
         jugador.pagarFianza(montoFianza);
     }
 }

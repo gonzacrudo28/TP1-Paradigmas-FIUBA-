@@ -9,36 +9,21 @@ import org.example.funciones.FuncionesExtras;
 import java.util.List;
 
 public class Hipotecar implements  EjecutarAccion{
+    private FuncionesExtras funcionesExtras;
 
-    public void ejecutar(Jugador jugador, int propiedad, Tablero tablero, ConstruccionController controller) {
-        Propiedad prop = obtenerPropiedadJugador(propiedad,jugador,tablero);
+    public Hipotecar(FuncionesExtras func){
+        this.funcionesExtras = func;
+    }
+
+    public void ejecutar(Jugador jugador, int propiedad, ConstruccionController controller) {
+        Propiedad prop = funcionesExtras.obtenerPropiedadJugador(propiedad,jugador);
         if (prop != null) {
+            Tablero tablero = funcionesExtras.getTablero();
             jugador.hipotecarPropiedad(tablero.getBarrio(prop),prop);
 
         }
     }
-    public Propiedad obtenerPropiedadJugador(int casillero, Jugador jugador,Tablero tablero) {
-        if (esPropiedad(casillero,tablero)) {
-            List<Propiedad> propiedadList = jugador.getPropiedades();
-            for (Propiedad propiedad : propiedadList) {
-                if (propiedad.getUbicacion() == casillero) {
-                    return propiedad;
-                }
-            }
-            System.out.println("Esa propiedad no te pertenece");
-            return null;
-        }
-        System.out.println("Accion imposible de realizar");
-        return null;
-    }
 
-    public boolean esPropiedad(int casillero,Tablero tablero) {
-        if (casillero < tablero.getCantidadCasilleros()) {
-            TipoCasillero tipoCasillero = tablero.getTipoCasillero(casillero);
-            return tipoCasillero == TipoCasillero.PROPIEDAD;
-        }
-        return false;
-    }
 
 
 }

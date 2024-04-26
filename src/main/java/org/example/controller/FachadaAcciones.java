@@ -26,37 +26,37 @@ public FachadaAcciones(Hipotecar hipoteca,Comprar comprar,Vender vender,Consulta
     this.fianza = fianza;
 }
     @Override
-    public void comprar(Jugador jugador,int num,Tablero tablero,  ConstruccionController controller) {
-        comprar.ejecutar(jugador,num,tablero,controller);
+    public void comprar(Jugador jugador,int num,ConstruccionController controller) {
+        comprar.ejecutar(jugador,num,controller);
     }
     @Override
-    public void construir(Jugador jugador, int propiedad, Tablero tablero,  ConstruccionController controller) {
-        construir.ejecutar(jugador,propiedad,tablero,controller);
-    }
-
-    @Override
-    public void deshipotecar(Jugador jugador, int propiedad, Tablero tablero, ConstruccionController controller) {
-        deshipotecar.ejecutar(jugador,propiedad,tablero,controller);
+    public void construir(Jugador jugador, int propiedad, ConstruccionController controller) {
+        construir.ejecutar(jugador,propiedad,controller);
     }
 
     @Override
-    public void hipotecar(Jugador jugador, int propiedad, Tablero tablero, ConstruccionController controller) {
-        hipoteca.ejecutar(jugador,propiedad,tablero,controller);
+    public void deshipotecar(Jugador jugador, int propiedad, ConstruccionController controller) {
+        deshipotecar.ejecutar(jugador,propiedad,controller);
     }
 
     @Override
-    public void consultar_precio_casa(Jugador jugador, int propiedad, Tablero tablero,  ConstruccionController controller) {
-        consultarPrecios.ejecutar(jugador,propiedad,tablero,controller);
+    public void hipotecar(Jugador jugador, int propiedad, ConstruccionController controller) {
+        hipoteca.ejecutar(jugador,propiedad,controller);
     }
 
     @Override
-    public void vender(Jugador jugador, int propiedad, Tablero tablero,  ConstruccionController controller) {
-        vender.ejecutar(jugador,propiedad,tablero,controller);
+    public void consultar_precio_casa(Jugador jugador, int propiedad,  ConstruccionController controller) {
+        consultarPrecios.ejecutar(jugador,propiedad,controller);
     }
 
     @Override
-    public void pagar_fianza(Jugador jugador, int montoFianza, Tablero tablero,  ConstruccionController controller) {
-        fianza.ejecutar(jugador,montoFianza,tablero,controller);
+    public void vender(Jugador jugador, int propiedad,  ConstruccionController controller) {
+        vender.ejecutar(jugador,propiedad,controller);
+    }
+
+    @Override
+    public void pagar_fianza(Jugador jugador, int montoFianza,ConstruccionController controller) {
+        fianza.ejecutar(jugador,montoFianza,controller);
     }
 
 }

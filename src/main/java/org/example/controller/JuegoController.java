@@ -38,8 +38,9 @@ public class JuegoController {
         reader = LineReaderBuilder.builder()
                 .terminal(terminal)
                 .build();
-        this.fachada = new FachadaAcciones(new Hipotecar(),new Comprar(),new Vender(),new ConsultarPrecios(),new Construir(),new Deshipotecar(),new PagarFianza());
         this.funcionesExtras = new FuncionesExtras(juego);
+        this.fachada = new FachadaAcciones(new Hipotecar(funcionesExtras),new Comprar(funcionesExtras),new Vender(funcionesExtras),new ConsultarPrecios(funcionesExtras),new Construir(funcionesExtras),new Deshipotecar(funcionesExtras),new PagarFianza());
+
     }
     public ConstruccionController getConstruccionController(){return this.controllConstrucciones;}
 
@@ -195,19 +196,19 @@ public class JuegoController {
 
     public void ejecutarAccion(Accion accionElecta, Jugador jugador) {
             if (accionElecta == Accion.PAGAR_FIANZA) {
-                fachada.pagar_fianza(jugador, (int) juego.getFianza(), tablero, controllConstrucciones);
+                fachada.pagar_fianza(jugador, (int) juego.getFianza(), controllConstrucciones);
             }else if(accionElecta == Accion.COMPRAR){
-                fachada.comprar(jugador,0,tablero,controllConstrucciones);
+                fachada.comprar(jugador,0,controllConstrucciones);
             }else if (accionElecta != Accion.TERMINAR_TURNO){
                 CheckStrToInt checkStrToInt = new CheckStrToInt();
                 String casillero = reader.readLine("Seleccione el casillero en que se encuentra la propiedad (NUMERO):");
                 int numero = (checkStrToInt.checkStringToInt(casillero));
                 switch (accionElecta) {
-                    case CONSTRUIR -> fachada.construir(jugador, numero, tablero, controllConstrucciones);
-                    case VENDER -> fachada.vender(jugador, numero, tablero, controllConstrucciones);
-                    case HIPOTECAR -> fachada.hipotecar(jugador, numero, tablero, controllConstrucciones);
-                    case DESHIPOTECAR -> fachada.deshipotecar(jugador, numero, tablero, controllConstrucciones);
-                    case CONSULTAR_PRECIO_CASA -> fachada.consultar_precio_casa(jugador, numero, tablero, controllConstrucciones);
+                    case CONSTRUIR -> fachada.construir(jugador, numero, controllConstrucciones);
+                    case VENDER -> fachada.vender(jugador, numero, controllConstrucciones);
+                    case HIPOTECAR -> fachada.hipotecar(jugador, numero, controllConstrucciones);
+                    case DESHIPOTECAR -> fachada.deshipotecar(jugador, numero, controllConstrucciones);
+                    case CONSULTAR_PRECIO_CASA -> fachada.consultar_precio_casa(jugador, numero, controllConstrucciones);
                 }
             }
     }
