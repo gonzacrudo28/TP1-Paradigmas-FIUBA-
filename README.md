@@ -1,13 +1,17 @@
 <h1>TP Monopoly - Grupo Las Maquinas</h1>
 
 
-### Instrucciones:
+### Instrucciones desde la terminal:
 <ol>
   <li>
       
     git clone git@github.com:facundolescano0/TPparadigmas.git 
     
   </li>
+  <li>      
+
+    cd TPparadigmas 
+ </li> 
  <li>      
 
     mvn clean package 
