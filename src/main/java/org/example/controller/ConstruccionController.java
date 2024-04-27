@@ -15,7 +15,6 @@ public class ConstruccionController {
     }
 
     public void venderSiendoPropietarioBarrio(Jugador jugador,Propiedad propiedad, Barrio barrio) {
-        System.out.println("Validacion dueño barrio "+propiedad.getConstrucciones());
         if(propiedad.getConstrucciones() == Construcciones.SIN_CASA){
             if (validarVentaTerreno(barrio)){
                 double precioReventa = propiedad.getPrecio()*Constantes.PORCENTAJE_DE_VENTA;
@@ -26,7 +25,6 @@ public class ConstruccionController {
                 System.out.println("Ahora tienes $" + jugador.getPlata());
             }
         }else{
-            System.out.println("Validacion dueño barrio, ELSE "+propiedad.getConstrucciones());
             if (validarVenta(jugador,propiedad)){
                 double precioReventa = propiedad.getPrecioCasa();
                 jugador.sumarPlata(precioReventa);
@@ -100,6 +98,7 @@ public class ConstruccionController {
             jugador.restarPlata(propiedad.getPrecioCasa());
             jugador.sumarAlPatrimonio(propiedad.getPrecioCasa()* Constantes.PORCENTAJE_DE_VENTA);
             System.out.println("Propiedad mejorada a "+propiedad.getConstrucciones()+" con exito");
+            System.out.println("Ahora tienes $" + jugador.getPlata());
         }
     }
 

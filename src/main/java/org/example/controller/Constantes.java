@@ -18,6 +18,5 @@ public class Constantes {
     public static final double PORCENTAJE_ALQUILER_NUEVA_CASA = 0.5;
     public static final int CANTIDAD_CASILLEROS_MINIMA = 12;
     public static final int CANTIDAD_INICIAL_MINIMA = 100;
-
 }
 

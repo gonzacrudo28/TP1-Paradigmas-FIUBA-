@@ -15,7 +15,7 @@ public class Vender implements EjecutarAccion {
 
     @Override
     public void ejecutar(Jugador jugador, int casilleroComprable, ConstruccionController controller) {
-        Comprable comprable = funciones.ChequearComprableYDueñoJugador(casilleroComprable, jugador);
+        Comprable comprable = funciones.ChequearComprableYPropietarioJugador(casilleroComprable, jugador);
         if (comprable != null) {
             if (comprable instanceof Propiedad) {
                 controller.vender(jugador, (Propiedad) comprable);

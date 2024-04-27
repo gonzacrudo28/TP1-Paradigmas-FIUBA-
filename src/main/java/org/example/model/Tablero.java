@@ -61,7 +61,7 @@ public class Tablero {
                         contadorDeCasillerosExtra = 0;
                     }else{
                         if (random.nextBoolean()) {
-                            this.casilleros[numeroCasillero] = new DeLoteria(numeroCasillero);
+                            this.casilleros[numeroCasillero] = new DeLoteria(numeroCasillero,configuraciones.getMontoInicial());
                         }else{
                             this.casilleros[numeroCasillero] = new DeMulta(numeroCasillero,configuraciones.getMontoMulta());
                         }

@@ -7,9 +7,8 @@ import org.example.model.Jugador;
 
 
 public class PagarFianza  {
-    private FuncionesExtras funcionesExtras;
-    public PagarFianza(FuncionesExtras funcionesExtras) {
-        this.funcionesExtras = funcionesExtras;
+    public PagarFianza(){
+
     }
     public void ejecutar(Jugador jugador, Casillero carcel){
         double fianza = carcel.getFianza();

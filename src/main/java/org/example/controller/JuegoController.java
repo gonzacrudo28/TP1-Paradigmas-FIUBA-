@@ -30,17 +30,13 @@ public class JuegoController {
         this.controlTablero = new TableroController(tablero);
         this.administradorDeMovimientos = new AdministradorDeMovimientos(juego.getTablero());
         this.controllConstrucciones = new ConstruccionController(tablero.getBarrios());
-        /*Terminal terminal = TerminalBuilder.terminal();
-        reader = LineReaderBuilder.builder()
-                .terminal(terminal)
-                .build();*/
         this.funcionesExtras = new FuncionesExtras(juego);
         this.checkGanarJugador= new CheckGanarJugador(tablero);
-        this.fachada = new FachadaAcciones(new Hipotecar(funcionesExtras),new Comprar(funcionesExtras),new Vender(funcionesExtras),new ConsultarPrecios(funcionesExtras),new Construir(funcionesExtras),new Deshipotecar(funcionesExtras),new PagarFianza(funcionesExtras));
+        this.fachada = new FachadaAcciones(new Hipotecar(funcionesExtras),new Comprar(funcionesExtras),new Vender(funcionesExtras),new ConsultarPrecios(funcionesExtras),new Construir(funcionesExtras),new Deshipotecar(funcionesExtras),new PagarFianza());
     }
 
     public void jugarTurno() throws IOException {
-        vistaJuego.muestaJugadoresInicial();
+
         juego.cambiarTurno();
         Jugador jugador = juego.getJugadorActual();
         if(jugador.getEstado() == Estado.EnJuego){
@@ -65,7 +61,6 @@ public class JuegoController {
         int numeroElecto = -1;
         while((numeroElecto != 0) && (numeroElecto != 1) && (jugador.getCondena() != 0)){
             System.out.println("Seleccione la accion que quiere realizar indicando su numero (NUMERO):\n");
-            /*String accion = reader.readLine("Seleccione la accion que quiere realizar indicando su numero (NUMERO):\n");*/
             String accion = scanner.nextLine();
             numeroElecto = corroboroAccion(accion);
         }
@@ -121,13 +116,12 @@ public class JuegoController {
         while (numeroElecto != 0) {
             System.out.println(colorANSI + "Seleccione la accion que quiere realizar indicando su numero (NUMERO):\n"+resetColor);
             String accion = scanner.nextLine();
-            /*String accion = reader.readLine(colorANSI + "Seleccione la accion que quiere realizar indicando su numero (NUMERO):\n" + resetColor);*/
             numeroElecto = corroboroAccion(accion);
             if (numeroElecto == Constantes.NEGATIVO) {
                 System.out.println("Accion inexistente\n");
             } else {
                 Accion accionElecta = acciones.getAccion(numeroElecto);
-                if (accionElecta == null) {
+                if (accionElecta == null || accionElecta == Accion.PAGAR_FIANZA || accionElecta == Accion.TIRAR_DADOS) {
                     System.out.println("Accion inexistente");
                 }else{
                 ejecutarAccion(accionElecta, jugador);
@@ -162,7 +156,6 @@ public class JuegoController {
                 Scanner scanner = new Scanner(System.in);
                 System.out.println("Seleccione el casillero en que se encuentra la propiedad (NUMERO):");
                 String casillero = scanner.nextLine();
-               /* String casillero = reader.readLine("Seleccione el casillero en que se encuentra la propiedad (NUMERO):");*/
                 int numero = (checkStrToInt.checkStringToInt(casillero));
                 switch (accionElecta) {
                     case CONSTRUIR -> fachada.construir(jugador, numero, controllConstrucciones);

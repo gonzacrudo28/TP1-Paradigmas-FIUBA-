@@ -11,7 +11,7 @@ public class Acciones {
     }
 
     public void acciones(Ansi colorANSI,Ansi resetColor){
-        for (int i = 0; i < Accion.values().length-1; i++){
+        for (int i = 0; i < Accion.values().length-2; i++){
             System.out.println( colorANSI+""+ i +" -> " +  Accion.values()[i] + resetColor);
         }
     }

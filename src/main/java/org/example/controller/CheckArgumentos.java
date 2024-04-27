@@ -20,7 +20,7 @@ public class CheckArgumentos{
         List<String> argumentos = new ArrayList<>();
         argumentos.add("Nombres (2 a 4 jugadores y separados por espacios): ");
         argumentos.add("Cantidad de casilleros (mínimo 12): ");
-        argumentos.add("Número de caras del dado: ");
+        argumentos.add("");
         argumentos.add("Monto de dinero inicial (mínimo 100): ");
         argumentos.add("Monto de dinero por vuelta: ");
         argumentos.add("Cantidad de turnos preso: ");
@@ -29,6 +29,11 @@ public class CheckArgumentos{
         List<ConfiguracionCheckArgumentos> configuraciones = Arrays.asList(ConfiguracionCheckArgumentos.values());
         List<String> inputs = new ArrayList<>();
         for (int contador = 0; contador < argumentos.size(); contador++) {
+            int numeroDeCantidadDeCasilleros = 0;
+            if (contador ==2){
+                numeroDeCantidadDeCasilleros = Integer.parseInt(inputs.get(contador-1));
+                argumentos.set(2, ("Número de caras del dado (máximo " + numeroDeCantidadDeCasilleros + "): "));
+            }
             System.out.print(argumentos.get(contador));
             String input = scanner.nextLine();
             if (contador == 0) {
@@ -38,16 +43,22 @@ public class CheckArgumentos{
                     input = scanner.nextLine();
                     isValid = checkNombres.checkNombres(input);
                 }
-                inputs.add(input);
-            } else {
+            } else if (contador == 2){
+                boolean isValid = checkNum.checkNumeros(input, numeroDeCantidadDeCasilleros);
+                while (!isValid) {
+                    System.out.print(argumentos.get(contador));
+                    input = scanner.nextLine();
+                    isValid = checkNum.checkNumeros(input, numeroDeCantidadDeCasilleros);
+                }
+            }else{
                 boolean isValid = checkNum.checkNumeros(input, configuraciones.get(contador));
                 while (!isValid) {
                     System.out.print(argumentos.get(contador));
                     input = scanner.nextLine();
                     isValid = checkNum.checkNumeros(input, configuraciones.get(contador));
                 }
-                inputs.add(input);
             }
+            inputs.add(input);
         }
         this.configuraciones = inputs;
     }

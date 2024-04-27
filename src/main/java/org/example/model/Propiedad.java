@@ -119,9 +119,6 @@ public class Propiedad extends Comprable {
         return (int) (precio * Constantes.PORCENTAJE_ALQUILER);
     }
 
-    public boolean tieneHotel(){
-        return this.construcciones.equals(Construcciones.HOTEL);
-    }
 }
 
 

@@ -15,15 +15,11 @@ public class JuegoView {
         this.tableroView = new TableroView(juego.getTablero());
     }
     public void mostrar(){
-        FuncionesExtras.delay(1000);
+        FuncionesExtras.delay(0000);
         tableroView.mostrar(jugadores);
-        FuncionesExtras.delay(2000);
+        FuncionesExtras.delay(0000);
         JugadorView jugadorView = new JugadorView(jugadores);
         jugadorView.mostrarJugadores();
-        FuncionesExtras.delay(1000);
-    }
-    public void muestaJugadoresInicial(){
-        JugadorView jugadorView = new JugadorView(jugadores);
-        jugadorView.mostrarJugadores();
+        FuncionesExtras.delay(0000);
     }
 }

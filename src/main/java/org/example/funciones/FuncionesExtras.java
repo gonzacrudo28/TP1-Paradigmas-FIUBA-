@@ -78,7 +78,7 @@ public class FuncionesExtras {
         return comprable;
     }
 
-    public Comprable ChequearComprableYDueñoJugador(int casillero, Jugador jugador){
+    public Comprable ChequearComprableYPropietarioJugador(int casillero, Jugador jugador){
         Comprable comprable = obtenerComprable(casillero);
         if(comprable != null && comprable.getPropietario()==jugador){
             return comprable;
