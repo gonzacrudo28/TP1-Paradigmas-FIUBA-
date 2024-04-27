@@ -69,7 +69,6 @@ public class JuegoController {
             System.out.println("El jugador "+ jugador.getNombre() + " complió su condena!");
             FuncionesExtras.delay(1000);
             jugador.setEstado(Estado.EnJuego);
-
         } else if(numeroElecto == 1){
             Accion accionElecta = acciones.getAccionPreso(numeroElecto);
             ejecutarAccion(accionElecta,jugador);
