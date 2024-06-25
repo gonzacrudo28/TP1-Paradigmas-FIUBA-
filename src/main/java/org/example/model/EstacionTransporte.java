@@ -16,16 +16,16 @@ public class EstacionTransporte extends Comprable{
             propietario.agregarEstacion(this);
             return ("Estacion comprada con exito \n Le quedan $" + propietario.getPlata());
         }else{
-            //System.out.println("La estacion ya fue comprada");
             return ("La estacion ya fue comprada");
         }
     }
 
-    public void venderComprable(){
+    public String venderComprable(){
         propietario.sumarPlata(precio);
         propietario.eliminarComprable(this);
         setPropietario(null);
         this.estado = EstadoPropiedades.EN_VENTA;
+        return "Estacion vendida con exito \n Ahora tiene $" + propietario.getPlata();
     }
 
     public String getNombrePropietario() {

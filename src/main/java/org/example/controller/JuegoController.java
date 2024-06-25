@@ -38,7 +38,7 @@ public class JuegoController implements Suscriptor {
         this.funcionesExtras = new FuncionesExtras(tablero);
         this.jugadorView = new JugadorView(juego.getJugadores());
         //this.checkGanarJugador= new CheckGanarJugador(tablero);
-        this.fachada = new FachadaAcciones(new Hipotecar(funcionesExtras),new Comprar(funcionesExtras),new Vender(funcionesExtras),new ConsultarPrecios(funcionesExtras),new Construir(funcionesExtras),new Deshipotecar(funcionesExtras),new PagarFianza());
+        //this.fachada = new FachadaAcciones(new Hipotecar(funcionesExtras),new Comprar(funcionesExtras),new Vender(funcionesExtras),new ConsultarPrecios(funcionesExtras),new Construir(funcionesExtras),new Deshipotecar(funcionesExtras),new PagarFianza());
     }
 
 

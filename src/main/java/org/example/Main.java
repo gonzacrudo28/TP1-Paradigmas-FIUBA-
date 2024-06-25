@@ -24,6 +24,5 @@ public class Main {
 
     }
 }
-/*Tirar los dados antes de empezar a jugar, o sea que lo primero que muestre es cuanto saco*/
 
 

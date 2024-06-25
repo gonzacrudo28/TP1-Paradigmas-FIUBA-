@@ -36,12 +36,10 @@ public class Propiedad extends Comprable {
             this.estado = EstadoPropiedades.COMPRADO;
             propietario.agregarPropiedad(this);
             propietario.restarPlata(precio);
-            System.out.println("Propiedad comprada con exito");
-            System.out.println("Le quedan $" + propietario.getPlata());
-            return null;
+            return "Propiedad comprada con exito \n Le quedan $" + propietario.getPlata();
         }
         if (propietario!= null){
-            System.out.println("La propiedad ya fue comprada");
+            return "La propiedad ya fue comprada";
         }
         return null;
     }
@@ -68,29 +66,34 @@ public class Propiedad extends Comprable {
         return construccionesLista.get(construccionesLista.indexOf(construcciones) + 1);
     }
 
-    public void hipotecar(Barrio barrio, Jugador jugador) {
+    public String hipotecar(Barrio barrio, Jugador jugador) {
         CheckHipotecar controladorHipoteca = new CheckHipotecar(jugador, barrio, this);
         if (controladorHipoteca.validarHipotecar()) {
-            System.out.println("PROPIEDAD " + this.ubicacion + " FUE HIPOTECADA CON ÉXITO.\nSe le reintegró el 60% de la propiedad");
+            //System.out.println("PROPIEDAD " + this.ubicacion + " FUE HIPOTECADA CON ÉXITO.\nSe le reintegró el 60% de la propiedad");
             ponerEnHipoteca();
             jugador.sumarPlata(this.getPrecio()*Constantes.PORCENTAJE_HIPOTECA);
-            System.out.println("Ahora tienes $"+ jugador.getPlata());
+            //System.out.println("Ahora tienes $"+ jugador.getPlata());
             jugador.restarPatrimonio(this.getPrecio());
+            return "PROPIEDAD " + this.ubicacion + " FUE HIPOTECADA CON ÉXITO.\nSe le reintegró el 60% de la propiedad\nAhora tienes $"+ jugador.getPlata();
         }
+        return "No se pudo hipotecar la propiedad";
     }
 
-    public void deshipotecar(Jugador jugador) {
+    public String deshipotecar(Jugador jugador) {
         if (jugador == this.propietario && this.estado == EstadoPropiedades.HIPOTECADO && jugador.getPlata()>= this.getPrecio()* Constantes.PORCENTAJE_DE_DESHIPOTECAR){
-            System.out.println("SU PROPIEDAD SE DESHIPOTECO CON EXITO");
+            //System.out.println("SU PROPIEDAD SE DESHIPOTECO CON EXITO");
             estado = EstadoPropiedades.COMPRADO;
             jugador.restarPlata((this.getPrecio()* Constantes.PORCENTAJE_DE_DESHIPOTECAR));
             jugador.sumarAlPatrimonio(this.getPrecio()* Constantes.PORCENTAJE_DE_VENTA); // Se suma el maximo posible (de venta).
-            System.out.println("Ahora tienes $"+ jugador.getPlata());
+            //System.out.println("Ahora tienes $"+ jugador.getPlata());
+            return "SU PROPIEDAD SE DESHIPOTECO CON EXITO - Ahora tienes $"+ jugador.getPlata()+"\n";
         }else if (jugador.getPlata()< this.getPrecio()* Constantes.PORCENTAJE_DE_DESHIPOTECAR){
-            System.out.println("ERROR: NO ES POSIBLE HIPOTECAR SU PROPIEDAD - SIN SALDO SUFICIENTE");
+            //System.out.println("ERROR: NO ES POSIBLE HIPOTECAR SU PROPIEDAD - SIN SALDO SUFICIENTE");
+            return "ERROR: NO ES POSIBLE HIPOTECAR SU PROPIEDAD - SIN SALDO SUFICIENTE";
         }
         else{
-            System.out.println("ERROR: NO ES POSIBLE HIPOTECAR SU PROPIEDAD");
+            //System.out.println("ERROR: NO ES POSIBLE HIPOTECAR SU PROPIEDAD");
+            return "ERROR: NO ES POSIBLE HIPOTECAR SU PROPIEDAD";
         }
     }
 
@@ -105,11 +108,11 @@ public class Propiedad extends Comprable {
         this.alquiler = setPrecioBaseAlquiler();
     }
 
-    public void
-    venderComprable() {
+    public String venderComprable() {
         this.propietario.sumarPlata(precio * Constantes.PORCENTAJE_DE_VENTA);
         this.propietario.eliminarComprable(this);
-        System.out.println("Ahora tiene $" + propietario.getPlata());
+        //System.out.println("Ahora tiene $" + propietario.getPlata());
+        return "Propiedad vendida con exito \n Ahora tiene $" + propietario.getPlata();
     }
 
     public void actualizarAlquiler() {

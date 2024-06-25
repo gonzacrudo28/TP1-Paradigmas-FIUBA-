@@ -13,7 +13,7 @@ public class CheckHipotecar {
         this.propiedad = propiedad;
     }
 
-    public boolean validarHipotecar(){
+/*    public boolean validarHipotecar(){
         if (!jugador.getPropiedades().contains(propiedad)){
             System.out.println("ERROR: EL JUGADOR "+ jugador.getNombre() + " NO ES DUEÑO DE LA PROPIEDAD");
             return false;
@@ -29,5 +29,16 @@ public class CheckHipotecar {
             }
         }
         return true;
+    }*/
+public boolean validarHipotecar(){
+    if (!jugador.getPropiedades().contains(propiedad) || propiedad.getEstado() != EstadoPropiedades.COMPRADO){
+        return false;
     }
+    for (Propiedad propiedadDelBarrio: barrio.getPropiedades()){
+        if (propiedadDelBarrio.getConstrucciones() != Construcciones.SIN_CASA){
+            return false;
+        }
+    }
+    return true;
+}
 }

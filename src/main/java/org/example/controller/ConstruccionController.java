@@ -23,9 +23,9 @@ public class ConstruccionController {
                 jugador.restarPatrimonio(precioReventa);
                 propiedad.venderComprable();
                 propiedad.liberar();
-                //System.out.println("Propiedad vendida con exito!");
-                //System.out.println("Ahora tienes $" + jugador.getPlata());
                 return "Propiedad vendida con exito! \n Ahora tienes $" + jugador.getPlata();
+            }else{
+                return "No puedes vender el terreno porque hay otras propiedades con casas";
             }
         }else{
             if (validarVenta(jugador,propiedad)){
@@ -37,7 +37,6 @@ public class ConstruccionController {
 
             }
         }
-        return "";
     }
     public String vender(Jugador jugador,Propiedad propiedad){
         Barrio barrio = barrios.get(propiedad.getBarrio());
@@ -46,10 +45,9 @@ public class ConstruccionController {
         }else{
             double precioReventa = propiedad.getPrecio()*Constantes.PORCENTAJE_DE_VENTA;
             jugador.restarPatrimonio(precioReventa);
-            propiedad.venderComprable();
+            String mensaje = propiedad.venderComprable();
             propiedad.liberar();
-            //System.out.println("Propiedad vendida con exito!");
-            return "Propiedad vendida con exito!";
+            return mensaje;
         }
     }
 
@@ -57,7 +55,7 @@ public class ConstruccionController {
         List<Propiedad> propiedadList = barrio.getPropiedades();
         for (Propiedad prop: propiedadList) {
             if (prop.getConstrucciones() != Construcciones.SIN_CASA) {
-                System.out.println("No puedes vender el terreno porque hay otras propiedades con casas");
+                //System.out.println("No puedes vender el terreno porque hay otras propiedades con casas");
                 return false;
             }
         }
@@ -121,7 +119,7 @@ public boolean validarConstruccion(Jugador jugador,int barrio,Propiedad propieda
 //            System.out.println("Ahora tienes $" + jugador.getPlata());
             return ("Propiedad mejorada a "+propiedad.getConstrucciones()+" con exito \n Ahora tienes $" + jugador.getPlata());
         }else{
-            return "Accion imposible de realizar";
+            return "ERROR: EL JUGADOR "+jugador.getNombre()+ " NO POSEE TODAS LAS PROPIEDADES DEL BARRIO";
         }
     }
 
@@ -129,7 +127,7 @@ public boolean validarConstruccion(Jugador jugador,int barrio,Propiedad propieda
         ArrayList<Propiedad> listaDePropiedades = barrio.getPropiedades();
         for (Propiedad propiedad : listaDePropiedades){
             if (propiedad.getPropietario() != jugador){
-                System.out.println("ERROR: EL JUGADOR "+jugador.getNombre()+ " NO POSEE TODAS LAS PROPIEDADES DEL BARRIO NUMERO "+ barrio.getNumeroBarrio());
+                //System.out.println("ERROR: EL JUGADOR "+jugador.getNombre()+ " NO POSEE TODAS LAS PROPIEDADES DEL BARRIO NUMERO "+ barrio.getNumeroBarrio());
                 return false;
             }
         }

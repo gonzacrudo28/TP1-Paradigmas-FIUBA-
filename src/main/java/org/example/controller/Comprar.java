@@ -17,13 +17,12 @@ public class Comprar implements EjecutarAccion{
             Comprable comprable = funcionesExtras.obtenerComprable(ubicacionJugador);
             Jugador propietario = comprable.getPropietario();
             if (propietario == null) {
-                jugador.comprarComprable(comprable);
+                return jugador.comprarComprable(comprable);
             }else{
                 return ("No se puede comprar. Esta propiedad ya pertenece a " + propietario.getNombre());
             }
         }else{
             return ("No se puede comprar. Esta casilla no es comprable");
         }
-        return "";
     }
 }

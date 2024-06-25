@@ -70,8 +70,8 @@ public class Juego {
         return this.jugadores;
     }
 
-    public void pagarBono(Jugador jugador){
-        banco.pagarBono(jugador);
+    public String pagarBono(Jugador jugador){
+        return banco.pagarBono(jugador);
     }
 
     public boolean checkEstadoJugadores(List<Jugador> jugadores){
@@ -194,11 +194,11 @@ private String jugarTurnoPreso(Jugador jugador){
         int casillaActual = administradorDeMovimientos.avanzarJugador(jugador, dados);
         //System.out.println("Usted esta en el casillero: " + casillaActual + "\n" + resetColor);
         suscriptor.recibirNoticia("Usted esta en el casillero: " + casillaActual + "\n" + resetColor);
-        pagarBono(jugador, dados, casillaAnterior);
+        suscriptor.recibirNoticia(pagarBono(jugador, dados, casillaAnterior));
         Casillero casillero = tablero.getCasillero(casillaActual);
 
         if (casillero.getEsEjecutable()) {
-            ejecutar(jugador, casillaActual);
+            suscriptor.recibirNoticia(ejecutar(jugador, casillaActual));
         }
         if (jugador.getEstado() == Estado.Preso) return;
         int numeroElecto = 1;
@@ -209,7 +209,7 @@ private String jugarTurnoPreso(Jugador jugador){
         acciones.acciones(colorANSI, resetColor);
         Scanner scanner = new Scanner(System.in);
         while (numeroElecto != 0) {
-            suscriptor.recibirNoticia(colorANSI + "Seleccione la accion que quiere realizar indicando su numero (NUMERO):\n" + resetColor);
+            suscriptor.recibirNoticia(colorANSI + "Seleccione la accion que quiere realizar indicando su numero (NUMERO):" + resetColor);
             //System.out.println(colorANSI + "Seleccione la accion que quiere realizar indicando su numero (NUMERO):\n"+resetColor);
             String accion = scanner.nextLine();
             numeroElecto = corroboroAccion(accion);
@@ -229,10 +229,10 @@ private String jugarTurnoPreso(Jugador jugador){
         if (jugador.estaEnDeuda()) {
             int ubicacion = jugador.getUbicacion();
             if (tablero.getCasillero(ubicacion).getTipo() == TipoCasillero.MULTA){
-                checkDeudaMulta(jugador);
+                suscriptor.recibirNoticia(checkDeuda(jugador,tablero.getCasillero(ubicacion).getPrecio() , "multa"));
             }else {
                 Propiedad propiedad = tablero.getPropiedad(ubicacion).getPropiedad();
-                checkDeudaComprable(jugador, propiedad);
+                suscriptor.recibirNoticia(checkDeuda(jugador, propiedad.getAlquiler(), "alquiler"));
             }
         }
         if (jugador.estaEnQuiebra()) {
@@ -281,36 +281,51 @@ private String jugarTurnoPreso(Jugador jugador){
         return "";
     }
 
-    private void pagarBono(Jugador jugador,int dados,int casillaAnterior){
+    private String pagarBono(Jugador jugador,int dados,int casillaAnterior){
         if((casillaAnterior+dados) >= tablero.getCantidadCasilleros()) {
-            pagarBono(jugador);
+            return pagarBono(jugador);
+        }else{
+            return "";
         }
     }
 
-    private void checkDeudaMulta(Jugador jugador) {
+/*    private String checkDeudaMulta(Jugador jugador) {
         Casillero casilleroDeMulta = tablero.getCasillero(jugador.getUbicacion());
         if(jugador.restarPlata(casilleroDeMulta.getPrecio()) ){
-            System.out.println("Perfecto! El jugador "+jugador.getNombre() +" pudo pagar su multa!");
+            //System.out.println("Perfecto! El jugador "+jugador.getNombre() +" pudo pagar su multa!");
             jugador.setEstado(Estado.EnJuego);
+            return "Perfecto! El jugador "+jugador.getNombre() +" pudo pagar su multa!";
         }else{
-            System.out.println("EL JUGADOR "+ jugador.getNombre()+" NO PAGO SU MULTA! ENTRÓ EN BANCARROTA");
+            //System.out.println("EL JUGADOR "+ jugador.getNombre()+" NO PAGO SU MULTA! ENTRÓ EN BANCARROTA");
             jugador.setQuiebra();
+            return "EL JUGADOR "+ jugador.getNombre()+" NO PAGO SU MULTA! ENTRÓ EN BANCARROTA";
         }
     }
 
-    private void checkDeudaComprable(Jugador jugador,Propiedad propiedad){
+    private String checkDeudaComprable(Jugador jugador,Propiedad propiedad){
         if (jugador.restarPlata(propiedad.getAlquiler())){
-            System.out.println("Perfecto! El jugador "+jugador.getNombre() +" pudo pagar su deuda!");
+            //System.out.println("Perfecto! El jugador "+jugador.getNombre() +" pudo pagar su deuda!");
             jugador.setEstado(Estado.EnJuego);
+            return "Perfecto! El jugador "+jugador.getNombre() +" pudo pagar su deuda!";
         }else{
-            System.out.println("EL JUGADOR "+ jugador.getNombre()+" NO PAGO SU DEUDA! ENTRÓ EN BANCARROTA");
+            //System.out.println("EL JUGADOR "+ jugador.getNombre()+" NO PAGO SU DEUDA! ENTRÓ EN BANCARROTA");
             jugador.setQuiebra();
+            return "EL JUGADOR "+ jugador.getNombre()+" NO PAGO SU DEUDA! ENTRÓ EN BANCARROTA";
         }
+    }*/
+private String checkDeuda(Jugador jugador, double montoDeuda, String tipoDeuda) {
+    if (jugador.restarPlata(montoDeuda)) {
+        jugador.setEstado(Estado.EnJuego);
+        return "Perfecto! El jugador " + jugador.getNombre() + " pudo pagar su " + tipoDeuda + "!";
+    } else {
+        jugador.setQuiebra();
+        return "EL JUGADOR " + jugador.getNombre() + " NO PAGO SU " + tipoDeuda + "! ENTRÓ EN BANCARROTA";
     }
+}
 
-    private void ejecutar(Jugador jugador, int ubicacionJugador){
+    private String ejecutar(Jugador jugador, int ubicacionJugador){
         CasilleroEjecutable casillero = tablero.getCasilleroEjecutable(ubicacionJugador);
-        casillero.ejecutarCasillero(jugador);
+        return casillero.ejecutarCasillero(jugador);
     }
 
     private int corroboroAccion(String accion) {

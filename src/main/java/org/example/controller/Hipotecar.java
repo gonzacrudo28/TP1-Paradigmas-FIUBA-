@@ -15,8 +15,8 @@ public class Hipotecar implements  EjecutarAccion{
         Propiedad prop = funcionesExtras.obtenerPropiedadJugador(propiedad,jugador);
         if (prop != null) {
             Tablero tablero = funcionesExtras.getTablero();
-            jugador.hipotecarPropiedad(tablero.getBarrio(prop),prop);
-            return "Propiedad hipotecada con exito";
+            return jugador.hipotecarPropiedad(tablero.getBarrio(prop),prop);
+
         }else {
             return ("No se puede hipotecar Esta propiedad no pertenece a " + jugador.getNombre());
         }
