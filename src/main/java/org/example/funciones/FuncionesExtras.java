@@ -52,10 +52,8 @@ public class FuncionesExtras {
                     return propiedad;
                 }
             }
-            System.out.println("Esa propiedad no te pertenece");
             return null;
         }
-        System.out.println("Accion imposible de realizar");
         return null;
     }
 

@@ -11,12 +11,14 @@ public class Hipotecar implements  EjecutarAccion{
     public Hipotecar(FuncionesExtras func){
         this.funcionesExtras = func;
     }
-    public void ejecutar(Jugador jugador, int propiedad, ConstruccionController controller) {
+    public String ejecutar(Jugador jugador, int propiedad, ConstruccionController controller) {
         Propiedad prop = funcionesExtras.obtenerPropiedadJugador(propiedad,jugador);
         if (prop != null) {
             Tablero tablero = funcionesExtras.getTablero();
             jugador.hipotecarPropiedad(tablero.getBarrio(prop),prop);
-
+            return "Propiedad hipotecada con exito";
+        }else {
+            return ("No se puede hipotecar Esta propiedad no pertenece a " + jugador.getNombre());
         }
     }
 }

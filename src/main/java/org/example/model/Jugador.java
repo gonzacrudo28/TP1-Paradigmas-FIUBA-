@@ -99,15 +99,17 @@ public class Jugador{
         }
     }
 
-    public void comprarComprable(Comprable comprable){
+    public String comprarComprable(Comprable comprable){
         double precioComprable = comprable.getPrecio();
         if (this.plata >= precioComprable) {
             comprable.setPropietario(this);
             sumarAlPatrimonio(precioComprable * Constantes.PORCENTAJE_DE_VENTA);
             agregarComprable(comprable);
         }else{
-            System.out.println("No se puede comprar propiedad");
+            //System.out.println("No se puede comprar propiedad");
+            return "No se puede comprar propiedad";
         }
+        return "";
     }
 
     public void setQuiebra(){estado = Estado.Quiebra;}
@@ -178,11 +180,11 @@ public class Jugador{
         estaciones.remove(estacionTransporte);
     }
 
-    public void venderEstacion(Comprable comprable){
+    public String venderEstacion(Comprable comprable){
         comprable.venderComprable();
         eliminarComprable(comprable);
         restarPatrimonio(comprable.getPrecio());
-        System.out.println("Ahora tiene $" + this.getPlata());
+        return ("Ahora tiene $" + this.getPlata());
     }
 
 

@@ -14,14 +14,16 @@ public class Vender implements EjecutarAccion {
     }
 
     @Override
-    public void ejecutar(Jugador jugador, int casilleroComprable, ConstruccionController controller) {
+    public String ejecutar(Jugador jugador, int casilleroComprable, ConstruccionController controller) {
         Comprable comprable = funciones.ChequearComprableYPropietarioJugador(casilleroComprable, jugador);
         if (comprable != null) {
             if (comprable.getEsPropiedad()) {
-                controller.vender(jugador, (Propiedad) comprable);
+                return controller.vender(jugador, (Propiedad) comprable);
             } else{
-                jugador.venderEstacion(comprable);
+                return jugador.venderEstacion(comprable);
             }
+        }else {
+            return ("No se puede vender. Esta propiedad no pertenece a " + jugador.getNombre());
         }
     }
 }

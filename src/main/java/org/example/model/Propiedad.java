@@ -35,8 +35,8 @@ public class Propiedad extends Comprable {
             this.propietario = propietario;
             this.estado = EstadoPropiedades.COMPRADO;
             propietario.agregarPropiedad(this);
-            System.out.println("Propiedad comprada con exito");
             propietario.restarPlata(precio);
+            System.out.println("Propiedad comprada con exito");
             System.out.println("Le quedan $" + propietario.getPlata());
             return null;
         }

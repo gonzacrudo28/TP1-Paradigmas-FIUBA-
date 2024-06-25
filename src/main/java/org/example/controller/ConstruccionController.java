@@ -3,6 +3,8 @@ import org.example.model.Barrio;
 import org.example.model.Construcciones;
 import org.example.model.Jugador;
 import org.example.model.Propiedad;
+
+import javax.print.DocFlavor;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,34 +16,40 @@ public class ConstruccionController {
         this.barrios = barrios;
     }
 
-    public void venderSiendoPropietarioBarrio(Jugador jugador,Propiedad propiedad, Barrio barrio) {
+    public String venderSiendoPropietarioBarrio(Jugador jugador,Propiedad propiedad, Barrio barrio) {
         if(propiedad.getConstrucciones() == Construcciones.SIN_CASA){
             if (validarVentaTerreno(barrio)){
                 double precioReventa = propiedad.getPrecio()*Constantes.PORCENTAJE_DE_VENTA;
                 jugador.restarPatrimonio(precioReventa);
                 propiedad.venderComprable();
                 propiedad.liberar();
-                System.out.println("Propiedad vendida con exito!");
-                System.out.println("Ahora tienes $" + jugador.getPlata());
+                //System.out.println("Propiedad vendida con exito!");
+                //System.out.println("Ahora tienes $" + jugador.getPlata());
+                return "Propiedad vendida con exito! \n Ahora tienes $" + jugador.getPlata();
             }
         }else{
             if (validarVenta(jugador,propiedad)){
                 double precioReventa = propiedad.getPrecioCasa();
                 jugador.sumarPlata(precioReventa);
-                deconstruirCasa(barrio,jugador,propiedad);
+                return deconstruirCasa(barrio,jugador,propiedad);
+            }else{
+                return "Accion imposible de realizar";
+
             }
         }
+        return "";
     }
-    public void vender(Jugador jugador,Propiedad propiedad){
+    public String vender(Jugador jugador,Propiedad propiedad){
         Barrio barrio = barrios.get(propiedad.getBarrio());
         if (barrio.getPropietario() == jugador){
-            venderSiendoPropietarioBarrio(jugador,propiedad,barrio);
+            return venderSiendoPropietarioBarrio(jugador,propiedad,barrio);
         }else{
             double precioReventa = propiedad.getPrecio()*Constantes.PORCENTAJE_DE_VENTA;
             jugador.restarPatrimonio(precioReventa);
             propiedad.venderComprable();
             propiedad.liberar();
-            System.out.println("Propiedad vendida con exito!");
+            //System.out.println("Propiedad vendida con exito!");
+            return "Propiedad vendida con exito!";
         }
     }
 
@@ -61,14 +69,13 @@ public class ConstruccionController {
         for (Propiedad propiedadLista : listaDePropiedades) {
             int dif = Math.abs(propiedad.getConstrucciones().ordinal()- 1 - propiedadLista.getConstrucciones().ordinal()) ;
             if (dif > 1) {
-                System.out.println("ERROR: EL JUGADOR " + jugador.getNombre() + " NO PUEDE VENDER DEBIDO A QUE EXCEDE EL LIMITE DE DIFERENCIA ENTRE LAS CONTRUCCIONES DE LAS PROPIEDADES");
                 return false;
             }
         }
         return true;
     }
 
-    public boolean validarConstruccion(Jugador jugador,int barrio,Propiedad propiedad){
+/*    public boolean validarConstruccion(Jugador jugador,int barrio,Propiedad propiedad){
         if (!esPropietarioBarrio(jugador,barrios.get(barrio))) {
             return false;
         }
@@ -89,16 +96,32 @@ public class ConstruccionController {
             }
         }
         return true;
+    }*/
+public boolean validarConstruccion(Jugador jugador,int barrio,Propiedad propiedad){
+    if (!esPropietarioBarrio(jugador,barrios.get(barrio))||jugador.getPlata() < propiedad.getPrecioCasa()||propiedad.getConstrucciones() == Construcciones.HOTEL) {
+        return false;
     }
+    ArrayList<Propiedad> listaDePropiedades = barrios.get(propiedad.getBarrio()).getPropiedades();
+    for (int i=0; i<listaDePropiedades.size(); i++) {
+        int dif = propiedad.getConstrucciones().ordinal() - listaDePropiedades.get(i).getConstrucciones().ordinal();
+        if (dif > 0){
+           return  false;
+        }
+    }
+    return true;
+}
 
-    public void construirEnPropiedad(Jugador jugador,Propiedad propiedad){
+    public String construirEnPropiedad(Jugador jugador,Propiedad propiedad){
         if (validarConstruccion(jugador, propiedad.getBarrio(),propiedad)){
             propiedad.sumarConstruccion();
             propiedad.actualizarAlquiler();
             jugador.restarPlata(propiedad.getPrecioCasa());
             jugador.sumarAlPatrimonio(propiedad.getPrecioCasa()* Constantes.PORCENTAJE_DE_VENTA);
-            System.out.println("Propiedad mejorada a "+propiedad.getConstrucciones()+" con exito");
-            System.out.println("Ahora tienes $" + jugador.getPlata());
+//            System.out.println("Propiedad mejorada a "+propiedad.getConstrucciones()+" con exito");
+//            System.out.println("Ahora tienes $" + jugador.getPlata());
+            return ("Propiedad mejorada a "+propiedad.getConstrucciones()+" con exito \n Ahora tienes $" + jugador.getPlata());
+        }else{
+            return "Accion imposible de realizar";
         }
     }
 
@@ -114,10 +137,10 @@ public class ConstruccionController {
         return true;
     }
 
-    public void deconstruirCasa(Barrio barrio, Jugador jugador,Propiedad propiedad){
+    public String deconstruirCasa(Barrio barrio, Jugador jugador,Propiedad propiedad){
             jugador.restarPatrimonio(propiedad.getPrecioCasa());
             propiedad.restarConstruccion();
             propiedad.actualizarAlquiler();
-            System.out.println("Propiedad fue reducida a "+propiedad.getConstrucciones());
+        return ("Propiedad fue reducida a "+propiedad.getConstrucciones());
     }
 }

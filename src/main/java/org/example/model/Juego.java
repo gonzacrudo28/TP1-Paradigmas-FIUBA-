@@ -162,8 +162,8 @@ private String jugarTurnoPreso(Jugador jugador){
     }else if(numeroElecto == 1) {
         Accion accionElecta = new Acciones().getAccion(numeroElecto,EstadoAcciones.PRESO);
         //return ejecutarAccion(accionElecta, jugador);
-        //suscriptor.recibirNoticia(ejecutarAccion(accionElecta,jugador));
-        ejecutarAccion(accionElecta,jugador);
+        suscriptor.recibirNoticia(ejecutarAccion(accionElecta,jugador));
+
     }else{
         int dados = tirarDados();
         FuncionesExtras.delay(1000);
@@ -192,7 +192,8 @@ private String jugarTurnoPreso(Jugador jugador){
         //System.out.println(colorANSI + "Es el turno de " + jugador.getNombre() + "\n" + "Te toco el numero: " + dados + "\n");
         int casillaAnterior = jugador.getUbicacion();
         int casillaActual = administradorDeMovimientos.avanzarJugador(jugador, dados);
-        System.out.println("Usted esta en el casillero: " + casillaActual + "\n" + resetColor);
+        //System.out.println("Usted esta en el casillero: " + casillaActual + "\n" + resetColor);
+        suscriptor.recibirNoticia("Usted esta en el casillero: " + casillaActual + "\n" + resetColor);
         pagarBono(jugador, dados, casillaAnterior);
         Casillero casillero = tablero.getCasillero(casillaActual);
 
@@ -221,7 +222,7 @@ private String jugarTurnoPreso(Jugador jugador){
                     suscriptor.recibirNoticia("Accion inexistente\n");
                     //System.out.println("Accion inexistente");
                 }else{
-                    ejecutarAccion(accionElecta, jugador);
+                    suscriptor.recibirNoticia(ejecutarAccion(accionElecta, jugador));
                 }
             }
         }
@@ -246,9 +247,9 @@ private String jugarTurnoPreso(Jugador jugador){
         }
     }
 
-    private void ejecutarAccion(Accion accionElecta, Jugador jugador) {
+    private String ejecutarAccion(Accion accionElecta, Jugador jugador) {
         if (accionElecta == Accion.COMPRAR){
-            fachada.comprar(jugador,0,controllConstrucciones);
+            return fachada.comprar(jugador,0,controllConstrucciones);
         }else if (accionElecta != Accion.TERMINAR_TURNO && accionElecta != Accion.PAGAR_FIANZA){
             CheckStrToInt checkStrToInt = new CheckStrToInt();
             Scanner scanner = new Scanner(System.in);
@@ -257,16 +258,27 @@ private String jugarTurnoPreso(Jugador jugador){
             String casillero = scanner.nextLine();
             int numero = (checkStrToInt.checkStringToInt(casillero));
             switch (accionElecta) {
-                case CONSTRUIR -> fachada.construir(jugador, numero, controllConstrucciones);
-                case VENDER -> fachada.vender(jugador, numero, controllConstrucciones);
-                case HIPOTECAR -> fachada.hipotecar(jugador, numero, controllConstrucciones);
-                case DESHIPOTECAR -> fachada.deshipotecar(jugador, numero, controllConstrucciones);
-                case CONSULTAR_PRECIO_CASA -> fachada.consultar_precio_casa(jugador, numero, controllConstrucciones);
+                case CONSTRUIR -> {
+                    return(fachada.construir(jugador, numero, controllConstrucciones));
+                }
+                case VENDER -> {
+                    return fachada.vender(jugador, numero, controllConstrucciones);
+                }
+                case HIPOTECAR -> {
+                    return fachada.hipotecar(jugador, numero, controllConstrucciones);
+                }
+                case DESHIPOTECAR -> {
+                    return fachada.deshipotecar(jugador, numero, controllConstrucciones);
+                }
+                case CONSULTAR_PRECIO_CASA -> {
+                    return fachada.consultar_precio_casa(jugador, numero, controllConstrucciones);
+                }
             }
         }
         if (accionElecta == Accion.PAGAR_FIANZA){
-            fachada.pagar_fianza(jugador, tablero.getCarcel());
+            return fachada.pagar_fianza(jugador, tablero.getCarcel());
         }
+        return "";
     }
 
     private void pagarBono(Jugador jugador,int dados,int casillaAnterior){

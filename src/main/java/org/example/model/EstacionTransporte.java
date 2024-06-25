@@ -12,11 +12,9 @@ public class EstacionTransporte extends Comprable{
         if(this.propietario == null){
             this.propietario = propietario;
             this.estado = EstadoPropiedades.COMPRADO;
-            //System.out.println("Estacion comprada con exito");
             propietario.restarPlata(precio);
-            System.out.println("Le quedan $" + propietario.getPlata());
             propietario.agregarEstacion(this);
-            return ("Estacion comprada con exito");
+            return ("Estacion comprada con exito \n Le quedan $" + propietario.getPlata());
         }else{
             //System.out.println("La estacion ya fue comprada");
             return ("La estacion ya fue comprada");

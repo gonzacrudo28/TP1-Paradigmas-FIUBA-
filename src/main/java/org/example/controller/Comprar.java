@@ -11,7 +11,7 @@ public class Comprar implements EjecutarAccion{
         this.funcionesExtras = func;
     }
 
-    public void ejecutar(Jugador jugador, int propiedad, ConstruccionController controller) {
+    public String ejecutar(Jugador jugador, int propiedad, ConstruccionController controller) {
         int ubicacionJugador = jugador.getUbicacion();
         if (funcionesExtras.esComprable(ubicacionJugador)) {
             Comprable comprable = funcionesExtras.obtenerComprable(ubicacionJugador);
@@ -19,8 +19,11 @@ public class Comprar implements EjecutarAccion{
             if (propietario == null) {
                 jugador.comprarComprable(comprable);
             }else{
-                System.out.println("No se puede comprar. Esta propiedad ya pertenece a " + propietario.getNombre());
+                return ("No se puede comprar. Esta propiedad ya pertenece a " + propietario.getNombre());
             }
+        }else{
+            return ("No se puede comprar. Esta casilla no es comprable");
         }
+        return "";
     }
 }
