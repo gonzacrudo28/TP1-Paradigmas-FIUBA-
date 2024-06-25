@@ -103,8 +103,8 @@ public class Jugador{
         double precioComprable = comprable.getPrecio();
         if (this.plata >= precioComprable) {
             sumarAlPatrimonio(precioComprable * Constantes.PORCENTAJE_DE_VENTA);
-            agregarComprable(comprable);
             comprable.setPropietario(this);
+            actualizarEstadoAcciones();
             return "Se ha comprado la propiedad";
         }else{
             return "No se puede comprar propiedad";
