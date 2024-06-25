@@ -7,6 +7,7 @@ import org.example.model.tipoCasilleros.*;
 import org.fusesource.jansi.Ansi;
 import org.example.view.JuegoView;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 import org.example.model.Accion;
@@ -23,7 +24,6 @@ public class JuegoController {
     private CheckGanarJugador checkGanarJugador;
 
     public JuegoController(Juego juego) throws IOException {
-        System.out.println("Iniciando Juego");
         this.juego = juego;
         this.tablero = juego.getTablero();
         this.vistaJuego = new JuegoView(juego);
@@ -36,7 +36,6 @@ public class JuegoController {
     }
 
     public void jugarTurno() throws IOException {
-
         juego.cambiarTurno();
         Jugador jugador = juego.getJugadorActual();
         if(jugador.getEstado() == Estado.EnJuego){
@@ -46,8 +45,10 @@ public class JuegoController {
         }else{
             juego.eliminarJugador(jugador);
             juego.cambiarTurno();
+
         }
     }
+
 
     private void jugarTurnoPreso(Jugador jugador){
         Ansi colorANSI = null;
@@ -55,6 +56,7 @@ public class JuegoController {
         FuncionColorPrints funcionColorPrints = new FuncionColorPrints();
         colorANSI = funcionColorPrints.obtenerColorANSI(jugador.getColor());
         System.out.println(colorANSI+"Es el turno de " + jugador.getNombre() + "\n");
+
         Acciones acciones = new Acciones();
         acciones.accionesJugadorPreso(colorANSI,resetColor);
         Scanner scanner = new Scanner(System.in);
@@ -69,6 +71,7 @@ public class JuegoController {
             System.out.println("El jugador "+ jugador.getNombre() + " complió su condena!");
             FuncionesExtras.delay(1000);
             jugador.setEstado(Estado.EnJuego);
+
         } else if(numeroElecto == 1){
             Accion accionElecta = acciones.getAccionPreso(numeroElecto);
             ejecutarAccion(accionElecta,jugador);
@@ -91,19 +94,21 @@ public class JuegoController {
         }
     }
 
+
     private void jugarTurnoLibre(Jugador jugador) {
         int dados = juego.tirarDados();
         Ansi colorANSI = null;
         Ansi resetColor = Ansi.ansi().reset();
         FuncionColorPrints funcionColorPrints = new FuncionColorPrints();
         colorANSI = funcionColorPrints.obtenerColorANSI(jugador.getColor());
-        System.out.println(colorANSI + "Es el turno de " + jugador.getNombre() + "\n" + "Tus dados son: " + dados + "\n");
+        System.out.println(colorANSI + "Es el turno de " + jugador.getNombre() + "\n" + "Te toco el numero: " + dados + "\n");
         int casillaAnterior = jugador.getUbicacion();
         int casillaActual = administradorDeMovimientos.avanzarJugador(jugador, dados);
         System.out.println("Usted esta en el casillero: " + casillaActual + "\n" + resetColor);
         pagarBono(jugador, dados, casillaAnterior);
         Casillero casillero = tablero.getCasillero(casillaActual);
-        if (casillero instanceof CasilleroEjecutable) {
+
+        if (casillero.getEsEjecutable()) {
             ejecutar(jugador, casillaActual);
         }
         if (jugador.getEstado() == Estado.Preso) return;
@@ -123,7 +128,7 @@ public class JuegoController {
                 if (accionElecta == null || accionElecta == Accion.PAGAR_FIANZA || accionElecta == Accion.TIRAR_DADOS) {
                     System.out.println("Accion inexistente");
                 }else{
-                ejecutarAccion(accionElecta, jugador);
+                    ejecutarAccion(accionElecta, jugador);
                 }
             }
         }
@@ -148,31 +153,31 @@ public class JuegoController {
     }
 
     private void ejecutarAccion(Accion accionElecta, Jugador jugador) {
-            if (accionElecta == Accion.COMPRAR){
-                fachada.comprar(jugador,0,controllConstrucciones);
-            }else if (accionElecta != Accion.TERMINAR_TURNO && accionElecta != Accion.PAGAR_FIANZA){
-                CheckStrToInt checkStrToInt = new CheckStrToInt();
-                Scanner scanner = new Scanner(System.in);
-                System.out.println("Seleccione el casillero en que se encuentra la propiedad (NUMERO):");
-                String casillero = scanner.nextLine();
-                int numero = (checkStrToInt.checkStringToInt(casillero));
-                switch (accionElecta) {
-                    case CONSTRUIR -> fachada.construir(jugador, numero, controllConstrucciones);
-                    case VENDER -> fachada.vender(jugador, numero, controllConstrucciones);
-                    case HIPOTECAR -> fachada.hipotecar(jugador, numero, controllConstrucciones);
-                    case DESHIPOTECAR -> fachada.deshipotecar(jugador, numero, controllConstrucciones);
-                    case CONSULTAR_PRECIO_CASA -> fachada.consultar_precio_casa(jugador, numero, controllConstrucciones);
-                }
+        if (accionElecta == Accion.COMPRAR){
+            fachada.comprar(jugador,0,controllConstrucciones);
+        }else if (accionElecta != Accion.TERMINAR_TURNO && accionElecta != Accion.PAGAR_FIANZA){
+            CheckStrToInt checkStrToInt = new CheckStrToInt();
+            Scanner scanner = new Scanner(System.in);
+            System.out.println("Seleccione el casillero en que se encuentra la propiedad (NUMERO):");
+            String casillero = scanner.nextLine();
+            int numero = (checkStrToInt.checkStringToInt(casillero));
+            switch (accionElecta) {
+                case CONSTRUIR -> fachada.construir(jugador, numero, controllConstrucciones);
+                case VENDER -> fachada.vender(jugador, numero, controllConstrucciones);
+                case HIPOTECAR -> fachada.hipotecar(jugador, numero, controllConstrucciones);
+                case DESHIPOTECAR -> fachada.deshipotecar(jugador, numero, controllConstrucciones);
+                case CONSULTAR_PRECIO_CASA -> fachada.consultar_precio_casa(jugador, numero, controllConstrucciones);
             }
-            if (accionElecta == Accion.PAGAR_FIANZA){
-                fachada.pagar_fianza(jugador, tablero.getCarcel());
-            }
+        }
+        if (accionElecta == Accion.PAGAR_FIANZA){
+            fachada.pagar_fianza(jugador, tablero.getCarcel());
+        }
     }
 
     private void pagarBono(Jugador jugador,int dados,int casillaAnterior){
-            if((casillaAnterior+dados) >= tablero.getCantidadCasilleros()) {
-                juego.pagarBono(jugador);
-            }
+        if((casillaAnterior+dados) >= tablero.getCantidadCasilleros()) {
+            juego.pagarBono(jugador);
+        }
     }
 
     private void checkDeudaMulta(Jugador jugador) {
@@ -205,8 +210,15 @@ public class JuegoController {
         CheckStrToInt checkStrToInt = new CheckStrToInt();
         return checkStrToInt.checkStringToInt(accion);
     }
-}
 
+    public ArrayList<Jugador> getJugadores() {
+        return juego.getJugadores();
+    }
+
+    public Tablero getTablero() {
+        return juego.getTablero();
+    }
+}
 
 
 
