@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import org.example.controller.AdministradorTurnos;
 import org.example.controller.Configuracion;
+import org.example.funciones.FuncionColorPrints;
+import org.fusesource.jansi.Ansi;
 
 public class Juego {
     private ArrayList<Jugador> jugadores;
@@ -61,4 +63,24 @@ public class Juego {
         }
         return jugadores.size() == 1;
     }
+/* --------------------------------primeros cambios en juego----------------------------------------------------*/
+    public String empezarTurno(Jugador jugador){
+        Ansi colorANSI = null;
+        Ansi resetColor = Ansi.ansi().reset();
+        FuncionColorPrints funcionColorPrints = new FuncionColorPrints();
+        colorANSI = funcionColorPrints.obtenerColorANSI(jugador.getColor());
+        String acciones = jugador.obtenerAccionesDisponibles(colorANSI);
+        return acciones;
+    }
+
+    public String realizarJuego(Jugador jugador){
+        if (jugador.getEstado().equals(Estado.Preso)){
+            return jugador.obtenerAccionesDisponibles() + juegoDePreso(jugador);
+        }
+        else{
+            return jugador.obtenerAccionesDisponibles() + juegoDeLibre(jugador);
+        }
+    }
+
+
 }

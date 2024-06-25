@@ -2,6 +2,8 @@ package org.example.model;
 
 import org.example.controller.Constantes;
 import java.util.ArrayList;
+import java.util.Map;
+import java.util.HashMap;
 
 public class Jugador{
     private final String nombre;
@@ -13,6 +15,9 @@ public class Jugador{
     private Estado estado;
     private int condena;
     private double patrimonio;
+    private EstadoAcciones estadoAcciones;
+    private Acciones acciones;
+    private String textoAcciones;
 
     public Jugador(String nombre) {
         this.ubicacion = 0;
@@ -156,4 +161,82 @@ public class Jugador{
         restarPatrimonio(comprable.getPrecio());
         System.out.println("Ahora tiene $" + this.getPlata());
     }
+    public String obtenerAccionesDisponibles(Ansi colorANSI){
+        String mensaje = "";
+        Ansi resetColor = Ansi.ansi().reset();
+        switch (estadoAcciones) {
+            case CON_BARRIO:
+                mensaje = acciones.accionesJugadorConBarrio(colorANSI, resetColor);
+                break;
+            case CON_CASA:
+                mensaje = acciones.accionesJugadorConPropiedad(colorANSI, resetColor);
+                break;
+            case PRESO:
+                mensaje = acciones.accionesJugadorPreso(colorANSI, resetColor);
+                break;
+            case SIN_PROPIEADES:
+                mensaje = acciones.accionesJugadorSinPropiedad(colorANSI, resetColor);
+                break;
+            default:
+                break;
+        }
+        return mensaje;
+    }
+
+    public EstadoAcciones getEstadoAcciones(){
+        return estadoAcciones;
+    }
+
+    public void actualizarEstadoAcciones(){
+        if (!propiedades.isEmpty() || !estaciones.isEmpty()){
+            if (tieneBarrio()) {
+                this.estadoAcciones = EstadoAcciones.CON_BARRIO;
+            }else{
+                this.estadoAcciones = EstadoAcciones.CON_CASA;
+            }
+        }else{
+            this.estadoAcciones = EstadoAcciones.SIN_PROPIEADES;
+        }
+    }
+    private boolean tieneBarrio(){
+        Map<Integer, Integer> ocurrencias = new HashMap<>();
+        for (Propiedad propiedad : propiedades){
+            if (ocurrencias.containsKey(propiedad.getBarrio())){
+                ocurrencias.put(propiedad.getBarrio(), ocurrencias.get(propiedad.getBarrio()) + 1);
+            }else{
+                ocurrencias.put(propiedad.getBarrio(), 1);
+            }
+        }
+        for (Map.Entry<Integer, Integer> entry : ocurrencias.entrySet()){
+            if (entry.getValue() == Constantes.CANTIDAD_CASAS_POR_BARRIO){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /*----------------------------CAMBIOS EN JUGADOR------------------------------*/
+    public String obtenerAccionesDisponibles(){
+        String mensaje = "";
+        Ansi colorANSI = null;
+        Ansi resetColor = Ansi.ansi().reset();
+        switch (estadoAcciones) {
+            case CON_BARRIO:
+                mensaje = acciones.accionesJugadorConBarrio(colorANSI, resetColor);
+                break;
+            case CON_CASA:
+                mensaje = acciones.accionesJugadorConPropiedad(colorANSI, resetColor);
+                break;
+            case PRESO:
+                mensaje = acciones.accionesJugadorPreso(colorANSI, resetColor);
+                break;
+            case SIN_PROPIEADES:
+                mensaje = acciones.accionesJugadorSinPropiedad(colorANSI, resetColor);
+                break;
+            default:
+                break;
+        }
+        return mensaje;
+    }
+
 }

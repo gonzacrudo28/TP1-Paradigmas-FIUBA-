@@ -1,4 +1,5 @@
 package org.example.model;
 
-public class EstadoAcciones {
+public enum EstadoAcciones {
+    SIN_PROPIEADES,CON_CASA,CON_BARRIO,PRESO
 }

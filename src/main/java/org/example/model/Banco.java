@@ -15,4 +15,7 @@ public class Banco {
         jugador.sumarPlata(this.bono);
     }
 
+    public enum EstadoAcciones {
+        SIN_PROPIEADES,CON_CASA,CON_BARRIO,PRESO
+    }
 }

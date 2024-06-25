@@ -10,12 +10,9 @@ import java.util.List;
 
 public class FuncionesExtras {
     private Tablero tablero;
-    private Juego juego;
 
-    public FuncionesExtras(Juego juego) {
-        this.tablero = juego.getTablero();
-        this.juego = juego;
-
+    public FuncionesExtras(Tablero tablero) {
+        this.tablero = tablero;
     }
 
     public static void delay(int tiempo) {
