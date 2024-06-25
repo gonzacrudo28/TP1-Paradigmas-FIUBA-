@@ -13,6 +13,7 @@ public class Main {
         List<String> argumentos = check.getConfiguraciones();
         Juego juego = new Juego(argumentos);
         JuegoController juegoController = new JuegoController(juego);
+        juego.addObserver(juegoController);
         JuegoView juegoView = new JuegoView(juego);
 
 
@@ -23,6 +24,6 @@ public class Main {
 
     }
 }
-
+/*Tirar los dados antes de empezar a jugar, o sea que lo primero que muestre es cuanto saco*/
 
 

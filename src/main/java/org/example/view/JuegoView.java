@@ -26,6 +26,9 @@ public class JuegoView {
         System.out.println();
 
     }
+    public void imprimirMensajes(String mensaje){
+        System.out.println(mensaje);
+    }
     public void terminarJuego(){
         System.out.println("Juego terminado");
     }

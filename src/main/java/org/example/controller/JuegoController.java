@@ -4,6 +4,8 @@ import org.example.funciones.FuncionColorPrints;
 import org.example.funciones.FuncionesExtras;
 import org.example.model.*;
 import org.example.model.tipoCasilleros.*;
+import org.example.view.JugadorView;
+import org.example.view.TableroView;
 import org.fusesource.jansi.Ansi;
 import org.example.view.JuegoView;
 import java.io.IOException;
@@ -12,7 +14,7 @@ import java.util.Scanner;
 
 import org.example.model.Accion;
 
-public class JuegoController {
+public class JuegoController implements Suscriptor {
     private final Juego juego;
     private JuegoView vistaJuego;
     private AdministradorDeMovimientos administradorDeMovimientos;
@@ -21,8 +23,39 @@ public class JuegoController {
     private FachadaAcciones fachada;
     private TableroController controlTablero;
     private FuncionesExtras funcionesExtras;
+    private TableroView tableroView;
+    private JugadorView jugadorView;
     private CheckGanarJugador checkGanarJugador;
 
+
+    public JuegoController(Juego juego) throws IOException {
+        this.juego = juego;
+        this.tablero = juego.getTablero();
+        this.vistaJuego = new JuegoView(juego);
+        this.tableroView = new TableroView(tablero);
+
+        this.controllConstrucciones = new ConstruccionController(tablero.getBarrios());
+        this.funcionesExtras = new FuncionesExtras(tablero);
+        this.jugadorView = new JugadorView(juego.getJugadores());
+        //this.checkGanarJugador= new CheckGanarJugador(tablero);
+        this.fachada = new FachadaAcciones(new Hipotecar(funcionesExtras),new Comprar(funcionesExtras),new Vender(funcionesExtras),new ConsultarPrecios(funcionesExtras),new Construir(funcionesExtras),new Deshipotecar(funcionesExtras),new PagarFianza());
+    }
+
+
+    public void jugarTurno() throws IOException {
+        juego.cambiarTurno();
+        Jugador jugador = juego.getJugadorActual();
+        Ansi colorANSI = null;
+        Ansi resetColor = Ansi.ansi().reset();
+        FuncionColorPrints funcionColorPrints = new FuncionColorPrints();
+        colorANSI = funcionColorPrints.obtenerColorANSI(jugador.getColor());
+
+        juego.realizarJuego(jugador,colorANSI);
+        //juego.empezarTurno(jugador, colorANSI);
+    }
+
+
+/*
     public JuegoController(Juego juego) throws IOException {
         this.juego = juego;
         this.tablero = juego.getTablero();
@@ -30,7 +63,7 @@ public class JuegoController {
         this.controlTablero = new TableroController(tablero);
         this.administradorDeMovimientos = new AdministradorDeMovimientos(juego.getTablero());
         this.controllConstrucciones = new ConstruccionController(tablero.getBarrios());
-        this.funcionesExtras = new FuncionesExtras(juego);
+        this.funcionesExtras = new FuncionesExtras(tablero);
         this.checkGanarJugador= new CheckGanarJugador(tablero);
         this.fachada = new FachadaAcciones(new Hipotecar(funcionesExtras),new Comprar(funcionesExtras),new Vender(funcionesExtras),new ConsultarPrecios(funcionesExtras),new Construir(funcionesExtras),new Deshipotecar(funcionesExtras),new PagarFianza());
     }
@@ -47,9 +80,19 @@ public class JuegoController {
             juego.cambiarTurno();
 
         }
+    }*/
+
+    @Override
+    public void recibirNoticia(String mensaje) {
+        vistaJuego.imprimirMensajes(mensaje);
     }
 
+    @Override
+    public void recibirEstadoJugadores() {
+        vistaJuego.mostrar();
+    }
 
+    /*
     private void jugarTurnoPreso(Jugador jugador){
         Ansi colorANSI = null;
         Ansi resetColor = Ansi.ansi().reset();
@@ -209,15 +252,8 @@ public class JuegoController {
     private int corroboroAccion(String accion) {
         CheckStrToInt checkStrToInt = new CheckStrToInt();
         return checkStrToInt.checkStringToInt(accion);
-    }
+    }*/
 
-    public ArrayList<Jugador> getJugadores() {
-        return juego.getJugadores();
-    }
-
-    public Tablero getTablero() {
-        return juego.getTablero();
-    }
 }
 
 
