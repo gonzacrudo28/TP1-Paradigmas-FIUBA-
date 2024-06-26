@@ -89,68 +89,20 @@ public class Juego {
     }
     public void realizarJuego(Jugador jugador,Ansi colorANSI){
         if (jugador.getEstado().equals(Estado.Preso)){
-            suscriptor.recibirNoticia(jugarTurnoPreso(jugador));
-            //suscriptor.recibirNoticia(jugador.obtenerAccionesDisponibles(colorANSI));
+            suscriptor.recibirNoticia(jugarTurnoPreso(jugador,colorANSI));
         }
         else{
-            jugarTurnoLibre(jugador);
-            //suscriptor.recibirNoticia(jugador.obtenerAccionesDisponibles(colorANSI));
+            jugarTurnoLibre(jugador,colorANSI);
         }
     }
 /*-------------------------------------- Juego controller  ------------------------------------------*/
-/*    private void jugarTurnoPreso(Jugador jugador){
-        Ansi colorANSI = null;
-        Ansi resetColor = Ansi.ansi().reset();
-        FuncionColorPrints funcionColorPrints = new FuncionColorPrints();
-        colorANSI = funcionColorPrints.obtenerColorANSI(jugador.getColor());
-        suscriptor.recibirNoticia(colorANSI+"Es el turno de " + jugador.getNombre() + "\n");
-        //System.out.println(colorANSI+"Es el turno de " + jugador.getNombre() + "\n");
 
-        Acciones acciones = new Acciones();
-        acciones.accionesJugadorPreso(colorANSI,resetColor);
-        Scanner scanner = new Scanner(System.in);
-        int numeroElecto = -1;
-        while((numeroElecto != 0) && (numeroElecto != 1) && (jugador.getCondena() != 0)){
-            suscriptor.recibirNoticia("Seleccione la accion que quiere realizar indicando su numero (NUMERO):\n");
-            //System.out.println("Seleccione la accion que quiere realizar indicando su numero (NUMERO):\n");
-            String accion = scanner.nextLine();
-            numeroElecto = corroboroAccion(accion);
-        }
-        if (numeroElecto == -1){
-            FuncionesExtras.delay(1000);
-            suscriptor.recibirNoticia("El jugador "+ jugador.getNombre() + " complió su condena!");
-            //System.out.println();
-            FuncionesExtras.delay(1000);
-            jugador.setEstado(Estado.EnJuego);
-
-        } else if(numeroElecto == 1){
-            Accion accionElecta = acciones.getAccionPreso(numeroElecto);
-            ejecutarAccion(accionElecta,jugador);
-        }else{
-            int dados = tirarDados();
-            FuncionesExtras.delay(1000);
-            suscriptor.recibirNoticia("Saco: " + dados);
-            //System.out.println("Saco: " + dados);
-            FuncionesExtras.delay(1500);
-            if(dados > jugador.getCondena()){
-                jugador.quedaLibre();
-                suscriptor.recibirNoticia(jugador.getNombre()+ " queda libre por sacar "+ dados+  " (dados) mayor que el numero de condena ("+ jugador.getCondena()+")");
-                //System.out.println(jugador.getNombre()+ " queda libre por sacar "+ dados+  " (dados) mayor que el numero de condena ("+ jugador.getCondena()+")");
-            } else {
-                jugador.restarCondena();
-                suscriptor.recibirNoticia(jugador.getNombre()+ " sigue preso. Ahora su condena es de ("+ jugador.getCondena()+")");
-                //System.out.println(jugador.getNombre()+ " sigue preso. Ahora su condena es de ("+ jugador.getCondena()+")");
-            }
-            FuncionesExtras.delay(1000);
-        }
-        if(jugador.getEstado() == Estado.EnJuego){
-            jugarTurnoLibre(jugador);
-        }
-    }*/
-private String jugarTurnoPreso(Jugador jugador){
+private String jugarTurnoPreso(Jugador jugador,Ansi colorANSI){
     Scanner scanner = new Scanner(System.in);
     int numeroElecto = -1;
+    suscriptor.recibirEstadoJugadores();
     while ((numeroElecto != 0) && (numeroElecto != 1) && (jugador.getCondena() != 0)) {
+        suscriptor.recibirNoticia(jugador.obtenerAccionesDisponibles(colorANSI));
         String accion = scanner.nextLine();
         numeroElecto = corroboroAccion(accion);
     }
@@ -161,8 +113,7 @@ private String jugarTurnoPreso(Jugador jugador){
 
     }else if(numeroElecto == 1) {
         Accion accionElecta = new Acciones().getAccion(numeroElecto,EstadoAcciones.PRESO);
-        //return ejecutarAccion(accionElecta, jugador);
-        suscriptor.recibirNoticia(ejecutarAccion(accionElecta,jugador));
+        return (ejecutarAccion(accionElecta,jugador));
 
     }else{
         int dados = tirarDados();
@@ -178,18 +129,13 @@ private String jugarTurnoPreso(Jugador jugador){
             return mensaje;
         }
     }
-    return "print de preso";
 }
 
 
-    private void jugarTurnoLibre(Jugador jugador) {
+/*    private void jugarTurnoLibre(Jugador jugador,Ansi colorANSI) {
         int dados = tirarDados();
-        Ansi colorANSI = null;
         Ansi resetColor = Ansi.ansi().reset();
-        FuncionColorPrints funcionColorPrints = new FuncionColorPrints();
-        colorANSI = funcionColorPrints.obtenerColorANSI(jugador.getColor());
         suscriptor.recibirNoticia(colorANSI + "Es el turno de " + jugador.getNombre() + "\n" + "Te toco el numero: " + dados + "\n");
-        //System.out.println(colorANSI + "Es el turno de " + jugador.getNombre() + "\n" + "Te toco el numero: " + dados + "\n");
         int casillaAnterior = jugador.getUbicacion();
         int casillaActual = administradorDeMovimientos.avanzarJugador(jugador, dados);
         //System.out.println("Usted esta en el casillero: " + casillaActual + "\n" + resetColor);
@@ -204,23 +150,19 @@ private String jugarTurnoPreso(Jugador jugador){
         int numeroElecto = 1;
         suscriptor.recibirEstadoJugadores();
         suscriptor.recibirNoticia(jugador.obtenerAccionesDisponibles(colorANSI));
-        //vistaJuego.mostrar();
         Acciones acciones = new Acciones();
         acciones.acciones(colorANSI, resetColor);
         Scanner scanner = new Scanner(System.in);
         while (numeroElecto != 0) {
             suscriptor.recibirNoticia(colorANSI + "Seleccione la accion que quiere realizar indicando su numero (NUMERO):" + resetColor);
-            //System.out.println(colorANSI + "Seleccione la accion que quiere realizar indicando su numero (NUMERO):\n"+resetColor);
             String accion = scanner.nextLine();
             numeroElecto = corroboroAccion(accion);
             if (numeroElecto == Constantes.NEGATIVO) {
                 suscriptor.recibirNoticia("Accion inexistente\n");
-                //System.out.println("Accion inexistente\n");
             } else {
                 Accion accionElecta = acciones.getAccion(numeroElecto, jugador.getEstadoAcciones());
                 if (accionElecta == null || accionElecta == Accion.PAGAR_FIANZA || accionElecta == Accion.TIRAR_DADOS) {
                     suscriptor.recibirNoticia("Accion inexistente\n");
-                    //System.out.println("Accion inexistente");
                 }else{
                     suscriptor.recibirNoticia(ejecutarAccion(accionElecta, jugador));
                 }
@@ -237,7 +179,82 @@ private String jugarTurnoPreso(Jugador jugador){
         }
         if (jugador.estaEnQuiebra()) {
             suscriptor.recibirNoticia(jugador.getNombre() + " perdio!\n");
-            //System.out.printf("%s perdio!\n", jugador.getNombre());
+            eliminarPropiedadesDelJugadorEnQuiebra(jugador);
+            eliminarJugador(jugador);
+            terminado();
+        }
+        if (ComprobarGanarJugador(jugador)){
+            terminado();
+        }
+    }*/
+
+    private void jugarTurnoLibre(Jugador jugador, Ansi colorANSI) {
+        int dados = tirarDadosYAvanzar(jugador,colorANSI);
+        ejecutarCasillero(jugador, dados);
+        if (jugador.getEstado() == Estado.Preso) return;
+        realizarAcciones(jugador, colorANSI);
+        verificarDeuda(jugador);
+        verificarEstadoJugador(jugador);
+    }
+
+    private int tirarDadosYAvanzar(Jugador jugador, Ansi colorANSI) {
+        int dados = tirarDados();
+        Ansi resetColor = Ansi.ansi().reset();
+        suscriptor.recibirNoticia(colorANSI + "Es el turno de " + jugador.getNombre() + "\n" + "Te toco el numero: " + dados + "\n");
+        int casillaAnterior = jugador.getUbicacion();
+        int casillaActual = administradorDeMovimientos.avanzarJugador(jugador, dados);
+        suscriptor.recibirNoticia("Usted esta en el casillero: " + casillaActual + "\n" + resetColor);
+        suscriptor.recibirNoticia(pagarBono(jugador, dados, casillaAnterior));
+        return dados;
+    }
+
+    private void ejecutarCasillero(Jugador jugador, int dados) {
+        Casillero casillero = tablero.getCasillero(jugador.getUbicacion() + dados);
+        if (casillero.getEsEjecutable()) {
+            suscriptor.recibirNoticia(ejecutar(jugador, jugador.getUbicacion() + dados));
+        }
+    }
+
+    private void realizarAcciones(Jugador jugador, Ansi colorANSI) {
+        int numeroElecto = 1;
+        suscriptor.recibirEstadoJugadores();
+        suscriptor.recibirNoticia(jugador.obtenerAccionesDisponibles(colorANSI));
+        Acciones acciones = new Acciones();
+        Ansi resetColor = Ansi.ansi().reset();
+        acciones.acciones(colorANSI, resetColor);
+        Scanner scanner = new Scanner(System.in);
+        while (numeroElecto != 0) {
+            suscriptor.recibirNoticia(colorANSI + "Seleccione la accion que quiere realizar indicando su numero (NUMERO):" + resetColor);
+            String accion = scanner.nextLine();
+            numeroElecto = corroboroAccion(accion);
+            if (numeroElecto == Constantes.NEGATIVO) {
+                suscriptor.recibirNoticia("Accion inexistente\n");
+            } else {
+                Accion accionElecta = acciones.getAccion(numeroElecto, jugador.getEstadoAcciones());
+                if (accionElecta == null || accionElecta == Accion.PAGAR_FIANZA || accionElecta == Accion.TIRAR_DADOS) {
+                    suscriptor.recibirNoticia("Accion inexistente\n");
+                }else{
+                    suscriptor.recibirNoticia(ejecutarAccion(accionElecta, jugador));
+                }
+            }
+        }
+    }
+
+    private void verificarDeuda(Jugador jugador) {
+        if (jugador.estaEnDeuda()) {
+            int ubicacion = jugador.getUbicacion();
+            if (tablero.getCasillero(ubicacion).getTipo() == TipoCasillero.MULTA){
+                suscriptor.recibirNoticia(checkDeuda(jugador,tablero.getCasillero(ubicacion).getPrecio() , "multa"));
+            }else {
+                Propiedad propiedad = tablero.getPropiedad(ubicacion).getPropiedad();
+                suscriptor.recibirNoticia(checkDeuda(jugador, propiedad.getAlquiler(), "alquiler"));
+            }
+        }
+    }
+
+    private void verificarEstadoJugador(Jugador jugador) {
+        if (jugador.estaEnQuiebra()) {
+            suscriptor.recibirNoticia(jugador.getNombre() + " perdio!\n");
             eliminarPropiedadesDelJugadorEnQuiebra(jugador);
             eliminarJugador(jugador);
             terminado();
@@ -253,7 +270,6 @@ private String jugarTurnoPreso(Jugador jugador){
         }else if (accionElecta != Accion.TERMINAR_TURNO && accionElecta != Accion.PAGAR_FIANZA){
             CheckStrToInt checkStrToInt = new CheckStrToInt();
             Scanner scanner = new Scanner(System.in);
-            //System.out.println("Seleccione el casillero en que se encuentra la propiedad (NUMERO):");
             suscriptor.recibirNoticia("Seleccione el casillero en que se encuentra la propiedad (NUMERO):");
             String casillero = scanner.nextLine();
             int numero = (checkStrToInt.checkStringToInt(casillero));
@@ -273,12 +289,13 @@ private String jugarTurnoPreso(Jugador jugador){
                 case CONSULTAR_PRECIO_CASA -> {
                     return fachada.consultar_precio_casa(jugador, numero, controllConstrucciones);
                 }
+                default -> {
+                    return "Accion inexistente";
+                }
             }
-        }
-        if (accionElecta == Accion.PAGAR_FIANZA){
+        }else{
             return fachada.pagar_fianza(jugador, tablero.getCarcel());
         }
-        return "";
     }
 
     private String pagarBono(Jugador jugador,int dados,int casillaAnterior){

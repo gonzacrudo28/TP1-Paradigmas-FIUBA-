@@ -1,5 +1,6 @@
 package org.example.model.tipoCasilleros;
 import org.example.model.Estado;
+import org.example.model.EstadoAcciones;
 import org.example.model.Jugador;
 
 import java.io.Serializable;
@@ -17,9 +18,9 @@ public class IrALaCarcel extends Casillero implements CasilleroEjecutable{
 
     public String ejecutarCasillero(Jugador jugador) {
         jugador.setEstado(Estado.Preso);
+        jugador.setEstadoAcciones(EstadoAcciones.PRESO);
         jugador.setCondena(duracionPena);
         jugador.setUbicacion(ubicacionCarcel);
-        //System.out.printf("Ups! %s se va preso %d turnos\n", jugador.getNombre(), duracionPena);
         return String.format("Ups! %s se va preso %d turnos\n", jugador.getNombre(), duracionPena);
     }
 }

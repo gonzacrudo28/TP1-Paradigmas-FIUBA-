@@ -91,9 +91,9 @@ public class Acciones {
 
     private Accion getAccionPreso(int accion) {
         if (accion == 1){
-            return Accion.TIRAR_DADOS;
+            return Accion.PAGAR_FIANZA;
         }
-        return Accion.PAGAR_FIANZA;
+        return Accion.TIRAR_DADOS;
     }
 
     private Accion getAccionSinPropiedades(int accion) {

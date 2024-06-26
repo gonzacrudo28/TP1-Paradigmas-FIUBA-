@@ -189,8 +189,13 @@ public class Jugador{
     public EstadoAcciones getEstadoAcciones(){
         return estadoAcciones;
     }
+    public void setEstadoAcciones(EstadoAcciones estadoAcciones){
+        this.estadoAcciones = estadoAcciones;
+    }
 
     public void actualizarEstadoAcciones(){
+        if (estado != Estado.Preso){
+            this.estadoAcciones = EstadoAcciones.PRESO;
         if (!propiedades.isEmpty() || !estaciones.isEmpty()){
             if (tieneBarrio()) {
                 this.estadoAcciones = EstadoAcciones.CON_BARRIO;
@@ -199,6 +204,7 @@ public class Jugador{
             }
         }else{
             this.estadoAcciones = EstadoAcciones.SIN_PROPIEADES;
+        }
         }
     }
     private boolean tieneBarrio(){
