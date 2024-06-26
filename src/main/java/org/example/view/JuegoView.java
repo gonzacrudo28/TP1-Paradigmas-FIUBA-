@@ -29,7 +29,7 @@ public class JuegoView {
     public void imprimirMensajes(String mensaje){
         System.out.println(mensaje);
     }
-    public void terminarJuego(){
-        System.out.println("Juego terminado");
+    public void terminarJuego(Jugador ganador){
+        System.out.println("Juego terminado, el ganador es: " + ganador.getNombre());
     }
 }

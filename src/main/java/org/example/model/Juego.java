@@ -50,6 +50,15 @@ public class Juego {
         return checkEstadoJugadores(jugadores);
     }
 
+    public Jugador obtenerGanador(){
+        for(Jugador jugador: jugadores){
+            if (jugador.getEstado().equals(Estado.Gano)){
+                return jugador;
+            }
+        }
+        return jugadores.get(0);
+    }
+
     public void eliminarJugador(Jugador jugador){
         jugadores.remove(jugador);
     }
