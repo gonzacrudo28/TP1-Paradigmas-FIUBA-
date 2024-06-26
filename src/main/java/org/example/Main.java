@@ -6,7 +6,7 @@ import org.example.view.JuegoView;
 
 import java.io.IOException;
 import java.util.List;
-
+//Prueba
 public class Main {
     public static void main(String[] args) throws IOException {
         CheckArgumentos check = new CheckArgumentos();
