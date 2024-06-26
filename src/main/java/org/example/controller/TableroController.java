@@ -13,15 +13,6 @@ public class TableroController {
         this.tablero = tablero;
     }
 
-    public void eliminarPropiedadesDelJugadorEnQuiebra(Jugador jugador){
-        ArrayList<Propiedad> propiedades = jugador.getPropiedades();
-        for (Propiedad propiedad : propiedades) {
-            propiedad.setPropietario(null);
-            int ubicacion = propiedad.getUbicacion();
-            DePaso NuevoCasilleroDePaso = new DePaso(ubicacion);
-            tablero.getTodosLosCasilleros()[ubicacion] =   NuevoCasilleroDePaso;
-        }
-    }
 }
 
 

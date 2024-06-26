@@ -53,7 +53,6 @@ public class ConstruccionController {
         List<Propiedad> propiedadList = barrio.getPropiedades();
         for (Propiedad prop: propiedadList) {
             if (prop.getConstrucciones() != Construcciones.SIN_CASA) {
-                //System.out.println("No puedes vender el terreno porque hay otras propiedades con casas");
                 return false;
             }
         }
@@ -71,28 +70,6 @@ public class ConstruccionController {
         return true;
     }
 
-/*    public boolean validarConstruccion(Jugador jugador,int barrio,Propiedad propiedad){
-        if (!esPropietarioBarrio(jugador,barrios.get(barrio))) {
-            return false;
-        }
-        if (jugador.getPlata() < propiedad.getPrecioCasa()){
-            System.out.println("ERROR: EL JUGADOR " +jugador.getNombre()+ " NO TIENE SUFICIENTE PLATA");
-            return false;
-        }
-        if (propiedad.getConstrucciones() == Construcciones.HOTEL){
-            System.out.println("ERROR: EL JUGADOR "+jugador.getNombre()+ "YA POSEE UN HOTEL EN ESTA PROPIEDAD");
-            return false;
-        }
-        ArrayList<Propiedad> listaDePropiedades = barrios.get(propiedad.getBarrio()).getPropiedades();
-        for (int i=0; i<listaDePropiedades.size(); i++) {
-            int dif = propiedad.getConstrucciones().ordinal() - listaDePropiedades.get(i).getConstrucciones().ordinal();
-            if (dif > 0){
-                System.out.println("ERROR: EL JUGADOR "+jugador.getNombre()+ " NO PUEDE CONSTUIR DEBIDO A QUE EXCEDE EL LIMITE DE DIFERENCIA ENTRE LAS CONTRUCCIONES DE LAS PROPIEDADES");
-                return  false;
-            }
-        }
-        return true;
-    }*/
 public boolean validarConstruccion(Jugador jugador,int barrio,Propiedad propiedad){
     if (!esPropietarioBarrio(jugador,barrios.get(barrio))||jugador.getPlata() < propiedad.getPrecioCasa()||propiedad.getConstrucciones() == Construcciones.HOTEL) {
         return false;
@@ -113,12 +90,8 @@ public boolean validarConstruccion(Jugador jugador,int barrio,Propiedad propieda
             propiedad.actualizarAlquiler();
             jugador.restarPlata(propiedad.getPrecioCasa());
             jugador.sumarAlPatrimonio(propiedad.getPrecioCasa()* Constantes.PORCENTAJE_DE_VENTA);
-//            System.out.println("Propiedad mejorada a "+propiedad.getConstrucciones()+" con exito");
-//            System.out.println("Ahora tienes $" + jugador.getPlata());
             return ("Propiedad mejorada a "+propiedad.getConstrucciones()+" con exito \n Ahora tienes $" + jugador.getPlata());
         }else{
-            //return "ERROR: EL JUGADOR "+jugador.getNombre()+ " NO POSEE TODAS LAS PROPIEDADES DEL BARRIO";
-            //da este error tambien cuando queres construir y las casas supera la diferencia de 1 entre c/prop
             return "ERROR: NO ES POSIBLE CONSTRUIR";
         }
     }
@@ -127,7 +100,6 @@ public boolean validarConstruccion(Jugador jugador,int barrio,Propiedad propieda
         ArrayList<Propiedad> listaDePropiedades = barrio.getPropiedades();
         for (Propiedad propiedad : listaDePropiedades){
             if (propiedad.getPropietario() != jugador){
-                //System.out.println("ERROR: EL JUGADOR "+jugador.getNombre()+ " NO POSEE TODAS LAS PROPIEDADES DEL BARRIO NUMERO "+ barrio.getNumeroBarrio());
                 return false;
             }
         }

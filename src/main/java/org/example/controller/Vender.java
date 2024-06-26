@@ -1,7 +1,6 @@
 package org.example.controller;
 
 import org.example.funciones.FuncionesExtras;
-import org.example.model.EstacionTransporte;
 import org.example.model.Jugador;
 import org.example.model.Propiedad;
 import org.example.model.Comprable;

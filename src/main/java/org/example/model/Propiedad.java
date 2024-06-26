@@ -69,10 +69,8 @@ public class Propiedad extends Comprable {
     public String hipotecar(Barrio barrio, Jugador jugador) {
         CheckHipotecar controladorHipoteca = new CheckHipotecar(jugador, barrio, this);
         if (controladorHipoteca.validarHipotecar()) {
-            //System.out.println("PROPIEDAD " + this.ubicacion + " FUE HIPOTECADA CON ÉXITO.\nSe le reintegró el 60% de la propiedad");
             ponerEnHipoteca();
             jugador.sumarPlata(this.getPrecio()*Constantes.PORCENTAJE_HIPOTECA);
-            //System.out.println("Ahora tienes $"+ jugador.getPlata());
             jugador.restarPatrimonio(this.getPrecio());
             return "PROPIEDAD " + this.ubicacion + " FUE HIPOTECADA CON ÉXITO.\nSe le reintegró el 60% de la propiedad\nAhora tienes $"+ jugador.getPlata();
         }
@@ -81,18 +79,14 @@ public class Propiedad extends Comprable {
 
     public String deshipotecar(Jugador jugador) {
         if (jugador == this.propietario && this.estado == EstadoPropiedades.HIPOTECADO && jugador.getPlata()>= this.getPrecio()* Constantes.PORCENTAJE_DE_DESHIPOTECAR){
-            //System.out.println("SU PROPIEDAD SE DESHIPOTECO CON EXITO");
             estado = EstadoPropiedades.COMPRADO;
             jugador.restarPlata((this.getPrecio()* Constantes.PORCENTAJE_DE_DESHIPOTECAR));
             jugador.sumarAlPatrimonio(this.getPrecio()* Constantes.PORCENTAJE_DE_VENTA); // Se suma el maximo posible (de venta).
-            //System.out.println("Ahora tienes $"+ jugador.getPlata());
             return "SU PROPIEDAD SE DESHIPOTECO CON EXITO - Ahora tienes $"+ jugador.getPlata()+"\n";
         }else if (jugador.getPlata()< this.getPrecio()* Constantes.PORCENTAJE_DE_DESHIPOTECAR){
-            //System.out.println("ERROR: NO ES POSIBLE HIPOTECAR SU PROPIEDAD - SIN SALDO SUFICIENTE");
             return "ERROR: NO ES POSIBLE HIPOTECAR SU PROPIEDAD - SIN SALDO SUFICIENTE";
         }
         else{
-            //System.out.println("ERROR: NO ES POSIBLE HIPOTECAR SU PROPIEDAD");
             return "ERROR: NO ES POSIBLE HIPOTECAR SU PROPIEDAD";
         }
     }
@@ -111,7 +105,6 @@ public class Propiedad extends Comprable {
     public String venderComprable() {
         this.propietario.sumarPlata(precio * Constantes.PORCENTAJE_DE_VENTA);
         this.propietario.eliminarComprable(this);
-        //System.out.println("Ahora tiene $" + propietario.getPlata());
         return "Propiedad vendida con exito \n Ahora tiene $" + propietario.getPlata();
     }
 

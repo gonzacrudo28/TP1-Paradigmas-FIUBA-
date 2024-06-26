@@ -2,7 +2,6 @@ package org.example.view;
 
 import org.example.funciones.FuncionesExtras;
 import java.util.ArrayList;
-import org.example.controller.*;
 import org.example.model.Juego;
 import org.example.model.Jugador;
 

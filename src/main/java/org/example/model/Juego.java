@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.Scanner;
 
 import org.example.controller.*;
-import org.example.funciones.FuncionColorPrints;
 import org.example.funciones.FuncionesExtras;
 import org.example.model.tipoCasilleros.Casillero;
 import org.example.model.tipoCasilleros.CasilleroEjecutable;
@@ -91,7 +90,6 @@ public class Juego {
         }
         return jugadores.size() == 1;
     }
-/* --------------------------------primeros cambios en juego----------------------------------------------------*/
     public void empezarTurno(Jugador jugador,Ansi colorANSI){
         suscriptor.recibirNoticia(jugador.obtenerAccionesDisponibles(colorANSI));
     }
@@ -103,7 +101,6 @@ public class Juego {
             jugarTurnoLibre(jugador,colorANSI);
         }
     }
-/*-------------------------------------- Juego controller  ------------------------------------------*/
 
 private String jugarTurnoPreso(Jugador jugador,Ansi colorANSI){
     Ansi resetColor = Ansi.ansi().reset();
@@ -224,7 +221,7 @@ private String jugarTurnoPreso(Jugador jugador,Ansi colorANSI){
         }
         else if (accionElecta == Accion.COMPRAR){
             return fachada.comprar(jugador,0,controllConstrucciones);
-        }else if (/*accionElecta != Accion.TERMINAR_TURNO &&*/accionElecta != Accion.PAGAR_FIANZA){
+        }else if (accionElecta != Accion.PAGAR_FIANZA){
             CheckStrToInt checkStrToInt = new CheckStrToInt();
             Scanner scanner = new Scanner(System.in);
             suscriptor.recibirNoticia("Seleccione el casillero en que se encuentra la propiedad (NUMERO):");

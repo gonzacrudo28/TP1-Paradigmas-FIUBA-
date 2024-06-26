@@ -1,6 +1,6 @@
 package org.example.model.tipoCasilleros;
 import org.example.model.Comprable;
-import org.example.model.Propiedad;
+
 
 abstract public class Casillero {
     protected String efecto;

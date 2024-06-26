@@ -224,7 +224,6 @@ public class Jugador{
         return false;
     }
 
-    /*----------------------------CAMBIOS EN JUGADOR------------------------------*/
     public String obtenerAccionesDisponibles(Ansi colorANSI){
         actualizarEstadoAcciones();
         String mensaje = "";
