@@ -16,12 +16,10 @@ public class Main {
         juego.addObserver(juegoController);
         JuegoView juegoView = new JuegoView(juego);
 
-
         while (!juego.terminado()) {
             juegoController.jugarTurno();
         }
         juegoView.terminarJuego();
-
     }
 }
 

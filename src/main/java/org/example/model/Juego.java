@@ -84,7 +84,6 @@ public class Juego {
     }
 /* --------------------------------primeros cambios en juego----------------------------------------------------*/
     public void empezarTurno(Jugador jugador,Ansi colorANSI){
-
         suscriptor.recibirNoticia(jugador.obtenerAccionesDisponibles(colorANSI));
     }
     public void realizarJuego(Jugador jugador,Ansi colorANSI){
@@ -293,8 +292,11 @@ private String jugarTurnoPreso(Jugador jugador,Ansi colorANSI){
                     return "Accion inexistente";
                 }
             }
-        }else{
+        }
+        else if (accionElecta == Accion.PAGAR_FIANZA){
             return fachada.pagar_fianza(jugador, tablero.getCarcel());
+        } else{
+            return "";
         }
     }
 

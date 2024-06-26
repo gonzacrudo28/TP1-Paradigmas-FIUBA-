@@ -7,9 +7,6 @@ import org.example.model.Jugador;
 
 
 public class PagarFianza  {
-    public PagarFianza(){
-
-    }
     public String ejecutar(Jugador jugador, Casillero carcel){
         double fianza = carcel.getFianza();
         if (comprobarPago(carcel.getFianza(),jugador.getPlata())){

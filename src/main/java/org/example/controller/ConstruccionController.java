@@ -119,7 +119,9 @@ public boolean validarConstruccion(Jugador jugador,int barrio,Propiedad propieda
 //            System.out.println("Ahora tienes $" + jugador.getPlata());
             return ("Propiedad mejorada a "+propiedad.getConstrucciones()+" con exito \n Ahora tienes $" + jugador.getPlata());
         }else{
-            return "ERROR: EL JUGADOR "+jugador.getNombre()+ " NO POSEE TODAS LAS PROPIEDADES DEL BARRIO";
+            //return "ERROR: EL JUGADOR "+jugador.getNombre()+ " NO POSEE TODAS LAS PROPIEDADES DEL BARRIO";
+            //da este error tambien cuando queres construir y las casas supera la diferencia de 1 entre c/prop
+            return "ERROR: NO ES POSIBLE CONSTRUIR";
         }
     }
 
