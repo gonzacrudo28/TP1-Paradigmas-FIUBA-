@@ -3,8 +3,6 @@ import org.example.model.Barrio;
 import org.example.model.Construcciones;
 import org.example.model.Jugador;
 import org.example.model.Propiedad;
-
-import javax.print.DocFlavor;
 import java.util.ArrayList;
 import java.util.List;
 
