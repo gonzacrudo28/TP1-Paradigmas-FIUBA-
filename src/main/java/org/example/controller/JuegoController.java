@@ -3,16 +3,12 @@ package org.example.controller;
 import org.example.funciones.FuncionColorPrints;
 import org.example.funciones.FuncionesExtras;
 import org.example.model.*;
-import org.example.model.tipoCasilleros.*;
 import org.example.view.JugadorView;
 import org.example.view.TableroView;
 import org.fusesource.jansi.Ansi;
 import org.example.view.JuegoView;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Scanner;
 
-import org.example.model.Accion;
 
 public class JuegoController implements Suscriptor {
     private final Juego juego;

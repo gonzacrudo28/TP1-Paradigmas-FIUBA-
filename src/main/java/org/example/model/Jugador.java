@@ -37,21 +37,6 @@ public class Jugador{
 
     }
 
-    public void setEstaJugando(){
-        this.estaJugando =true;
-    }
-
-    public void setTerminoDeJugar(){
-        this.estaJugando = false;
-
-    }
-
-    public boolean getEstaJugando(){
-        return this.estaJugando;
-    }
-
-
-
     public void sumarAlPatrimonio(double monto){
         this.patrimonio += monto;
     }

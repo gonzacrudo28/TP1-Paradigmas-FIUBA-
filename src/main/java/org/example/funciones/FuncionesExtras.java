@@ -4,7 +4,6 @@ import org.example.model.*;
 import org.example.model.tipoCasilleros.DePropiedad;
 import org.example.model.tipoCasilleros.Estacion;
 import org.example.model.tipoCasilleros.TipoCasillero;
-
 import java.util.List;
 
 

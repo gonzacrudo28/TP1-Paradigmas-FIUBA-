@@ -3,10 +3,8 @@ package org.example.view;
 
 
 import org.example.funciones.FuncionColorPrints;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import org.example.model.Jugador;
 import org.fusesource.jansi.Ansi;
 

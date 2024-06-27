@@ -90,10 +90,10 @@ public class Juego {
         }
         return jugadores.size() == 1;
     }
-    public void empezarTurno(Jugador jugador,Ansi colorANSI){
+    public void empezarTurno(Jugador jugador, Ansi colorANSI){
         suscriptor.recibirNoticia(jugador.obtenerAccionesDisponibles(colorANSI));
     }
-    public void realizarJuego(Jugador jugador,Ansi colorANSI){
+    public void realizarJuego(Jugador jugador, Ansi colorANSI){
         if (jugador.getEstado().equals(Estado.Preso)){
             suscriptor.recibirNoticia(jugarTurnoPreso(jugador,colorANSI));
         }
@@ -102,41 +102,41 @@ public class Juego {
         }
     }
 
-private String jugarTurnoPreso(Jugador jugador,Ansi colorANSI){
-    Ansi resetColor = Ansi.ansi().reset();
-    suscriptor.recibirNoticia(colorANSI + "Es el turno de " + jugador.getNombre() + "\n");
-    Scanner scanner = new Scanner(System.in);
-    int numeroElecto = -1;
-    suscriptor.recibirEstadoJugadores();
-    while ((numeroElecto != 0) && (numeroElecto != 1) && (jugador.getCondena() != 0)) {
-        suscriptor.recibirNoticia(jugador.obtenerAccionesDisponibles(colorANSI));
-        String accion = scanner.nextLine();
-        numeroElecto = corroboroAccion(accion);
-    }
-    if (numeroElecto == -1) {
-        jugador.setEstado(Estado.EnJuego);
-        jugador.actualizarEstadoAcciones();
-        return ("El jugador " + jugador.getNombre() + " complió su condena!");
+    private String jugarTurnoPreso(Jugador jugador, Ansi colorANSI){
+        Ansi resetColor = Ansi.ansi().reset();
+        suscriptor.recibirNoticia(colorANSI + "Es el turno de " + jugador.getNombre() + "\n");
+        Scanner scanner = new Scanner(System.in);
+        int numeroElecto = -1;
+        suscriptor.recibirEstadoJugadores();
+        while ((numeroElecto != 0) && (numeroElecto != 1) && (jugador.getCondena() != 0)) {
+            suscriptor.recibirNoticia(jugador.obtenerAccionesDisponibles(colorANSI));
+            String accion = scanner.nextLine();
+            numeroElecto = corroboroAccion(accion);
+        }
+        if (numeroElecto == -1) {
+            jugador.setEstado(Estado.EnJuego);
+            jugador.actualizarEstadoAcciones();
+            return ("El jugador " + jugador.getNombre() + " complió su condena!");
 
-    }else if(numeroElecto == 1) {
-        Accion accionElecta = new Acciones().getAccion(numeroElecto,EstadoAcciones.PRESO);
-        return (ejecutarAccion(accionElecta,jugador));
+        }else if(numeroElecto == 1) {
+            Accion accionElecta = new Acciones().getAccion(numeroElecto,EstadoAcciones.PRESO);
+            return (ejecutarAccion(accionElecta,jugador));
 
-    }else{
-        int dados = tirarDados();
-        FuncionesExtras.delay(1000);
-        String mensaje = ("Saco: " + dados + "\n") ;
-        if (dados > jugador.getCondena()) {
-            jugador.quedaLibre();
-            mensaje += (jugador.getNombre() + " queda libre por sacar " + dados + " (dados) mayor que el numero de condena (" + jugador.getCondena() + ")");
-            return mensaje;
-        }else {
-            jugador.restarCondena();
-            mensaje += (jugador.getNombre() + " sigue preso. Ahora su condena es de (" + jugador.getCondena() + ")");
-            return mensaje;
+        }else{
+            int dados = tirarDados();
+            FuncionesExtras.delay(1000);
+            String mensaje = ("Saco: " + dados + "\n") ;
+            if (dados > jugador.getCondena()) {
+                jugador.quedaLibre();
+                mensaje += (jugador.getNombre() + " queda libre por sacar " + dados + " (dados) mayor que el numero de condena (" + jugador.getCondena() + ")");
+                return mensaje;
+            }else {
+                jugador.restarCondena();
+                mensaje += (jugador.getNombre() + " sigue preso. Ahora su condena es de (" + jugador.getCondena() + ")");
+                return mensaje;
+            }
         }
     }
-}
 
 
     private void jugarTurnoLibre(Jugador jugador, Ansi colorANSI) {
@@ -261,15 +261,15 @@ private String jugarTurnoPreso(Jugador jugador,Ansi colorANSI){
         }
     }
 
-private String checkDeuda(Jugador jugador, double montoDeuda, String tipoDeuda) {
-    if (jugador.restarPlata(montoDeuda)) {
-        jugador.setEstado(Estado.EnJuego);
-        return "Perfecto! El jugador " + jugador.getNombre() + " pudo pagar su " + tipoDeuda + "!";
-    } else {
-        jugador.setQuiebra();
-        return "EL JUGADOR " + jugador.getNombre() + " NO PAGO SU " + tipoDeuda + "! ENTRÓ EN BANCARROTA";
+    private String checkDeuda(Jugador jugador, double montoDeuda, String tipoDeuda) {
+        if (jugador.restarPlata(montoDeuda)) {
+            jugador.setEstado(Estado.EnJuego);
+            return "Perfecto! El jugador " + jugador.getNombre() + " pudo pagar su " + tipoDeuda + "!";
+        } else {
+            jugador.setQuiebra();
+            return "EL JUGADOR " + jugador.getNombre() + " NO PAGO SU " + tipoDeuda + "! ENTRÓ EN BANCARROTA";
+        }
     }
-}
 
     private String ejecutar(Jugador jugador, int ubicacionJugador){
         CasilleroEjecutable casillero = tablero.getCasilleroEjecutable(ubicacionJugador);
@@ -287,7 +287,8 @@ private String checkDeuda(Jugador jugador, double montoDeuda, String tipoDeuda) 
             int ubicacion = propiedad.getUbicacion();
             DePaso NuevoCasilleroDePaso = new DePaso(ubicacion);
             tablero.getTodosLosCasilleros()[ubicacion] =   NuevoCasilleroDePaso;
-        }}
+        }
+    }
 
     public boolean ComprobarGanarJugador(Jugador jugador) {
         ArrayList<Barrio> barrios = tablero.getBarrios();
