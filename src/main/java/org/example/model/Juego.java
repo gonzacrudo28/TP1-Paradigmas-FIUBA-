@@ -127,8 +127,8 @@ public class Juego {
             FuncionesExtras.delay(1000);
             String mensaje = ("Saco: " + dados + "\n") ;
             if (dados > jugador.getCondena()) {
-                jugador.quedaLibre();
                 mensaje += (jugador.getNombre() + " queda libre por sacar " + dados + " (dados) mayor que el numero de condena (" + jugador.getCondena() + ")");
+                jugador.quedaLibre();
                 return mensaje;
             }else {
                 jugador.restarCondena();

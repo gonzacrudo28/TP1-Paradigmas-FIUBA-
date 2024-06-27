@@ -5,7 +5,6 @@ import java.util.Random;
 
 public class DeLoteria extends Casillero implements CasilleroEjecutable{
     private final double dineroIncial ;
-
     public DeLoteria(int ubicacion,double dineroIncial){
         super("DeLoteria",TipoCasillero.LOTERIA,ubicacion,true,false);
         this.dineroIncial = dineroIncial;
