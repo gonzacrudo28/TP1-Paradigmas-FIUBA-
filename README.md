@@ -1,4 +1,4 @@
-<h1>TP Monopoly - Grupo Las Maquinas</h1>
+<h1>TP Monopoly
 
 
 ### Instrucciones desde la terminal:
